@@ -53,7 +53,7 @@ export default class Quality extends Component {
       diffDepartStatisticInfoModule = [] 
     } = quality;
 
-    const dailyStatisticInfoData = dailyStatisticInfoModule ? transformArr(dailyStatisticInfoModule) : [];
+    const dailyStatisticInfoData = dailyStatisticInfoModule ? transformArr(dailyStatisticInfoModule).map(ele=>({...ele,...{date:ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/,'$1-$2-$3')}})) : [];
     const cardStyle = {
       padding: 0,
       marginBottom: 20,
@@ -129,6 +129,15 @@ export default class Quality extends Component {
                   '按时完成病历数': '按时完成病历数'
                 }
               }}
+              chartSetting= {
+                {
+                  scale:{
+                    date:{
+                      type: 'cat'
+                    }
+                  }
+                }
+              }
               data={dailyStatisticInfoData} />
           </Card>
         )}

@@ -71,8 +71,8 @@ export default class Surgery extends Component {
       diffLevelSurgeryModule = [] 
     } = surgery;
     
-    const diffCategorySurgeryData = diffCategorySurgeryModule && transformArr(diffCategorySurgeryModule);
-    const diffLevelSurgeryData = diffLevelSurgeryModule && transformArr(diffLevelSurgeryModule);
+    const diffCategorySurgeryData = diffCategorySurgeryModule && transformArr(diffCategorySurgeryModule).map(ele=>({...ele,...{date:ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/,'$1-$2-$3')}}));
+    const diffLevelSurgeryData = diffLevelSurgeryModule && transformArr(diffLevelSurgeryModule).map(ele=>({...ele,...{date:ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/,'$1-$2-$3')}}));
     
     const levelMap = [
       {
@@ -277,6 +277,15 @@ export default class Surgery extends Component {
               keyLabelRotate={30}
               label={false}
               keyLabelTextAlign='start'
+              chartSetting= {
+                {
+                  scale:{
+                    date:{
+                      type: 'cat'
+                    }
+                  }
+                }
+              }
             />
           </Card>
         )}

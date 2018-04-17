@@ -122,16 +122,17 @@ export default class Inpatient extends Component {
           >
             {rangeDate > 31 ? (
               <LineOrArea
-                area
+                //area
                 line
+                point
                 legend={false}
-                shape="smooth"
+                //shape="smooth"
                 areaColor={['#FFDB9C', '#CCC']}
                 lineColor={['#FEA101', '#CCC']}
                 fillOpacity={[0.5, 0.2]}
                 height={400}
                 titleMap={{
-                  x: 'dateStr',
+                  x: 'date',
                   filedsMap: {
                     '入院人数': '入院人数',
                     '出院人数': '出院人数'

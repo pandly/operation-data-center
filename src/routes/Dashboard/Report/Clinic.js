@@ -59,7 +59,7 @@ export default class Clinic extends Component {
     let dailyOutpatientEmergencyData = []
     if(dailyOutpatientEmergencyInfo) {
       dailyOutpatientEmergencyInfo.name = '门急诊人次';
-      dailyOutpatientEmergencyData =  transformArr([dailyOutpatientEmergencyInfo]);    
+      dailyOutpatientEmergencyData =  transformArr([dailyOutpatientEmergencyInfo]).map(ele=>({...ele,...{date:ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/,'$1-$2-$3')}}));    
     }
 
     registrationStatistic = registrationStatistic || {};
