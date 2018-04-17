@@ -134,7 +134,7 @@ class Bar extends Component {
             data={dv}
             padding={padding || 'auto'}
             plotBackground={pbg}
-            scale={scale}
+            scale={showBase?scale:null}
           >
             {transpose && (<Coord transpose />)}
             {legend && (<Legend name="key" position="top" />)}
