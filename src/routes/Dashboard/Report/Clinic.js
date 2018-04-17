@@ -171,7 +171,20 @@ export default class Clinic extends Component {
                   keyMap: {'outEmerRegCount': '门急诊人次'}
                 }}
                 legend={false}
-                data={outpatientSlice} />
+                data={outpatientSlice}
+                useShape
+                showBase
+                labelSetting={{
+                  htmlTemplate: (text, item, index)=>  `<div
+                     style='transform: translate(-35%, 60%);
+                        color:#3AC9A8;
+                        textAlign: center;
+                        fontSize: 12px;
+                        verticalAlign:middle
+                    '>${text} </div>` 
+                }}
+                transpose
+                />
             </Card>
           </Col>
           <Col {...topColResponsiveProps}>
@@ -195,7 +208,20 @@ export default class Clinic extends Component {
                   keyMap: {'outEmerRegCount': '门急诊人次'}
                 }}
                 legend={false}
-                data={surgricalSlice} />
+                data={surgricalSlice}
+                useShape
+                showBase
+                labelSetting={{
+                  htmlTemplate: (text, item, index)=>  `<div
+                     style='transform: translate(-35%, 60%);
+                        color:#FEA101;
+                        textAlign: center;
+                        fontSize: 12px;
+                        verticalAlign:middle
+                    '>${text} </div>` 
+                }}
+                transpose
+                />
             </Card>
           </Col>
           <Col {...topColResponsiveProps}>
@@ -219,7 +245,20 @@ export default class Clinic extends Component {
                   keyMap: {'outEmerRegCount': '门急诊人次'}
                 }}
                 legend={false}
-                data={internalSlice} />
+                data={internalSlice}
+                useShape
+                showBase
+                labelSetting={{
+                    htmlTemplate: (text, item, index)=>  `<div
+                     style='transform: translate(-35%, 60%);
+                        color:#53BDE7;
+                        textAlign: center;
+                        fontSize: 12px;
+                        verticalAlign:middle
+                    '>${text} </div>` 
+                }}
+                transpose
+                />
             </Card>
           </Col>
         </Row>
