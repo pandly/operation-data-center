@@ -1,0 +1,36 @@
+.leftCard {
+	height: 75%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin-right: 40px;
+}
+.rowCardContent {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin: 20px 0 40px 0;
+  .part {
+    flex: 1;
+    text-align: center;
+    .partOne {
+      color: #333;
+      padding: 10px 0;
+    }
+    .partTwo {
+      font-size: 20px;
+      padding-bottom: 10px;
+    }
+    .partThree {
+      display: inline-block;
+    }
+  }
+  .bedVertical {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 70px;
+    background: #e8e8e8;
+  }
+}

@@ -1,0 +1,82 @@
+@import "~antd/lib/style/themes/default.less";
+
+.wrapCard {
+  display: inline-block;
+  padding: 0 10px;
+  margin-bottom: 24px;
+}
+.wrapPrice {
+  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 20px;
+  margin-bottom: 32px;
+  .price {
+    width: 100%;
+    text-align: center;
+    font-size: 48px;
+    color: #15984B;
+  }
+  .compare {
+    text-align: center;
+  }
+}
+.vertical {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 60px;
+  background: #e8e8e8;
+}
+.monthlyInpatientCardTitle {
+  height: 40px;
+  color: #fff;
+  padding: 10px 20px;
+  font-weight: 500;
+  background: #FEA101;
+}
+.monthlyInpatientCardContent {
+  position: relative;
+  display: flex;
+  .part {
+    flex: 1;
+    text-align: center;
+    .partOne {
+      color: #999;
+      padding: 10px 0;
+    }
+    .partTwo {
+      color: #FEA101;
+      font-size: 36px;
+      padding-bottom: 10px;
+    }
+    .partThree {
+      display: inline-block;
+      padding-left: 14px;
+    }
+  }
+}
+.burdenCard {
+  background-color: #FAFFF9;
+  border-color: #B4D9C4;
+  border-radius: 8px;
+  .item {
+    font-size: 15px;
+    text-align: center;
+    color: #666; 
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .count {
+    text-align: center;
+    color: #333; 
+    font-size: 24px;
+  }
+  .compare {
+    border-top: 1px solid #B4D9C4;
+    text-align: center;
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+}

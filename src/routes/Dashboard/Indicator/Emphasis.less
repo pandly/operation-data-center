@@ -1,0 +1,192 @@
+@import "~antd/lib/style/themes/default.less";
+
+.dailyConsumable {
+  display: flex;
+  position: relative;
+  height: 84px;
+  .part {
+    flex: 1;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .item {
+      font-size: 16px;
+      color: #666;
+    }
+    .ratio {
+      font-size: 30px;
+      color: #15984B;
+    }
+  }
+}
+.monthlyConsumable {
+  display: flex;
+  height: 180px;
+  .part {
+    height: 100%;
+    text-align: center;
+  }
+  .item {
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    margin-top: 7px;
+  }
+}
+.horizontalProgress {
+  margin-top: 26px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  .item {
+    line-height: 30px;
+    color: #333;
+    margin-left: 20px;
+  }
+}
+.monthlyQuality {
+  margin-top: 20px;
+  .item {
+    color: #333;
+    margin-top: 5px;
+  }
+}
+.extra {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+}
+.vertical {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  width: 1px;
+  height: 80px;
+  background: #e8e8e8;
+}
+.surgeryCategory {
+  height: 40px;
+  border: 1px solid #E8E8E8;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 0 8px;
+  .left {
+    min-width: 120px;
+  }
+  .item {
+    text-align: center;
+  }
+}
+.badSpaceLegend {
+  width: 148px;
+  margin-bottom: 10px;
+  .point {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+  }
+  .item {
+    color: #333;
+  }
+}
+.rowCardContent {
+  position: relative;
+  display: flex;
+  align-items: center; 
+  width: 100%;
+  margin-bottom: 45px;
+  .part {
+    flex: 1;
+    text-align: center;
+    .partOne {
+      color: #333;
+      padding: 10px 0;
+    }
+    .partTwo {
+      font-size: 36px;
+      padding-bottom: 10px;
+    }
+    .partThree {
+      display: inline-block;
+    }
+  }
+  .bedVertical {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 142px;
+    background: #e8e8e8;
+  }
+}
+.wrapCard {
+  display: inline-block;
+  width: 16.66%;
+  padding: 0 10px;
+  margin-bottom: 24px;
+  .technologyCard {
+    background-color: #FAFFF9;
+    border-color: #B4D9C4;
+    border-radius: 8px;
+    .item {
+      font-size: 14px;
+      text-align: center;
+      color: #666; 
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .count {
+      text-align: center;
+      color: #333; 
+      font-size: 18px;
+    }
+    .compare {
+      border-top: 1px solid #B4D9C4;
+      text-align: center;
+      padding-top: 6px;
+      margin-top: 8px;
+    }
+  }
+}
+.surgeryCard {
+  height: 90px;
+  border: 1px solid #E8E8E8;
+  border-radius: 2px;
+  margin-bottom: 20px;
+  .item {
+    height: 45px;
+    line-height: 45px;
+    width: 100%;
+    border-bottom: 1px solid #E8E8E8;
+    color: #4a4a4a;
+    text-align: center;
+  }
+  .count {
+    display: flex;
+    height: 45px;
+    line-height: 45px;
+    width: 100%;
+    .left {
+      flex: 1;
+      color: #15984b; 
+      font-size: 18px;
+      text-align: center;
+    }
+    .right {
+      flex: 1;
+      color: #8e8181;
+      text-align: center;
+      border-left: 1px solid #e8e8e8;
+    }
+  }
+}

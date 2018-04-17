@@ -1,0 +1,153 @@
+html,
+body,
+:global(#root) {
+  height: 100%;
+}
+
+:global(.ant-layout) {
+  min-height: 100%;
+}
+
+canvas {
+  display: block;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.globalSpin {
+  width: 100%;
+  margin: 40px 0 !important;
+}
+
+// temp fix for https://github.com/ant-design/ant-design/commit/a1fafb5b727b62cb0be29ce6e9eca8f579d4f8b7
+:global {
+  .ant-spin-container {
+    overflow: visible !important;
+  }
+  .ant-table-thead > tr > th {
+    background: #fff !important;
+  }
+  .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+    padding: 10px 20px !important;
+    border-bottom: 1px solid #f5f5f5 !important;
+  }
+  .ant-table-thead > tr > th {
+    color: #666 !important;
+  }
+  .ant-table-tbody > tr > td {
+    color: #333 !important;
+  }
+  .ant-layout {
+    background: #f3f5f4 !important;
+  }
+  .ant-card-hoverable:hover {
+    box-shadow: 0 0 4px 0 #15984B !important;
+    border-color: #15984b !important;
+  }
+  .ant-card-head {
+    border: none !important;
+    padding: 20px 0 !important;
+    min-height: inherit !important;
+  } 
+  .ant-card-head-title {
+    font-size: 14px !important;
+    padding: 0 20px !important;
+  }
+  .ant-layout-content {
+    position: relative;
+    margin: 20px !important;
+  }
+  .ant-menu-submenu > .ant-menu {
+    background: #f9f9f9 !important;
+  }
+  .ant-menu-sub.ant-menu-inline > .ant-menu-item, .ant-menu-sub.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+    height: 33px !important;
+    line-height: 33px !important;
+    margin: 8px 0 !important;
+    padding: 0 0 0 48px !important;
+  }
+  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background: transparent !important;
+  }
+  .ant-menu-item.ant-menu-item-selected > a, .ant-menu-item.ant-menu-item-selected > a:hover {
+    color: #fff !important;
+    background: #15984b !important;
+  }
+  .ant-menu-item.ant-menu-item-selected > a:before {
+    width: 17px;
+    height: 34px;
+    border-radius: 17px 0 0 17px;
+    background: #15984b;
+    left: 31px !important;
+  }
+  .ant-menu-submenu-popup .ant-menu-item.ant-menu-item-selected > a:before {
+    content: none !important;
+  }
+  .ant-menu-item > a:hover, .ant-menu-submenu-title:hover {
+    color: #15984b !important;
+  }
+  .ant-menu-vertical .ant-menu-item:after, .ant-menu-vertical-left .ant-menu-item:after, .ant-menu-vertical-right .ant-menu-item:after, .ant-menu-inline .ant-menu-item:after {
+    content: none !important;
+  }
+  .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
+    border: none !important;
+  }
+  .ant-table-content {
+    border-top: 1px solid #f5f5f5;
+  }
+  .ant-calendar-picker:hover, .ant-calendar-picker:active {
+    border-color: #15984b !important;
+    box-shadow: 0 0 4px 0 #15984B !important;
+  }
+  .ant-calendar-picker:hover .ant-calendar-picker-input:not(.ant-input-disabled) {
+    border-color: #15984b !important;
+  }
+  // div[class^='ant-col-'] {
+  //   padding: 0 10px !important;
+  // }
+  .stripe {
+    background: rgba(209,209,209,0.2);
+  }
+  .autoHeightCardWrap {
+    display: flex;
+    position: absolute;
+    top: 20px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    .autoHeightCard {
+        height: 100%;
+        background: #fff;   
+        border: 1px solid #f5f5f5;
+        box-shadow: 0 0 4px 0 #E8E8E8;
+        position: relative;
+        .cardTitle {
+          padding: 20px;
+          font-weight: 500;
+          color: #333;
+        }
+        .cardBody {
+          position: absolute;
+          top: 61px;
+          bottom: 0;
+          left: 0;
+          right: 0;
+        }
+    }
+    .ant-table-wrapper, .ant-spin-nested-loading, .ant-spin-container, .ant-table, .ant-table-content, .ant-table-scroll {
+      height: 100%;
+    }
+    .ant-table-scroll {
+      display: flex;
+      flex-direction: column;
+    }
+    .ant-table-body {
+      flex: 1;
+      overflow-y: auto !important
+    }
+  }
+} 

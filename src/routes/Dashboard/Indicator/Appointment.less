@@ -1,0 +1,64 @@
+.legendWrap {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 200px;
+    .legend {
+        width: 100px;
+        margin: 15px 0;
+        .mark {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .count {
+            font-size: 20px;
+            color: #333;
+            padding-left: 15px;
+        }
+    }
+}
+.appointmentCountWrap {
+    padding: 0 10px;
+    width: 33.33%;
+    height: 100px;
+    margin-bottom: 20px;
+    display: inline-block; 
+    vertical-align: top;
+    .appointmentCount {   
+        border: 1px solid #E8E8E8;
+        border-radius: 2px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+        .left {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            text-align: center;
+        }
+        .right {
+            flex: 2.5;
+            padding-left: 10px;
+            .between {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .number {
+                font-size: 18px;
+                color: #15984B;
+            }
+            .title {
+                color: #333;
+            }
+        }
+    }
+}
+

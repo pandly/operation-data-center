@@ -1,0 +1,109 @@
+.columnRank {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	height: 764px;
+}
+.wrapCard {
+	display: inline-block;
+	width: 50%;
+	padding: 0 10px;
+	margin-bottom: 20px;
+	.countCard {
+		background: #FFF8F6;
+		border: 1px solid #FAE0DA;
+		border-radius: 2px;
+		:global {
+			.ant-card-body:before, .ant-card-body:after {
+				content: none;
+			}
+		}
+	}
+	
+}
+.dailyCard {
+	.part1 {
+		flex: 1.5;
+		color: #333;
+		padding-right: 20px;
+	}
+	.part2 {
+		flex: 1;
+		display: flex;
+		// justify-content: center;
+		align-items: center;
+		padding-left: 20px;
+		border-left: 1px solid #ccc;
+		height: 22px;
+		text-align: center;
+		font-size: 24px;
+		color: #333;
+	}
+}
+.monthlyCard {
+	.part1 {
+		padding-left: 38px;
+		color: #666;
+		height: 42px;
+		display: flex;
+		align-items: center;
+		// justify-content: flex-end;
+		margin-bottom: 4px;
+	}
+	.part2 {
+		display: flex;
+		align-items: center;
+		.left {
+			flex: 1;
+			font-size: 24px;
+			text-align: right;
+			padding-right: 7%;
+			color: #333;
+		}
+		.right {
+			width: 85px;
+			text-align: right;
+			padding-left: 5%;
+			color: #4A4A4A;
+		}
+	}
+}
+.one {
+	border-top: 30px solid #FECD01;
+	border-left: 30px solid #FECD01;
+}
+.two {
+	border-top: 30px solid #D8D8D8;
+	border-left: 30px solid #D8D8D8;
+}
+.three {
+	border-top: 30px solid #F0D49B;
+	border-left: 30px solid #F0D49B;
+}
+.arrow {
+	position: absolute;
+	top: 0;
+	left: 0;	
+	border-bottom: 30px solid transparent;
+	border-right: 30px solid transparent;
+	.num {
+		position: absolute;
+		top: -29px;
+		left: -18px;
+		color: #fff;
+		font-size: 20px;
+	}
+}
+.square {
+	width: 46px;
+    height: 30px;
+    background: #FFC4B5;
+    border-radius: 2px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+}
