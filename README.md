@@ -1,94 +1,43 @@
-English | [简体中文](./README.zh-CN.md)
+简体中文
 
-# Ant Design Pro
+# Operation Data Center
 
-[![](https://img.shields.io/travis/ant-design/ant-design-pro/master.svg?style=flat-square)](https://travis-ci.org/ant-design/ant-design-pro) [![Build status](https://ci.appveyor.com/api/projects/status/67fxu2by3ibvqtat/branch/master?svg=true)](https://ci.appveyor.com/project/afc163/ant-design-pro/branch/master)  [![Gitter](https://badges.gitter.im/ant-design/ant-design-pro.svg)](https://gitter.im/ant-design/ant-design-pro?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+一套为医院提供数据可视化的后台系统
 
-An out-of-box UI solution for enterprise applications as a React boilerplate.
-
-![](https://gw.alipayobjects.com/zos/rmsportal/xEdBqwSzvoSapmnSnYjU.png)
-
-- Preview: http://preview.pro.ant.design
-- Home Page: http://pro.ant.design
-- Documentation: http://pro.ant.design/docs/getting-started
-- ChangeLog: http://pro.ant.design/docs/changelog
-- FAQ: http://pro.ant.design/docs/faq
-
-## Translation Recruitment :loudspeaker:
-
-We need your help: https://github.com/ant-design/ant-design-pro/issues/120
-
-## Features
-
-- :gem: **Neat Design**: Follow [Ant Design specification](http://ant.design/)
-- :triangular_ruler: **Common Templates**: Typical templates for enterprise applications
-- :rocket: **State of The Art Development**: Newest development stack of React/dva/antd
-- :iphone: **Responsive**: Designed for varies of screen size
-- :art: **Theming**: Customizable theme with simple config
-- :globe_with_meridians: **International**: Built-in i18n solution
-- :gear: **Best Practice**: Solid workflow make your code health
-- :1234: **Mock development**: Easy to use mock development solution
-- :white_check_mark: **UI Test**: Fly safely with unit test and e2e test
-
-## Templates
+## 内容
 
 ```
-- Dashboard
-  - Analytic
-  - Monitor
-  - Workspace
-- Form
-  - Basic Form
-  - Step Form
-  - Advanced From
-- List
-  - Standard Table
-  - Standard List
-  - Card List
-  - Search List (Project/Applications/Article)
-- Profile
-  - Simple Profile
-  - Advanced Profile
-- Result
-  - Success
-  - Failed
-- Exception
-  - 403
-  - 404
-  - 500
-- User
-  - Login
-  - Register
-  - Register Result
+- 院长驾驶舱
+  - 今日动态
+    - 总门急诊人次
+    - 中医处方数量
+    - 非药物中治率
+    - 出院人数
+    - 收入
+  - 重点指标
+    - 耗材
+    - 医疗质量
+    - 手术
+    - 预约
+    - 床位
+  - 工作台
+- 异常
+  - 403 无权限
+  - 404 找不到
+  - 500 服务器出错
 ```
 
-## Usage
+## 使用
 
 ```bash
-$ git clone https://github.com/ant-design/ant-design-pro.git --depth=1
-$ cd ant-design-pro
+$ git clone https://github.com/pandly/operation-data-center.git
+$ cd operation-data-center
 $ npm install
-$ npm start         # visit http://localhost:8000
+$ npm run start         # 访问 http://localhost:8000,启动时代理开发环境中的真实数据，如需更改代理接口地址，可以在.roadhogrc.mock.js中修改
+export default {
+  'GET /api/(.*)': 'https://your.server.com/api/',
+};
+$ npm run mock          # 访问 http://localhost:8000,启动时访问mock数据
+$ npm run build         # 文件打包 
 ```
 
-Or you can use the command tool: [ant-design-pro-cli](https://github.com/ant-design/ant-design-pro-cli)
-
-```bash
-$ npm install ant-design-pro-cli -g
-$ mkdir pro-demo && cd pro-demo
-$ pro new
-```
-
-More instruction at [documentation](http://pro.ant.design/docs/getting-started).
-
-## Compatibility
-
-Modern browsers and IE11.
-
-## Contributing
-
-Any Contribution of following ways will be welcome:
-
-- Use Ant Design Pro in your daily work.
-- Submit [issue](http://github.com/ant-design/ant-design-pro/issues) to report bug or ask questions.
-- Propose [pull request](http://github.com/ant-design/ant-design-pro/pulls) to improve our code.
