@@ -225,7 +225,18 @@ export default class Bedspace extends Component {
                             }
                           }}
                           legend={false}
-                          data={internalSliceBedInfoModule.diffSickBlockBedUsedInfo} />
+                          data={internalSliceBedInfoModule.diffSickBlockBedUsedInfo}
+                          useShape
+                          labelSetting={{
+                              htmlTemplate: (text, item, index)=>  `<div
+                               style='transform: translate(0%, -0%);
+                                  color:#3AC9A8;
+                                  textAlign: center;
+                                  fontSize: 12px;
+                                  verticalAlign:middle
+                              '>${text} </div>` 
+                          }}
+                        />
                       </div>
                     </div>       
                   </Card>
@@ -275,7 +286,18 @@ export default class Bedspace extends Component {
                             }
                           }}
                           legend={false}
-                          data={surgicalSliceBedInfoModule.diffSickBlockBedUsedInfo} />
+                          data={surgicalSliceBedInfoModule.diffSickBlockBedUsedInfo}
+                          useShape
+                          labelSetting={{
+                              htmlTemplate: (text, item, index)=>  `<div
+                               style='transform: translate(0%, -0%);
+                                  color:#FEA101;
+                                  textAlign: center;
+                                  fontSize: 12px;
+                                  verticalAlign:middle
+                              '>${text} </div>` 
+                          }}
+                          />
                       </div>
                     </div>       
                   </Card>
@@ -326,7 +348,19 @@ export default class Bedspace extends Component {
                     }
                   }}
                   legend={false}
-                  data={specialSliceBedInfoModule.diffSickBlockBedUsedInfo} />
+                  data={specialSliceBedInfoModule.diffSickBlockBedUsedInfo}
+                  useShape
+                  
+                  labelSetting={{
+                      htmlTemplate: (text, item, index)=>  `<div
+                       style='transform: translate(-50%, 100%);
+                          color:#239BCB;
+                          textAlign: center;
+                          fontSize: 12px;
+                          verticalAlign:middle
+                      '>${text} </div>` 
+                  }}
+                  />
               </Card>
             </Col>
           </Row>

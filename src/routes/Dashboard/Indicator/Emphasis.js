@@ -298,6 +298,7 @@ export default class Emphasis extends PureComponent {
                       'materialRateLastYear': '去年'
                     }
                   }}
+                  useShape
                   data={supplyModule} />
               </Card>  
               ) : (

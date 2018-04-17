@@ -8,7 +8,11 @@ export interface IBarProps {
     x: string;
     y: number;
   }>;
+  labelSetting?:object;
   autoLabel?: boolean;
+  useShape?: boolean;
+  showBase?: boolean;
+  transpose?: boolean;
   style?: React.CSSProperties;
 }
 
