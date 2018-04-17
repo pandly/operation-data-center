@@ -34,9 +34,6 @@ $ git clone https://github.com/pandly/operation-data-center.git
 $ cd operation-data-center
 $ npm install
 $ npm run start         # 访问 http://localhost:8000,启动时代理开发环境中的真实数据，如需更改代理接口地址，可以在.roadhogrc.mock.js中修改
-export default {
-  'GET /api/(.*)': 'https://your.server.com/api/',
-};
 $ npm run mock          # 访问 http://localhost:8000,启动时访问mock数据
 $ npm run build         # 文件打包 
 ```
