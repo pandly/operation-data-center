@@ -260,6 +260,7 @@ export default class Clinic extends Component {
                   '门急诊人次': '门急诊人次',
                 },
               }}
+              xAxisRotate={30}
               data={dailyOutpatientEmergencyData}
             />
           </Card>

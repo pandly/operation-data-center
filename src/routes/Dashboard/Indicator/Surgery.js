@@ -212,12 +212,13 @@ export default class Surgery extends Component {
           <div className="autoHeightCardWrap">
             <div className="autoHeightCard" style={{ marginRight: 20, width: '50%' }}>
               <div className="cardTitle">门急诊、择期手术名称和例数</div>
-              <div className="cardBody" style={{ padding: 0 }}>
-                <Tabs 
-                  onChange={this.changeTypeTab} 
-                  type='card'>
-                  {typeMap.map(data => <TabPane tab={data.name} key={data.key}></TabPane>)}
-                </Tabs>
+              <Tabs 
+                onChange={this.changeTypeTab} 
+                type='card'
+                style={{ zIndex: 2 }}>
+                {typeMap.map(data => <TabPane tab={data.name} key={data.key}></TabPane>)}
+              </Tabs>
+              <div className="cardBody" style={{ padding: 0, top: 100 }}>
                 <Table 
                   loading={loading}
                   dataSource={diffCategorySurgeryModule}
@@ -232,10 +233,13 @@ export default class Surgery extends Component {
             </div>
             <div className="autoHeightCard" style={{ width: '50%' }}>
               <div className="cardTitle">不同级别手术名称和例数</div>
-              <div className="cardBody" style={{ padding: 0 }}>
-                <Tabs onChange={this.changeLevelTab} type='card'>
-                  {levelMap.map(data => <TabPane tab={data.name} key={data.key}></TabPane>)}
-                </Tabs>
+              <Tabs 
+                onChange={this.changeLevelTab} 
+                type='card' 
+                style={{ zIndex: 2 }}>
+                {levelMap.map(data => <TabPane tab={data.name} key={data.key}></TabPane>)}
+              </Tabs>
+              <div className="cardBody" style={{ padding: 0, top: 100 }}>
                 <Table 
                   loading={loading}
                   dataSource={diffLevelSurgeryModule}

@@ -136,6 +136,7 @@ export default class Inpatient extends Component {
                     '出院人数': '出院人数'
                   },
                 }}
+                xAxisRotate={30}
                 data={dailyStatisticInfoData} />
             ) : (
               <Bar 
@@ -152,6 +153,7 @@ export default class Inpatient extends Component {
                     '出院人数': '出院人数'
                   }
                 }}
+                keyLabelRotate={30}
                 data={dailyStatisticInfoData} 
               />
             )}
@@ -178,6 +180,7 @@ export default class Inpatient extends Component {
               areaColor={['#FFDB9C']}
               lineColor={["#FEA101"]}
               grid={null}
+              xAxisRotate={30}
             />
           </Card>
         ) : null} 

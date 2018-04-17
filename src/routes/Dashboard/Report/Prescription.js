@@ -229,7 +229,7 @@ export default class Prescription extends Component {
                   >  
                     <div style={{ color: '#666', marginBottom: 14 }}>{data.item}</div> 
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <div style={{ fontSize: '24px', flex: 1.5, textAlign: 'right', paddingRight: 22 }}>{data.count || '--'}</div>
+                      <div style={{ fontSize: '24px', flex: 2, textAlign: 'right', paddingRight: 22 }}>{data.count || '--'}</div>
                       <Divider type="vertical" style={{ height: 20 }}/>
                       <div style={{ flex: 1, textAlign: 'left', paddingLeft: 17 }}>
                         <Compare value={data.decrease} />

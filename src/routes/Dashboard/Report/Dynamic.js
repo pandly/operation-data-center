@@ -252,7 +252,7 @@ export default class Dynamic extends PureComponent {
     const pieStyle = {
       margin: '40px 0',
       paddingRight: 10,
-      paddingLeft: 100,
+      paddingLeft: 90,
     }
     return (
       <Fragment>

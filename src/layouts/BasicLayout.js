@@ -90,9 +90,9 @@ class BasicLayout extends React.PureComponent {
         isMobile: mobile,
       });
     });
-    // this.props.dispatch({
-    //   type: 'user/fetchCurrent',
-    // });
+    this.props.dispatch({
+      type: 'user/fetchCurrent',
+    });
   }
   getPageTitle() {
     const { routerData, location } = this.props;
