@@ -3,6 +3,7 @@ import {
 } from 'bizcharts';
 
 const shape = (transpose) => {
+  shape[Symbol.for('name')] = transpose?'transposeBorderRadius':'borderRadius';
   Shape.registerShape('interval', shape[Symbol.for('name')], {
     draw(cfg, container) {
       const points = cfg.points;
@@ -35,7 +36,7 @@ const shape = (transpose) => {
       });
     }
   });
+
 }
-shape[Symbol.for('name')] = 'borderRadius'
 
 export default shape;

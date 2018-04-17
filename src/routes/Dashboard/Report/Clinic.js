@@ -176,13 +176,14 @@ export default class Clinic extends Component {
                 showBase
                 labelSetting={{
                   htmlTemplate: (text, item, index)=>  `<div
-                     style='transform: translate(-50%, 50%);
-                        color:"#3AC9A8";
-                        textAlign: "center";
-                        fontSize: "12px";
-                        verticalAlign:"middle"
+                     style='transform: translate(-35%, 60%);
+                        color:#3AC9A8;
+                        textAlign: center;
+                        fontSize: 12px;
+                        verticalAlign:middle
                     '>${text} </div>` 
                 }}
+                transpose
                 />
             </Card>
           </Col>
@@ -212,13 +213,14 @@ export default class Clinic extends Component {
                 showBase
                 labelSetting={{
                   htmlTemplate: (text, item, index)=>  `<div
-                     style='transform: translate(-50%, 50%);
-                        color:"#FEA101";
-                        textAlign: "center";
-                        fontSize: "12px";
-                        verticalAlign:"middle"
+                     style='transform: translate(-35%, 60%);
+                        color:#FEA101;
+                        textAlign: center;
+                        fontSize: 12px;
+                        verticalAlign:middle
                     '>${text} </div>` 
                 }}
+                transpose
                 />
             </Card>
           </Col>
@@ -248,13 +250,14 @@ export default class Clinic extends Component {
                 showBase
                 labelSetting={{
                     htmlTemplate: (text, item, index)=>  `<div
-                     style='transform: translate(-50%, 50%);
-                        color:"#53BDE7";
-                        textAlign: "center";
-                        fontSize: "12px";
-                        verticalAlign:"middle"
+                     style='transform: translate(-35%, 60%);
+                        color:#53BDE7;
+                        textAlign: center;
+                        fontSize: 12px;
+                        verticalAlign:middle
                     '>${text} </div>` 
                 }}
+                transpose
                 />
             </Card>
           </Col>

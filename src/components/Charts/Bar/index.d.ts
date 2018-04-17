@@ -12,6 +12,7 @@ export interface IBarProps {
   autoLabel?: boolean;
   useShape?: boolean;
   showBase?: boolean;
+  transpose?: boolean;
   style?: React.CSSProperties;
 }
 

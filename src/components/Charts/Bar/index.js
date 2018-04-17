@@ -3,16 +3,19 @@ import { Chart, Axis, Tooltip, Geom, Coord, Label, Legend } from 'bizcharts';
 import styles from '../index.less';
 import DataSet from '@antv/data-set';
 import shape from './shape';
-shape(true);
+
 
 class Bar extends Component {
-
   componentWillMount() {
-    this.setBase(this.props.data)
+    this.props.useShape&&shape(this.props.transpose)
+    this.props.data&&this.setBase(this.props.data)
   }
   componentWillReceiveProps(nextProps) {
+    if(this.props.transpose !== nextProps.transpose){
+      shape(nextProps.transpose)
+    }
     if(this.props.data !== nextProps.data){
-      this.setBase(nextProps.data)
+      nextProps.data&&this.setBase(nextProps.data)
     }
   }
   
@@ -30,14 +33,16 @@ class Bar extends Component {
   tickInterval = null
   setBase = data =>{
     const {fieldsMap} = this.props;
-    const dataArr = data.map(ele=> ele[Object.keys(fieldsMap.keyMap)[0]])
+    const dataArr = data.map(ele=> ele[Object.keys(fieldsMap.keyMap)[0]]||0)
     const [max,min] = [Math.max(...dataArr),Math.min(...dataArr)]
     const avaReduce = (max-min)/ dataArr.length;
     const smooth= (number)=>{
-      let midN = number;
-      let str =   String(Math.round(number));
+      let midN = String(number);
+      let decimalLength = /0(\.0*)[1-9]/.test(midN)?midN.match(/0(\.0*)[1-9]/)[1].length:0;
+      midN = Math.pow(10,decimalLength)*midN;
+      let str =   String(Math.round(midN));
       midN = str.substr(0,1)+str.substr(1).replace(/[0-9]/g,0);
-      return +midN
+      return +midN/Math.pow(10,decimalLength)
     }
     let smoothReduce = smooth(avaReduce)
     this.max = Math.ceil(max/smoothReduce +1)*smoothReduce
@@ -87,9 +92,10 @@ class Bar extends Component {
       }, // 设置刻度线样式
       showBase,
       useShape,
-      labelSetting
+      labelSetting,
+      
     } = this.props;
-    let newData = data.map(ele=>({...ele,_base:this.max}));
+    let newData = data.map(ele=>({...ele,_base: this.max}));
     const ds = new DataSet();
     const dv = ds.createView().source(newData);
     dv.transform({
@@ -110,8 +116,17 @@ class Bar extends Component {
       }),
     ];
     const position = `${fieldsMap.x}*value`;
+    let scale = {
+      value:{
+        type: 'linear',
+        nice: false,
+        max: this.max,
+        min: 0,
+        // tickInterval: this.tickInterval
+      }, 
+    }
     return (
-      <div className={styles.chart} style={{ height }} ref={this.handleRoot}>
+      <div className={styles.chart} style={{ height }} ref={this.handleRoot} >
         <div ref={this.handleRef}>
           <Chart
             height={height}
@@ -119,6 +134,7 @@ class Bar extends Component {
             data={dv}
             padding={padding || 'auto'}
             plotBackground={pbg}
+            scale={scale}
           >
             {transpose && (<Coord transpose />)}
             {legend && (<Legend name="key" position="top" />)}
@@ -135,9 +151,19 @@ class Bar extends Component {
               label={axisValueLabel}
               line={axisLine}
             />
+            <Axis name={'_base'}  visible={false} />
+
             <Tooltip showTitle />
             {
-              showBase&&<Geom  size={size} type="interval" position={`${fieldsMap.x}*_base`} color={color||'#000'} shape={useShape&&shape[Symbol.for('name')]} opacity={0.3} tooltip={false} />
+              showBase
+              &&<Geom  
+                size={size} 
+                type="interval" 
+                position={`${fieldsMap.x}*_base`} 
+                color={color||'#000'} 
+                shape={useShape&&shape[Symbol.for('name')]} 
+                opacity={0.3}
+                />
             }
             <Geom
               size={size}
