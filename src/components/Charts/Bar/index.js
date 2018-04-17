@@ -93,7 +93,7 @@ class Bar extends Component {
       showBase,
       useShape,
       labelSetting,
-      
+      chartSetting,
     } = this.props;
     let newData = data.map(ele=>({...ele,_base: this.max}));
     const ds = new DataSet();
@@ -125,6 +125,7 @@ class Bar extends Component {
         // tickInterval: this.tickInterval
       }, 
     }
+
     return (
       <div className={styles.chart} style={{ height }} ref={this.handleRoot} >
         <div ref={this.handleRef}>
@@ -134,7 +135,10 @@ class Bar extends Component {
             data={dv}
             padding={padding || 'auto'}
             plotBackground={pbg}
-            scale={showBase?scale:null}
+            scale={scale}
+            {
+              ...chartSetting
+            }
           >
             {transpose && (<Coord transpose />)}
             {legend && (<Legend name="key" position="top" />)}

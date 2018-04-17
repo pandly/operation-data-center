@@ -9,6 +9,7 @@ export interface IBarProps {
     y: number;
   }>;
   labelSetting?:object;
+  chartSetting?:object;
   autoLabel?: boolean;
   useShape?: boolean;
   showBase?: boolean;

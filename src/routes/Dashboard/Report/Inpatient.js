@@ -14,6 +14,7 @@ import {
   DodgeBar
 } from 'components/Charts';
 import styles from './Inpatient.less';
+import { scale } from 'gl-matrix/src/gl-matrix/vec2';
 
 @connect(({ inpatient, date, loading }) => ({
   inpatient,
@@ -55,7 +56,7 @@ export default class Inpatient extends Component {
       dailyStatisticInfoModule = [] 
     } = inpatient;
 
-    const dailyStatisticInfoData = dailyStatisticInfoModule && transformArr(dailyStatisticInfoModule);
+    const dailyStatisticInfoData = dailyStatisticInfoModule && transformArr(dailyStatisticInfoModule).map(ele=>({...ele,...{date:ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/,'$1-$2-$3')}}));
 
     const cardStyle = {
       padding: 0,
@@ -153,6 +154,15 @@ export default class Inpatient extends Component {
                   }
                 }}
                 data={dailyStatisticInfoData} 
+                chartSetting= {
+                  {
+                    scale:{
+                      date:{
+                        type: 'cat'
+                      }
+                    }
+                  }
+                }
               />
             )}
           </Card>
