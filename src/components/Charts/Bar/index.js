@@ -69,6 +69,7 @@ class Bar extends Component {
       }, // data映射结构
       dodge = 0,
       keyLabelRotate = 0, // key坐标文字旋转角度
+      keyLabelTextAlign = 'center',
       axisValueLabel = {
         textStyle: {
           fill: color,
@@ -78,7 +79,7 @@ class Bar extends Component {
       axisKeyLabel = {
         offset: 15,
         textStyle: {
-          textAlign: transpose ? 'start' : 'center', // 文本对齐方向，可取值为： start center end
+          textAlign: keyLabelTextAlign, // 文本对齐方向，可取值为： start center end
           fontSize: 14,
           color: '#333',
           rotate: keyLabelRotate,

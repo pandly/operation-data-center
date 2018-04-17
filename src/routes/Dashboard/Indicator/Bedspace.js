@@ -350,7 +350,7 @@ export default class Bedspace extends Component {
                   legend={false}
                   data={specialSliceBedInfoModule.diffSickBlockBedUsedInfo}
                   useShape
-                  
+                  keyLabelTextAlign='start'
                   labelSetting={{
                       htmlTemplate: (text, item, index)=>  `<div
                        style='transform: translate(-50%, 100%);

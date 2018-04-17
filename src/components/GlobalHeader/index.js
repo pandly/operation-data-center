@@ -142,6 +142,14 @@ export default class GlobalHeader extends PureComponent {
               </span>
             </Dropdown>
           ) : <Spin size="small" style={{ marginLeft: 8 }} />}
+          <span style={{ marginLeft: 20 }}>
+            <img src={logo} alt="logo" width="40"/>
+            <Divider type="vertical" key="line" style={{ height: 25, background: '#15984b' }}/>
+            <span style={{
+              fontSize: 18,
+              color: '#15984b'
+            }}>经营数据中心</span>
+          </span>
         </div>
       </div>
     );

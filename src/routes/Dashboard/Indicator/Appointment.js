@@ -142,7 +142,7 @@ export default class Appointment extends Component {
         </div>
           <Card
             loading={loading}
-            title="不同途径预约人数"
+            title="本期不同途径预约人数"
             style={cardStyle}
             bodyStyle={{ 
               minHeight: 270, 
@@ -194,7 +194,7 @@ export default class Appointment extends Component {
           )}
           <Card
             loading={loading}
-            title="不同科室预约数量和预约就诊率"
+            title="本期不同科室预约数量和预约就诊率"
             bodyStyle={{ padding: 0 }}
             style={{ marginBottom: 24 }}>
             <Table 

@@ -73,7 +73,7 @@ export default class Inpatient extends Component {
         </div>
         <Card
           loading={loading}
-          title="不同科室本期入院和出院人数"
+          title="本期不同科室入院和出院人数"
           bodyStyle={{ padding: '0 20px', minHeight: 420 }}
           style={cardStyle}>
           <LineOrArea
@@ -92,7 +92,7 @@ export default class Inpatient extends Component {
         </Card>
         <Card
           loading={loading}
-          title="不同科室在院人次"
+          title="本期不同科室在院人次"
           bodyStyle={{ padding: '0 20px', minHeight: 420 }}
           style={cardStyle}>
           <LineOrArea
@@ -154,6 +154,7 @@ export default class Inpatient extends Component {
                   }
                 }}
                 keyLabelRotate={30}
+                keyLabelTextAlign='start'
                 data={dailyStatisticInfoData} 
               />
             )}

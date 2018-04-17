@@ -113,7 +113,7 @@ export default class Consumable extends Component {
         </div>
         <div className="autoHeightCardWrap">
           <div className="autoHeightCard" style={{ width: '100%' }}>
-            <div className="cardTitle">不同科室的耗材成本占比和耗材收入占比</div>
+            <div className="cardTitle">不同科室的耗材收入占比</div>
             <div className="cardBody" style={{ padding: 0 }}>
               <Table 
                 loading={loading}

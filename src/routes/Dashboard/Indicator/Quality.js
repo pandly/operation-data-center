@@ -77,7 +77,7 @@ export default class Quality extends Component {
         title: '运行病历数',
         dataIndex: 'totalMedicalRecords',
         key: '3',
-        width: 180
+        width: 100
       },   
       {
         title: '完成率',

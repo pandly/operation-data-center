@@ -77,19 +77,19 @@ export default class Surgery extends Component {
     const levelMap = [
       {
         key: 1,
-        name: '一类手术'
+        name: '一类'
       },
       {
         key: 2,
-        name: '二类手术'
+        name: '二类'
       },
       {
         key: 3,
-        name: '三类手术'
+        name: '三类'
       },
       {
         key: 4,
-        name: '四类手术'
+        name: '四类'
       },
       {
         key: 5,
@@ -211,7 +211,7 @@ export default class Surgery extends Component {
         {rangeDateType === 'daily' && (
           <div className="autoHeightCardWrap">
             <div className="autoHeightCard" style={{ marginRight: 20, width: '50%' }}>
-              <div className="cardTitle">门急诊、择期手术名称和例数</div>
+              <div className="cardTitle">急诊、择期手术名称和例数</div>
               <Tabs 
                 onChange={this.changeTypeTab} 
                 type='card'
@@ -257,7 +257,7 @@ export default class Surgery extends Component {
         {rangeDateType === 'monthly' && (
           <Card
             loading={loading}
-            title="本期每天不同级别手术例数"
+            title="本期每天不同类别手术例数"
             bodyStyle={{ padding: '0 20px', minHeight: 420 }}
             style={cardStyle}
           >
@@ -276,13 +276,14 @@ export default class Surgery extends Component {
               dodge={-1}
               keyLabelRotate={30}
               label={false}
+              keyLabelTextAlign='start'
             />
           </Card>
         )}
         {rangeDateType === 'monthly' && (
           <Card
             loading={loading}
-            title="本期每天不同类别手术例数"
+            title="本期每天不同级别手术例数"
             bodyStyle={{ padding: '0 20px', minHeight: 420 }}
             style={cardStyle}
           >
