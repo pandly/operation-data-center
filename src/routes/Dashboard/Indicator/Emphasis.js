@@ -54,8 +54,7 @@ export default class Emphasis extends PureComponent {
   }
 
   handleCardClick = (num) => {
-    let params, 
-title;
+    let params, title;
     switch (num) {
       case 0:
         params = 'consumable';

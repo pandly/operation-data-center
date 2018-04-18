@@ -13,6 +13,7 @@ import {
 } from 'components/Charts';
 import DailyCard from '../../../components/CountCard/DailyCard';
 import MonthlyCard from '../../../components/CountCard/MonthlyCard';
+import NoData from '../../../components/NoData';
 import Compare from '../../../components/Compare';
 import { getRangePickerValue, computeDays, yuan, formatPercent } from '../../../utils/utils';
 
@@ -196,6 +197,7 @@ export default class Dynamic extends PureComponent {
       perOutpatientDrugFees = {},  //门诊人均药品费用
       perInHospitalFees = {}, //住院均次费用
     ] = patientBurdenModule
+    
     const burdenData = [
       {
         item: '门急诊均次费用',
@@ -339,8 +341,7 @@ export default class Dynamic extends PureComponent {
                 loading={loading}
                 style={cardStyle}
                 hoverable
-                onClick={() => this.handleCardClick(3)}
-              >
+                onClick={() => this.handleCardClick(3)}>
                 <div style={{ display: 'flex', fontSize: '16px', position: 'relative' }}>
                   {inHospitalData.map(data => {
                     return (
@@ -397,42 +398,46 @@ export default class Dynamic extends PureComponent {
                   color: '#ffe300',
                 }}>  <span style={{ color: '#333', marginLeft: 5 }}>总收入</span></i>
               }
-              hoverable
-              style={cardStyle}
-              
+              hoverable={totalIncomeModule ? true : false}
+              style={cardStyle}  
               bodyStyle={{ minHeight: 555, padding: 0 }}
-              onClick={() => this.handleCardClick(4)}
-            >
-              <div className={styles.wrapPrice}>
-                <div className={styles.price}>{yuan(totalIncome.totalIncome) || '--'}</div>
-                {rangeDateType === 'monthly' ? (
-                  <div className={styles.compare}>
-                    <Compare type="同比" value={totalIncome.totalIncomeYoy} />
-                    <Divider type="vertical" />
-                    <Compare type="环比" value={totalIncome.totalIncomeMom} />
+              onClick={() => totalIncomeModule && this.handleCardClick(4)}>
+              {totalIncomeModule ? 
+                (
+                  <div>
+                    <div className={styles.wrapPrice}>
+                      <div className={styles.price}>{yuan(totalIncome.totalIncome) || '--'}</div>
+                      {rangeDateType === 'monthly' ? (
+                        <div className={styles.compare}>
+                          <Compare type="同比" value={totalIncome.totalIncomeYoy} />
+                          <Divider type="vertical" />
+                          <Compare type="环比" value={totalIncome.totalIncomeMom} />
+                        </div>
+                      ) : null}          
+                    </div>
+                    <Pie
+                      hasLegend='title'
+                      hasLabel
+                      data={pieData.slice(0,2)}
+                      valueFormat={val => yuan(val)}
+                      height={160}
+                      lineWidth={2}
+                      style={pieStyle}
+                      colors={['#53BDE7', '#3AC9A8']}
+                    />
+                    <Pie
+                      hasLegend='title'
+                      hasLabel
+                      data={pieData.slice(2)}
+                      valueFormat={val => yuan(val)}
+                      height={160}
+                      lineWidth={2}
+                      style={pieStyle}
+                      colors={['#FF8465', '#FEA101']}
+                    />
                   </div>
-                ) : null}          
-              </div>
-              <Pie
-                hasLegend='title'
-                hasLabel
-                data={pieData.slice(0,2)}
-                valueFormat={val => yuan(val)}
-                height={160}
-                lineWidth={2}
-                style={pieStyle}
-                colors={['#53BDE7', '#3AC9A8']}
-              />
-              <Pie
-                hasLegend='title'
-                hasLabel
-                data={pieData.slice(2)}
-                valueFormat={val => yuan(val)}
-                height={160}
-                lineWidth={2}
-                style={pieStyle}
-                colors={['#FF8465', '#FEA101']}
-              />
+                ) : (<NoData />)
+              }      
             </Card>
           </Col>
           <Col xl={11} lg={24} md={24} sm={24} xs={24}>
@@ -440,26 +445,29 @@ export default class Dynamic extends PureComponent {
               loading={loading}
               title="患者负担"
               bodyStyle={{ minHeight: 555, padding: '0 10px' }}
-              style={cardStyle}
-            >
-              {burdenData.map(item => {
-                return (
-                  <div className={styles.wrapCard} key={item.item} style={ rangeDateType === 'monthly' ? {width: '33.33%'} : {width: '50%'} }>
-                    <Card
-                      className={styles.burdenCard}
-                      bodyStyle={{ padding: '8px 0 10px 0' }}
-                    >
-                      <div className={styles.item}>{item.item}</div>
-                      <div className={styles.count}>{item.count || '--'}</div>
-                      {rangeDateType === 'monthly' && (
-                        <div className={styles.compare}>
-                          <Compare type="环比" value={item.decrease} />
-                        </div>
-                      )}  
-                    </Card>
-                  </div>
-                )
-              })}
+              style={cardStyle}>
+              {patientBurdenModule ? 
+                (
+                  burdenData.map(item => {
+                    return (
+                      <div className={styles.wrapCard} key={item.item} style={ rangeDateType === 'monthly' ? {width: '33.33%'} : {width: '50%'} }>
+                        <Card
+                          className={styles.burdenCard}
+                          bodyStyle={{ padding: '8px 0 10px 0' }}
+                        >
+                          <div className={styles.item}>{item.item}</div>
+                          <div className={styles.count}>{item.count || '--'}</div>
+                          {rangeDateType === 'monthly' && (
+                            <div className={styles.compare}>
+                              <Compare type="环比" value={item.decrease} />
+                            </div>
+                          )}  
+                        </Card>
+                      </div>
+                    )
+                  })
+                ) : (<NoData />)
+              }
             </Card>
           </Col>
         </Row>
