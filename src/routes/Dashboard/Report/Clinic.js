@@ -336,26 +336,32 @@ export default class Clinic extends Component {
                     const nowArr = text.match(/\d+/g)||[];
                     if (dailyOutpatientEmergencyData.length <= 365) {
                       if (prevArr[0] !== nowArr[0]) {
-                        return `${nowArr[1]}年${nowArr[1]}月${nowArr[2]}日`;
+                        return `${nowArr[0]}年${nowArr[1]}月${nowArr[2]}日`;
                       }
                       if (prevArr[1] !==  nowArr[1]) {
                         return `${nowArr[1]}月${nowArr[2]}日`;
                       }
                       return `${nowArr[2]}日`;
                     } else{
-
                       if (prevArr[0] !== nowArr[0]) {
-                        return `${nowArr[1]}年${nowArr[1]}月`;
-                      }
-                      if (prevArr[1] !==  nowArr[1]) {
-                        return text;
+                        return `${nowArr[0]}年${nowArr[1]}月`;
                       }
                       return `${nowArr[1]}月`;
                     }
-
                   },
-                } }
-              }
+                },
+              }}
+              GeomConfig={{
+                area:{
+                  tooltip:[`date*value`, (time, sold) => {
+                    return {
+                      name: '门急诊人次',
+                      title: time,
+                      value: sold
+                    };
+                  }]
+                }
+              }}
             />
           </Card>
         )}

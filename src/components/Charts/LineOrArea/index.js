@@ -28,7 +28,8 @@ export default class LineOrArea extends React.Component {
       type = 'line',
       shape,
       xAxisRotate,
-      scale
+      scale,
+      GeomConfig
     } = this.props;
     
     const position = `${titleMap.x}*value`
@@ -90,7 +91,9 @@ export default class LineOrArea extends React.Component {
                 position={position} 
                 opacity={opacity}
                 tooltip={false}
-                color={areaColor ? areaColor : lineColor} />
+                color={areaColor ? areaColor : lineColor}
+                {...GeomConfig.area}
+                 />
             )}
             {line && (
               <Geom
@@ -105,6 +108,7 @@ export default class LineOrArea extends React.Component {
                     value: value
                   }
                 }]}
+                {...GeomConfig.line}
               />
             )}
             {point && (
@@ -114,7 +118,9 @@ export default class LineOrArea extends React.Component {
                 size={pointSize} 
                 shape={'circle'} 
                 tooltip={false}
-                color={['key', lineColor]} />
+                color={['key', lineColor]}
+                {...GeomConfig.point}
+                />
             )}         
           </Chart>
         </div>
