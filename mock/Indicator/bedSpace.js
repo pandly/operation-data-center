@@ -14,7 +14,7 @@ const bedSpace_daily = {
 	      "bedUsedRate": 0.0677,
 	      "diffSickBlockBedUsedInfo": [
 	        {
-	          "wardBedUsedRate": 0.084,
+	          "wardBedUsedRate": 0,
 	          "wardName": "十五病区"
 	        },
 	        {
@@ -96,7 +96,7 @@ const bedSpace_daily = {
 	          "wardName": "血透病区"
 	        },
 	        {
-	          "wardBedUsedRate": 0.2857,
+	          "wardBedUsedRate": 0,
 	          "wardName": "感染病区"
 	        },
 	        {

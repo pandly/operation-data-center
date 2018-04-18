@@ -10,7 +10,7 @@ const emphasis_monthly = {
 	result: {
 	    "supplyModule": [
 	      {
-	        "materialRate": 0.1475,
+	        "materialRate": 0,
 	        "materialRateLastMonth": 0.1325,
 	        "materialRateLastYear": 0.1567,
 	        "name": "耗材收入占比"

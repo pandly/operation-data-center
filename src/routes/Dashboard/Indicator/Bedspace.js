@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment } from 'react';
 import { connect } from 'dva';
 import Compare from '../../../components/Compare';
 import { computeDays, getDateFromString, formatPercent } from '../../../utils/utils';
@@ -6,7 +6,7 @@ import {
   Row,
   Col,
   Card,
-  Table
+  Table,
 } from 'antd';
 import {
   Bar,
@@ -20,10 +20,10 @@ import styles from './Bedspace.less';
 }))
 
 export default class Bedspace extends Component {
-  
+
   state = {
     rangeDateType: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) < 14 ? 'daily' : 'monthly',
-    isOneDay: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) === 0 ? true : false
+    isOneDay: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) === 0,
   };
 
   componentDidMount() {
@@ -32,11 +32,11 @@ export default class Bedspace extends Component {
       type: 'bedspace/fetch',
       payload: {
         beginDate: date.indicator.beginDate,
-        endDate: date.indicator.endDate
-      }
-    })
+        endDate: date.indicator.endDate,
+      },
+    });
   }
-  
+
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch({
@@ -81,45 +81,45 @@ export default class Bedspace extends Component {
     const internalData = [
       {
         item: '内科片区核定床位',
-        count: internalSliceBedInfoModule && internalSliceBedInfoModule.approvedBedCount
+        count: internalSliceBedInfoModule && internalSliceBedInfoModule.approvedBedCount,
       },
       {
         item: '内科片区实际使用床位',
-        count: internalSliceBedInfoModule && internalSliceBedInfoModule.useBedCount
+        count: internalSliceBedInfoModule && internalSliceBedInfoModule.useBedCount,
       },
       {
         item: '内科片区床位使用率',
-        count: internalSliceBedInfoModule && formatPercent(internalSliceBedInfoModule.bedUsedRate)
-      }
-    ]
+        count: internalSliceBedInfoModule && formatPercent(internalSliceBedInfoModule.bedUsedRate),
+      },
+    ];
     const surgicalData = [
       {
         item: '外科片区核定床位',
-        count: surgicalSliceBedInfoModule && surgicalSliceBedInfoModule.approvedBedCount
+        count: surgicalSliceBedInfoModule && surgicalSliceBedInfoModule.approvedBedCount,
       },
       {
         item: '外科片区实际使用床位',
-        count: surgicalSliceBedInfoModule && surgicalSliceBedInfoModule.useBedCount
+        count: surgicalSliceBedInfoModule && surgicalSliceBedInfoModule.useBedCount,
       },
       {
         item: '外科片区床位使用率',
-        count: surgicalSliceBedInfoModule && formatPercent(surgicalSliceBedInfoModule.bedUsedRate)
-      }
-    ]
+        count: surgicalSliceBedInfoModule && formatPercent(surgicalSliceBedInfoModule.bedUsedRate),
+      },
+    ];
     const specialData = [
       {
         item: '特殊片区核定床位',
-        count: specialSliceBedInfoModule && specialSliceBedInfoModule.approvedBedCount
+        count: specialSliceBedInfoModule && specialSliceBedInfoModule.approvedBedCount,
       },
       {
         item: '特殊片区实际使用床位',
-        count: specialSliceBedInfoModule && specialSliceBedInfoModule.useBedCount
+        count: specialSliceBedInfoModule && specialSliceBedInfoModule.useBedCount,
       },
       {
         item: '特殊片区床位使用率',
-        count: specialSliceBedInfoModule && formatPercent(specialSliceBedInfoModule.bedUsedRate)
-      }
-    ]
+        count: specialSliceBedInfoModule && formatPercent(specialSliceBedInfoModule.bedUsedRate),
+      },
+    ];
     const columns = [
       {
         title: '片区',
@@ -163,7 +163,7 @@ export default class Bedspace extends Component {
         },
         width: 160
       },
-    ]
+    ];
     const cardStyle = {
       marginBottom: 20,
       boxShadow: "0 0 4px 0 #E8E8E8",
@@ -174,8 +174,9 @@ export default class Bedspace extends Component {
         <div style={{
           marginTop: '-10px',
           marginBottom: '10px',
-          color: '#333'
-        }}>
+          color: '#333',
+        }}
+        >
           {isOneDay ? date.indicator.beginDate : `${date.indicator.beginDate} --- ${date.indicator.endDate}`}
         </div>
         {rangeDateType === 'daily' ? (
@@ -187,58 +188,60 @@ export default class Bedspace extends Component {
                     loading={loading}
                     title="内科片床位使用率"
                     style={cardStyle}
-                    bodyStyle={{ 
-                      height: 250, 
-                      padding: '0 20px',                
-                    }}>
+                    bodyStyle={{
+                      height: 250,
+                      padding: '0 20px',
+                    }}
+                  >
                     <div style={{
                       height: '100%',
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'space-around'
-                    }}>
+                      justifyContent: 'space-around',
+                    }}
+                    >
                       <div className={styles.leftCard}>
-                        {internalData.map(data => {
+                        {internalData.map((data) => {
                           return (
                             <div key={data.item}>
                               <div style={{ color: '#666' }}>{data.item}</div>
                               <div style={{ color: '#333', fontSize: 20 }}>{data.count}</div>
                             </div>
-                          )
+                          );
                         })}
                       </div>
                       <div style={{ flex: 1 }}>
-                        <Bar 
+                        <Bar
                           height={230}
                           size={25}
                           pbg={null}
-                          grid={null} 
+                          grid={null}
                           axisValueLabel={null}
                           axisLine={null}
                           color="#3AC9A8"
                           padding={['10%', 0]}
                           formatPercent={val => formatPercent(val)}
                           fieldsMap={{
-                            x: 'wardName', 
+                            x: 'wardName',
                             keyMap: {
-                              'wardBedUsedRate': '床位使用率'
-                            }
+                              wardBedUsedRate: '床位使用率',
+                            },
                           }}
                           legend={false}
                           data={internalSliceBedInfoModule.diffSickBlockBedUsedInfo}
-                          useShape
+                          shapeTypes={['borderRadius']}
                           labelSetting={{
-                              htmlTemplate: (text, item, index)=>  `<div
+                              htmlTemplate: (text, item, index) => `<div
                                style='transform: translate(0%, -0%);
                                   color:#3AC9A8;
                                   textAlign: center;
                                   fontSize: 12px;
                                   verticalAlign:middle
-                              '>${text} </div>` 
+                              '>${text} </div>`,
                           }}
                         />
                       </div>
-                    </div>       
+                    </div>
                   </Card>
                 </Col>
               </Row>
@@ -248,58 +251,60 @@ export default class Bedspace extends Component {
                     loading={loading}
                     title="外科片床位使用率"
                     style={cardStyle}
-                    bodyStyle={{ 
-                      height: 250, 
+                    bodyStyle={{
+                      height: 250,
                       padding: '0 20px',
-                    }}> 
+                    }}
+                  >
                     <div style={{
                       height: '100%',
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'space-around'
-                    }}>
+                      justifyContent: 'space-around',
+                    }}
+                    >
                       <div className={styles.leftCard}>
-                        {surgicalData.map(data => {
+                        {surgicalData.map((data) => {
                           return (
                             <div key={data.item}>
                               <div style={{ color: '#666' }}>{data.item}</div>
                               <div style={{ color: '#333', fontSize: 20 }}>{data.count}</div>
                             </div>
-                          )
+                          );
                         })}
                       </div>
                       <div style={{ flex: 1 }}>
-                        <Bar 
+                        <Bar
                           height={230}
                           size={25}
                           pbg={null}
-                          grid={null} 
+                          grid={null}
                           axisValueLabel={null}
                           axisLine={null}
                           color="#FEA101"
                           padding={['10%', 0]}
                           formatPercent={val => formatPercent(val)}
                           fieldsMap={{
-                            x: 'wardName', 
+                            x: 'wardName',
                             keyMap: {
-                              'wardBedUsedRate': '床位使用率'
-                            }
+                              wardBedUsedRate: '床位使用率',
+                            },
                           }}
                           legend={false}
                           data={surgicalSliceBedInfoModule.diffSickBlockBedUsedInfo}
-                          useShape
+                          shapeTypes={['borderRadius']}
                           labelSetting={{
-                              htmlTemplate: (text, item, index)=>  `<div
+                              htmlTemplate: (text, item, index) => `<div
                                style='transform: translate(0%, -0%);
                                   color:#FEA101;
                                   textAlign: center;
                                   fontSize: 12px;
                                   verticalAlign:middle
-                              '>${text} </div>` 
+                              '>${text} </div>`,
                           }}
                           />
                       </div>
-                    </div>       
+                    </div>
                   </Card>
                 </Col>
               </Row>
@@ -308,14 +313,14 @@ export default class Bedspace extends Component {
               <Card
                 loading={loading}
                 title="特殊科室片区床位使用率(包括不考核片区)"
-                bodyStyle={{ 
-                  height: 582, 
+                bodyStyle={{
+                  height: 582,
                   padding: '0 10px',
                 }}
                 style={cardStyle}
               >
                 <div className={styles.rowCardContent}>
-                  {specialData.map(data => {
+                  {specialData.map((data) => {
                     return (
                       <div className={styles.part} key={data.item}>
                         <div className={styles.partOne}>{data.item}</div>
@@ -324,41 +329,41 @@ export default class Bedspace extends Component {
                           <div className={styles.partThree}>
                             <Compare value={data.mom} />
                           </div>
-                        )}                        
+                        )}
                       </div>
-                    )                 
+                    );
                   })}
-                  <div className={styles.bedVertical} style={{ left: '33.33%' }}></div>
-                  <div className={styles.bedVertical} style={{ right: '33.33%' }}></div>               
+                  <div className={styles.bedVertical} style={{ left: '33.33%' }} />
+                  <div className={styles.bedVertical} style={{ right: '33.33%' }} />
                 </div>
-                <Bar 
+                <Bar
                   height={350}
                   size={25}
                   pbg={null}
-                  grid={null} 
-                  transpose={true}
+                  grid={null}
+                  transpose
                   axisValueLabel={null}
                   axisLine={null}
                   color="#239BCB"
                   formatPercent={val => formatPercent(val)}
                   fieldsMap={{
-                    x: 'wardName', 
+                    x: 'wardName',
                     keyMap: {
-                      'wardBedUsedRate': '床位使用率'
-                    }
+                      wardBedUsedRate: '床位使用率',
+                    },
                   }}
                   legend={false}
                   data={specialSliceBedInfoModule.diffSickBlockBedUsedInfo}
-                  useShape
+                  shapeTypes={['borderRadius']}
                   keyLabelTextAlign='start'
                   labelSetting={{
-                      htmlTemplate: (text, item, index)=>  `<div
-                       style='transform: translate(-50%, 100%);
+                      htmlTemplate: (text, item, index) => `<div
+                       style='transform: translate(10%, 100%);
                           color:#239BCB;
                           textAlign: center;
                           fontSize: 12px;
                           verticalAlign:middle
-                      '>${text} </div>` 
+                      '>${text} </div>`,
                   }}
                   />
               </Card>
@@ -446,6 +451,6 @@ export default class Bedspace extends Component {
           </div>
         )}  
       </Fragment>
-    )
+    );
   }
 }
