@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment } from 'react';
 import { connect } from 'dva';
 import { computeDays, transformArr } from '../../../utils/utils';
 import {
@@ -11,7 +11,7 @@ import {
   LineOrArea,
   Area,
   Bar,
-  DodgeBar
+  DodgeBar,
 } from 'components/Charts';
 import styles from './Inpatient.less';
 import { scale } from 'gl-matrix/src/gl-matrix/vec2';
@@ -22,12 +22,12 @@ import { scale } from 'gl-matrix/src/gl-matrix/vec2';
   loading: loading.effects['inpatient/fetch'],
 }))
 
-export default class Inpatient extends Component { 
-  
+export default class Inpatient extends Component {
+
   state = {
     rangeDateType: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) < 14 ? 'daily' : 'monthly',
-    isOneDay: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) === 0 ? true : false,
-    rangeDate: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate)
+    isOneDay: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) === 0,
+    rangeDate: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate),
   };
 
   componentDidMount() {
@@ -36,11 +36,11 @@ export default class Inpatient extends Component {
       type: 'inpatient/fetch',
       payload: {
         beginDate: date.report.beginDate,
-        endDate: date.report.endDate
-      }
-    })
+        endDate: date.report.endDate,
+      },
+    });
   }
-  
+
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch({
@@ -51,32 +51,34 @@ export default class Inpatient extends Component {
   render() {
     const { rangeDateType, isOneDay, rangeDate } = this.state;
     const { inpatient, loading, date } = this.props;
-    let { 
-      diffDepartStatisticInfoModule = [], //不同科室本期入院、住院和出院人数
-      dailyStatisticInfoModule = [] 
+    const {
+      diffDepartStatisticInfoModule = [], // 不同科室本期入院、住院和出院人数
+      dailyStatisticInfoModule = [],
     } = inpatient;
 
-    const dailyStatisticInfoData = dailyStatisticInfoModule && transformArr(dailyStatisticInfoModule).map(ele=>({...ele,...{date:ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/,'$1-$2-$3')}}));
+    const dailyStatisticInfoData = dailyStatisticInfoModule && transformArr(dailyStatisticInfoModule).map(ele => ({ ...ele, ...{ date: ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/, '$1-$2-$3') } }));
 
     const cardStyle = {
       padding: 0,
       marginBottom: 20,
-      boxShadow: "0 0 4px 0 #E8E8E8"
-    }
+      boxShadow: '0 0 4px 0 #E8E8E8',
+    };
     return (
       <Fragment>
         <div style={{
           marginTop: '-10px',
           marginBottom: '10px',
-          color: '#333'
-        }}>
-        {isOneDay ? date.report.beginDate : `${date.report.beginDate} --- ${date.report.endDate}`}
+          color: '#333',
+        }}
+        >
+          {isOneDay ? date.report.beginDate : `${date.report.beginDate} --- ${date.report.endDate}`}
         </div>
         <Card
           loading={loading}
           title="不同科室本期入院和出院人数"
           bodyStyle={{ padding: '0 20px', minHeight: 420 }}
-          style={cardStyle}>
+          style={cardStyle}
+        >
           <LineOrArea
             height={400}
             line
@@ -84,9 +86,9 @@ export default class Inpatient extends Component {
             data={diffDepartStatisticInfoModule}
             titleMap={{
               x: 'departName',
-              filedsMap: {'admissionCount': '入院人数','recoverCount': '出院人数'},
+              filedsMap: { admissionCount: '入院人数', recoverCount: '出院人数' },
             }}
-            lineColor={["#FEA101", '#CCCCCC']}
+            lineColor={['#FEA101', '#CCCCCC']}
             xAxisRotate={30}
             grid={null}
           />
@@ -95,7 +97,8 @@ export default class Inpatient extends Component {
           loading={loading}
           title="不同科室在院人次"
           bodyStyle={{ padding: '0 20px', minHeight: 420 }}
-          style={cardStyle}>
+          style={cardStyle}
+        >
           <LineOrArea
             height={400}
             area
@@ -105,10 +108,10 @@ export default class Inpatient extends Component {
             data={diffDepartStatisticInfoModule}
             titleMap={{
               x: 'departName',
-              filedsMap: {'inHospitalCount': '在院人数'},
+              filedsMap: { inHospitalCount: '在院人数' },
             }}
-            areaColor={["l(270) 0:#FFF9EF 1:#FFDB9C"]}
-            lineColor={["#FEA101"]}
+            areaColor={['l(270) 0:#FFF9EF 1:#FFDB9C']}
+            lineColor={['#FEA101']}
             xAxisRotate={30}
             grid={null}
           />
@@ -133,13 +136,14 @@ export default class Inpatient extends Component {
                 titleMap={{
                   x: 'dateStr',
                   filedsMap: {
-                    '入院人数': '入院人数',
-                    '出院人数': '出院人数'
+                    入院人数: '入院人数',
+                    出院人数: '出院人数',
                   },
                 }}
-                data={dailyStatisticInfoData} />
+                data={dailyStatisticInfoData}
+              />
             ) : (
-              <Bar 
+              <Bar
                 height={400}
                 size={15}
                 pbg={null}
@@ -149,24 +153,24 @@ export default class Inpatient extends Component {
                 fieldsMap={{
                   x: 'date',
                   keyMap: {
-                    '入院人数': '入院人数',
-                    '出院人数': '出院人数'
-                  }
+                    入院人数: '入院人数',
+                    出院人数: '出院人数',
+                  },
                 }}
-                data={dailyStatisticInfoData} 
-                chartSetting= {
+                data={dailyStatisticInfoData}
+                chartSetting={
                   {
-                    scale:{
-                      date:{
-                        type: 'cat'
-                      }
-                    }
+                    scale: {
+                      date: {
+                        type: 'cat',
+                      },
+                    },
                   }
                 }
               />
             )}
           </Card>
-        ) : null}      
+        ) : null}
         {rangeDateType === 'monthly' ? (
           <Card
             loading={loading}
@@ -183,15 +187,15 @@ export default class Inpatient extends Component {
               data={dailyStatisticInfoData}
               titleMap={{
                 x: 'date',
-                filedsMap: {'在院人次': '在院人次'},
+                filedsMap: { 在院人次: '在院人次' },
               }}
               areaColor={['#FFDB9C']}
-              lineColor={["#FEA101"]}
+              lineColor={['#FEA101']}
               grid={null}
             />
           </Card>
-        ) : null} 
+        ) : null}
       </Fragment>
-    )
+    );
   }
 }

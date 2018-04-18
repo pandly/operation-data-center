@@ -2,7 +2,7 @@ import {
   Shape
 } from 'bizcharts';
 
-const shape = (transpose) => {
+const shape = (transpose, shapeType) => {
   shape[Symbol.for('name')] = transpose?'transposeBorderRadius':'borderRadius';
   Shape.registerShape('interval', shape[Symbol.for('name')], {
     draw(cfg, container) {
