@@ -330,8 +330,6 @@ export default class Clinic extends Component {
                   type: 'cat',
                   tickCount: Math.ceil(dailyOutpatientEmergencyData.length / this.switchTime(dailyOutpatientEmergencyData.length)),
                   formatter: (text) => {
-
-
                     const prev = this[Symbol.for('lastDate')];
                     this[Symbol.for('lastDate')] = text;
                     const prevArr =prev&&prev.match(/\d+/g)||[];
