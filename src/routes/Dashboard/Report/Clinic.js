@@ -43,6 +43,26 @@ export default class Clinic extends Component {
     });
   }
 
+  switchTime=(length)=>{
+    if(length<=31){
+      return 1
+    }
+    if(length>31&&length<=90){
+      return 3
+    }
+    if(length>90&&length<=180){
+      return 6
+    }
+    if(length>180&&length<=270){
+      return 9
+    }
+    if(length>270&&length<=365){
+      return 12
+    }
+    if(length>365){
+      return 30
+    }
+  }
   render() {
     const { rangeDateType, isOneDay } = this.state;
     const { clinic, loading, date } = this.props;
@@ -308,17 +328,33 @@ export default class Clinic extends Component {
               scale={{
                 date: {
                   type: 'cat',
-                  tickCount: Math.ceil(dailyOutpatientEmergencyData.length / 3),
+                  tickCount: Math.ceil(dailyOutpatientEmergencyData.length / this.switchTime(dailyOutpatientEmergencyData.length)),
                   formatter: (text) => {
+
+
                     const prev = this[Symbol.for('lastDate')];
                     this[Symbol.for('lastDate')] = text;
-                    if (prev && prev.match(/\d+/g)[0] !== text.match(/\d+/g)[0]) {
-                      return text;
+                    const prevArr =prev&&prev.match(/\d+/g)||[];
+                    const nowArr = text.match(/\d+/g)||[];
+                    if (dailyOutpatientEmergencyData.length <= 365) {
+                      if (prevArr[0] !== nowArr[0]) {
+                        return `${nowArr[1]}年${nowArr[1]}月${nowArr[2]}日`;
+                      }
+                      if (prevArr[1] !==  nowArr[1]) {
+                        return `${nowArr[1]}月${nowArr[2]}日`;
+                      }
+                      return `${nowArr[2]}日`;
+                    } else{
+
+                      if (prevArr[0] !== nowArr[0]) {
+                        return `${nowArr[1]}年${nowArr[1]}月`;
+                      }
+                      if (prevArr[1] !==  nowArr[1]) {
+                        return text;
+                      }
+                      return `${nowArr[1]}月`;
                     }
-                    if (prev && prev.match(/\d+/g)[1] !== text.match(/\d+/g)[1]) {
-                      return text.replace(/^.*年/, '');
-                    }
-                    return text.replace(/^.*月/, '');
+
                   },
                 } }
               }
