@@ -340,7 +340,6 @@ export default class Clinic extends Component {
                       }
                       return `${nowArr[2]}日`;
                     } else{
-
                       if (prevArr[0] !== nowArr[0]) {
                         return `${nowArr[0]}年${nowArr[1]}月`;
                       }
@@ -349,10 +348,20 @@ export default class Clinic extends Component {
                       // }
                       return `${nowArr[1]}月`;
                     }
-
                   },
-                } }
-              }
+                },
+              }}
+              GeomConfig={{
+                area:{
+                  tooltip:[`date*value`, (time, sold) => {
+                    return {
+                      name: '门急诊人次',
+                      title: time,
+                      value: sold
+                    };
+                  }]
+                }
+              }}
             />
           </Card>
         )}
