@@ -102,12 +102,15 @@ export default class Clinic extends Component {
       dailyOutpatientEmergencyInfo.name = '门急诊人次';
       dailyOutpatientEmergencyData = transformArr([dailyOutpatientEmergencyInfo]);
     }
+<<<<<<< HEAD
     // dailyOutpatientEmergencyData= [
     //   ...dailyOutpatientEmergencyData.map(ele=>({...ele,...{data:ele['data']/2},...{type: '门急诊人次'}})),
     //   ...dailyOutpatientEmergencyData.map(ele=>({...ele,...{data:ele['data']+200},...{type: '门急诊人次B'}})),
     //   ...dailyOutpatientEmergencyData.map(ele=>({...ele,...{type: '门急诊人次C'}}))
     // ]
     registrationStatistic = registrationStatistic || {};
+=======
+>>>>>>> 5f115bcc781897cd3b140a59b549bfdf50c10443
     const registrationStatisticData = [
       {
         item: '普通号',
@@ -126,7 +129,6 @@ export default class Clinic extends Component {
         count: registrationStatistic.specialistRegistration,
       },
     ];
-    outpatientEmergencyStatistic = outpatientEmergencyStatistic || {};
     const outpatientEmergencyStatisticData = [
       {
         item: '门诊人次',
@@ -372,6 +374,9 @@ export default class Clinic extends Component {
                       if (prevArr[0] !== nowArr[0]) {
                         return `${nowArr[0]}年${nowArr[1]}月`;
                       }
+                      // if (prevArr[1] !==  nowArr[1]) {
+                      //   return text;
+                      // }
                       return `${nowArr[1]}月`;
                     }
                   },

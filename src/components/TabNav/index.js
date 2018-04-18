@@ -37,10 +37,7 @@ class TabNav extends React.Component {
     const panesLength = panes.length;
     let lastIndex = 0;
     const findIndex = panes.findIndex(item => item.key === targetKey);
-    // if(findList === 0) {
-    //   return;
-    // }
-    findIndex === panesLength - 1 ? lastIndex = panesLength - 2 : lastIndex = findList + 1;
+    findIndex === panesLength - 1 ? lastIndex = panesLength - 2 : lastIndex = findIndex + 1;
     const lastKey = lastIndex >= 0 ? panes[lastIndex].key : 'empty';
     let path = {
       pathname: lastKey,
