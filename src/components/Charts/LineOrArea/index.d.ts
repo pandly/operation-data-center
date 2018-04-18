@@ -10,6 +10,7 @@ export interface ITimelineChartProps {
   height?: number;
   style?: React.CSSProperties;
   scale?: object;
+  GeomConfig?: object;
 }
 
 export default class TimelineChart extends React.Component<

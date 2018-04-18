@@ -298,7 +298,7 @@ title;
                             'materialRateLastYear': '去年'
                           }
                         }}
-                        useShape
+                        shapeTypes={['borderRadius']}
                         data={supplyModule} 
                       />
                     </div>
