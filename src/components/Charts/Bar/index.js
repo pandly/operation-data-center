@@ -120,18 +120,6 @@ class Bar extends Component {
             <Axis name={'_base'}  visible={false}/>
 
             <Tooltip showTitle />
-            {
-              showBase
-              &&<Geom  
-                size={size} 
-                type="interval" 
-                position={`${fieldsMap.x}*_base`} 
-                color={color||'#000'} 
-                shape={useShape&&shape[Symbol.for('name')]} 
-                opacity={0.3}
-                tooltip={false}
-                />
-            }
             <Geom
               size={size}
               type="interval"
