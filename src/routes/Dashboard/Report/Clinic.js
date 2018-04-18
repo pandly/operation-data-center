@@ -174,8 +174,7 @@ export default class Clinic extends Component {
                 }}
                 legend={false}
                 data={outpatientSlice}
-                useShape
-                showBase
+                shapeTypes={['borderRadius', 'baseLine']}
                 labelSetting={{
                   htmlTemplate: (text, item, index) => `<div
                      style='transform: translate(-35%, 60%);
@@ -185,7 +184,6 @@ export default class Clinic extends Component {
                         verticalAlign:middle
                     '>${text} </div>`,
                 }}
-                transpose
                 />
             </Card>
           </Col>
@@ -212,8 +210,7 @@ export default class Clinic extends Component {
                 }}
                 legend={false}
                 data={surgricalSlice}
-                useShape
-                showBase
+                shapeTypes={['borderRadius', 'baseLine']}
                 labelSetting={{
                   htmlTemplate: (text, item, index) => `<div
                      style='transform: translate(-35%, 60%);
@@ -223,7 +220,6 @@ export default class Clinic extends Component {
                         verticalAlign:middle
                     '>${text} </div>`,
                 }}
-                transpose
                 />
             </Card>
           </Col>
@@ -250,8 +246,7 @@ export default class Clinic extends Component {
                 }}
                 legend={false}
                 data={internalSlice}
-                useShape
-                showBase
+                shapeTypes={['borderRadius', 'baseLine']}
                 labelSetting={{
                     htmlTemplate: (text, item, index) => `<div
                      style='transform: translate(-35%, 60%);
@@ -261,7 +256,6 @@ export default class Clinic extends Component {
                         verticalAlign:middle
                     '>${text} </div>`,
                 }}
-                transpose
                 />
             </Card>
           </Col>

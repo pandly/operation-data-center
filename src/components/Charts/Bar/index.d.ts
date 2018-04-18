@@ -11,8 +11,7 @@ export interface IBarProps {
   labelSetting?:object;
   chartSetting?:object;
   autoLabel?: boolean;
-  useShape?: boolean;
-  showBase?: boolean;
+  shapeTypes?: Array;
   transpose?: boolean;
   style?: React.CSSProperties;
 }

@@ -298,7 +298,7 @@ export default class Emphasis extends PureComponent {
                       'materialRateLastYear': '去年'
                     }
                   }}
-                  useShape
+                  shapeTypes={['borderRadius']}
                   data={supplyModule} />
               </Card>  
               ) : (

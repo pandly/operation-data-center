@@ -187,7 +187,7 @@ export default class Bedspace extends Component {
                           }}
                           legend={false}
                           data={internalSliceBedInfoModule.diffSickBlockBedUsedInfo}
-                          useShape
+                          shapeTypes={['borderRadius']}
                           labelSetting={{
                               htmlTemplate: (text, item, index) => `<div
                                style='transform: translate(0%, -0%);
@@ -250,7 +250,7 @@ export default class Bedspace extends Component {
                           }}
                           legend={false}
                           data={surgicalSliceBedInfoModule.diffSickBlockBedUsedInfo}
-                          useShape
+                          shapeTypes={['borderRadius']}
                           labelSetting={{
                               htmlTemplate: (text, item, index) => `<div
                                style='transform: translate(0%, -0%);
@@ -312,11 +312,10 @@ export default class Bedspace extends Component {
                   }}
                   legend={false}
                   data={specialSliceBedInfoModule.diffSickBlockBedUsedInfo}
-                  useShape
-
+                  shapeTypes={['borderRadius']}
                   labelSetting={{
                       htmlTemplate: (text, item, index) => `<div
-                       style='transform: translate(-50%, 100%);
+                       style='transform: translate(10%, 100%);
                           color:#239BCB;
                           textAlign: center;
                           fontSize: 12px;
