@@ -16,8 +16,8 @@ export default {
 
 	reducers: {
 		update(state, { payload }) {
-			const findList = state.panes.find(item => item.title === payload.title)
-			const panes = findList === undefined ? [...state.panes, payload] : state.panes
+			const findIndex = state.panes.find(item => item.title === payload.title)
+			const panes = findIndex === undefined ? [...state.panes, payload] : state.panes
 			sessionStorage.setItem('panes', JSON.stringify({ 
 				panes,
         		activeKey: payload.key, 
@@ -38,9 +38,9 @@ export default {
 			}
 		},
 		delete(state, { payload }) {
-			const { findList, lastKey } = payload;
+			const { findIndex, lastKey } = payload;
 			let panes = state.panes.concat();
-            panes.splice(findList, 1);
+            panes.splice(findIndex, 1);
             sessionStorage.setItem('panes', JSON.stringify({ 
 				panes,
         		activeKey: lastKey, 

@@ -14,7 +14,6 @@ import {
   DodgeBar
 } from 'components/Charts';
 import styles from './Inpatient.less';
-import { scale } from 'gl-matrix/src/gl-matrix/vec2';
 
 @connect(({ inpatient, date, loading }) => ({
   inpatient,

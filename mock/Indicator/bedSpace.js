@@ -108,7 +108,7 @@ const bedSpace_daily = {
 	          "wardName": "急诊病区"
 	        },
 	        {
-	          "wardBedUsedRate": 0.0661,
+	          "wardBedUsedRate": 0,
 	          "wardName": "十九病区"
 	        }
 	      ]
@@ -341,7 +341,7 @@ const bedSpace_monthly = {
 export function getMockBedSpace(req, res, u) {
   let result = {};
   console.log(req.query)
-  result = computeDays(req.query.beginDate, req.query.endDate) > 14 ? bedSpace_monthly : bedSpace_daily;
+  result = computeDays(req.query.beginDate, req.query.endDate) >= 14 ? bedSpace_monthly : bedSpace_daily;
   if (res && res.json) {
     res.json(result);
   } else {

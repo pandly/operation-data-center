@@ -15,6 +15,7 @@ import {
 } from 'components/Charts';
 import Progress from '../../../components/Progress';
 import Compare from '../../../components/Compare';
+import NoData from '../../../components/NoData';
 import { getRangePickerValue, computeDays, formatPercent } from '../../../utils/utils';
 
 import styles from './Emphasis.less';
@@ -93,18 +94,14 @@ export default class Emphasis extends PureComponent {
   };
   
   handleRangePickerChange = (rangePickerValue, dateStr) => {
+    if(dateStr[0] === ''){
+      return;
+    }
     const days = computeDays(dateStr[0], dateStr[1]);
-    if(days > 14) {
-      this.setState({
-        rangeDateType: 'monthly',
-        rangePickerValue
-      });
-    }else {
-      this.setState({
-        rangeDateType: 'daily',
-        rangePickerValue
-      });
-    }  
+    this.setState({
+      rangeDateType: days < 14 ? 'daily' : 'monthly',
+      rangePickerValue
+    }); 
     this.props.dispatch({
       type: 'emphasis/fetch',
       payload: {
@@ -140,7 +137,7 @@ export default class Emphasis extends PureComponent {
       reservationModule = {}, //预约
     } = emphasis;
 
-    const surgeryData = [
+    const surgeryData = surgeryModule && [
       {
         item: '一类',
         count: surgeryModule.oneTypeSurgeryCount,
@@ -187,7 +184,7 @@ export default class Emphasis extends PureComponent {
         mom: surgeryModule.electiveSurgeryCountMom
       },
     ]
-    const badSpace = rangeDateType === 'daily' ? [
+    const badSpace = bedModule && (rangeDateType === 'daily' ? [
       {
         item: '急诊病区使用床位',
         count: bedModule.emergencyBedCount,
@@ -216,8 +213,8 @@ export default class Emphasis extends PureComponent {
         color: '#53BDE7',
         mom: bedModule.turnoverRateMom,
       }
-    ]
-    const appointment = [
+    ])
+    const appointment = reservationModule && [
       {
         item: '预约人数',
         count: reservationModule.reservationCount,
@@ -232,7 +229,7 @@ export default class Emphasis extends PureComponent {
       },
     ]
     const extra = (
-      <div>
+      <div style={{ textAlign: 'right' }}>
         <span style={{ marginRight: 13 }}>
           <span className={styles.extra} style={{ background: '#FEA101' }}></span>
           <span style={{ color: '#FEA101' }}>上月</span>
@@ -255,8 +252,7 @@ export default class Emphasis extends PureComponent {
       <Fragment>
         <Card
           style={cardStyle}
-          bodyStyle={{ padding: 20 }}
-        >
+          bodyStyle={{ padding: 20 }}>
           <span style={{ color: '#333', fontWeight: '500' }}>选择日期：</span>
           <RangePicker
             value={rangePickerValue}
@@ -268,109 +264,100 @@ export default class Emphasis extends PureComponent {
 
         <Row gutter={24}>
           <Col xl={12} lg={12} md={24} sm={24} xs={24}>
-            {rangeDateType === 'monthly' ? (
-              <Card
-                loading={loading}             
-                title="耗材"
-                style={cardStyle}
-                bodyStyle={{
-                  padding: '0 20px',
-                  minHeight: 238
-                }}
-                hoverable
-                extra={extra}
-                onClick={() => this.handleCardClick(0)}
-              >
-                <Bar 
-                  height={210}
-                  size={25} 
-                  color={['#FEA101', '#FF8465', '#3AC9A8']}
-                  axisLine={null}
-                  axisValueLabel={null}
-                  legend={false}
-                  padding={['10%',0]}
-                  formatPercent={val => formatPercent(val)}
-                  fieldsMap={{
-                    x: 'name', 
-                    keyMap: {
-                      'materialRateLastMonth': '上月',
-                      'materialRate': '当月',
-                      'materialRateLastYear': '去年'
-                    }
-                  }}
-                  useShape
-                  data={supplyModule} />
-              </Card>  
-              ) : (
-              <Card
-                loading={loading}             
-                title="耗材"
-                style={cardStyle}
-                bodyStyle={{
-                  padding: '0 20px',
-                  minHeight: 108
-                }}
-                hoverable
-                onClick={() => this.handleCardClick(0)}>
-                <div className={styles.dailyConsumable}>
-                  {supplyModule.map(data => {
-                    return (
-                      <div className={styles.part} key={data.name}>
-                        <div className={styles.item}>{data.name}</div>
-                        <div className={styles.ratio}>{formatPercent(data.materialRate)}</div>
-                      </div>
-                    )
-                  })}
-                  <Divider type="vertical" className={styles.vertical}/>
-                </div>  
-              </Card>
-            )}         
+            <Card
+              loading={loading}             
+              title="耗材"
+              style={cardStyle}
+              bodyStyle={{
+                padding: '0 20px',
+                height: rangeDateType === 'monthly' ? 273 : 148
+              }}
+              hoverable={supplyModule ? true : false}
+              onClick={() => supplyModule && this.handleCardClick(0)}>
+              {supplyModule ? 
+                (
+                  rangeDateType === 'monthly' ? 
+                  (
+                    <div>
+                      {extra}
+                      <Bar 
+                        height={230}
+                        size={25} 
+                        color={['#FEA101', '#FF8465', '#3AC9A8']}
+                        axisLine={null}
+                        axisValueLabel={null}
+                        legend={false}
+                        padding={['10%',0]}
+                        formatPercent={val => formatPercent(val)}
+                        fieldsMap={{
+                          x: 'name', 
+                          keyMap: {
+                            'materialRateLastMonth': '上月',
+                            'materialRate': '当月',
+                            'materialRateLastYear': '去年'
+                          }
+                        }}
+                        useShape
+                        data={supplyModule} 
+                      />
+                    </div>
+                  ) : 
+                  (
+                    <div className={styles.dailyConsumable}>
+                      {supplyModule.map(data => {
+                        return (
+                          <div className={styles.part} key={data.name}>
+                            <div className={styles.item}>{data.name}</div>
+                            <div className={styles.ratio}>{formatPercent(data.materialRate)}</div>
+                          </div>
+                        )
+                      })}
+                      <Divider type="vertical" className={styles.vertical}/>
+                    </div>
+                  )
+                ) : (<NoData />)
+              }
+            </Card>         
           </Col>
           <Col xl={12} lg={12} md={24} sm={24} xs={24}>
-            {rangeDateType === 'monthly' ? (
-              <Card
-                loading={loading}             
-                title="医疗质量"
-                style={cardStyle}
-                bodyStyle={{
-                  padding: '0 20px',
-                  height: 273,
-                  textAlign: 'center'
-                }}
-                hoverable
-                onClick={() => this.handleCardClick(1)}>
-                <div className={styles.monthlyQuality}>
-                  <WaterWave height={161} percent={68} />
-                  <Compare value={medicalQuantityModule&&medicalQuantityModule.completeMedicalRecordsRate} />
-                  <div className={styles.item}>运行病历按时完成率</div> 
-                </div>  
-              </Card>  
-              ) : (
-              <Card
-                loading={loading}             
-                title="医疗质量"
-                style={cardStyle}
-                bodyStyle={{
-                  padding: '0 20px',
-                  minHeight: 108
-                }}
-                hoverable
-                onClick={() => this.handleCardClick(1)}>
-                <div className={styles.horizontalProgress}>
-                  <div style={{flex: 1}}>
-                    <Progress 
-                      percent={medicalQuantityModule&&medicalQuantityModule.completeMedicalRecordsRate}
-                      width={20}
-                      radius={8}
-                      color="#3AC9A8"
-                      background="#C5EFE5"
-                      textSize={20}
-                    />
-                  </div>
-                  <div className={styles.item}>运行病历按时完成率</div> 
-                </div>  
-              </Card>
-            )}   
+            <Card
+              loading={loading}             
+              title="医疗质量"
+              style={cardStyle}
+              bodyStyle={{
+                padding: '0 20px',
+                height: rangeDateType === 'monthly' ? 273 : 148,
+                textAlign: 'center'
+              }}
+              hoverable={medicalQuantityModule ? true : false}
+              onClick={() => medicalQuantityModule && this.handleCardClick(1)}>
+              {medicalQuantityModule ? 
+                (rangeDateType === 'monthly' ? 
+                  (
+                    <div className={styles.monthlyQuality}>
+                      <WaterWave height={161} percent={68} />
+                      <Compare value={medicalQuantityModule.completeMedicalRecordsRate} />
+                      <div className={styles.item}>运行病历按时完成率</div> 
+                    </div>
+                  ) : 
+                  (
+                    <div className={styles.horizontalProgress}>
+                      <div style={{flex: 1}}>
+                        <Progress 
+                          percent={medicalQuantityModule.completeMedicalRecordsRate}
+                          width={20}
+                          radius={8}
+                          color="#3AC9A8"
+                          background="#C5EFE5"
+                          textSize={20}
+                        />
+                      </div>
+                      <div className={styles.item}>运行病历按时完成率</div> 
+                    </div>
+                  )
+                ) : (<NoData />)
+              }
+            </Card>    
           </Col>       
         </Row>
 
@@ -379,131 +366,125 @@ export default class Emphasis extends PureComponent {
             <Card
               loading={loading}
               title="手术和占比"
-              hoverable
+              hoverable={surgeryModule ? true : false}
               style={cardStyle}
               bodyStyle={{ 
-                minHeight: 260, 
+                height: 260, 
                 padding: '0 10px 20px 20px',
               }}
-              onClick={() => this.handleCardClick(2)}> 
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center',
-                height: '100%'
-              }}>
-                <div style={{
-                  flex: 1,
-                  marginRight: 30
-                }}>
-                  {surgeryData.slice(7).map(data => {
-                    return (
-                      <div className={styles.surgeryCard} style={{ width: '100%' }} key={data.item}>
-                        <div className={styles.item}>{data.item}</div>
-                        <div className={styles.count}>
-                          <div className={styles.left}>{data.count}</div>
-                          {rangeDateType === 'monthly' && (
-                            <div className={styles.right}>
-                              <Compare value={data.mom} />
+              onClick={() => surgeryModule && this.handleCardClick(2)}> 
+              {surgeryModule ? 
+                (
+                  <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center',
+                    height: '100%'}}>
+                    <div style={{
+                      flex: 1,
+                      marginRight: 30}}>
+                      {surgeryData.slice(7).map(data => {
+                        return (
+                          <div className={styles.surgeryCard} style={{ width: '100%' }} key={data.item}>
+                            <div className={styles.item}>{data.item}</div>
+                            <div className={styles.count}>
+                              <div className={styles.left}>{data.count}</div>
+                              {rangeDateType === 'monthly' && (
+                                <div className={styles.right}>
+                                  <Compare value={data.mom} />
+                                </div>
+                              )}       
                             </div>
-                          )}       
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-                <div style={{
-                  flex: 5
-                }}>
-                  {surgeryData.slice(0, 7).map(data => {
-                    return (
-                      <div style={{
-                        display: 'inline-block',
-                        width: '25%',
-                        padding: '0 10px',
-                      }} key={data.item}>
-                        <div className={styles.surgeryCard}>
-                          <div className={styles.item}>{data.item}</div>
-                          <div className={styles.count}>
-                            <div className={styles.left}>{data.count}</div>
-                            <div className={styles.right}>{formatPercent(data.rate)}</div>
                           </div>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div> 
-              </div>     
+                        )
+                      })}
+                    </div>
+                    <div style={{
+                      flex: 5}}>
+                      {surgeryData.slice(0, 7).map(data => {
+                        return (
+                          <div style={{
+                            display: 'inline-block',
+                            width: '25%',
+                            padding: '0 10px',
+                          }} key={data.item}>
+                            <div className={styles.surgeryCard}>
+                              <div className={styles.item}>{data.item}</div>
+                              <div className={styles.count}>
+                                <div className={styles.left}>{data.count}</div>
+                                <div className={styles.right}>{formatPercent(data.rate)}</div>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div> 
+                  </div>
+                ) : (<NoData />)
+              }               
             </Card>
           </Col>
           <Col xl={10} lg={24} md={24} sm={24} xs={24}>
-            {rangeDateType === 'daily' ? (
-              <Card
-                loading={loading}
-                title="床位"
-                hoverable
-                bodyStyle={{ 
-                  minHeight: 260,
-                  padding: '0 10px 20px 38px'
-                }}
-                style={cardStyle}
-                onClick={() => this.handleCardClick(3)}
-              >
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center' 
-                }}>
-                  <div>
-                    {badSpace.map(data => {
-                      return (
-                        <div className={styles.badSpaceLegend} key={data.item}>
-                          <span className={styles.point} style={{ background: data.color}}></span>
-                          <span className={styles.item}>{data.item}</span>
-                          <div style={{ color: data.color, fontSize: 20, paddingLeft: 20 }}>{data.count}</div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                  <div style={{flex: 1}}>            
-                    <Pie
-                      innerRadius={0.6}
-                      subTitle="使用床位"
-                      total={bedModule.totalBedCount}
-                      data={badSpace}
-                      height={240}
-                      colors={['#FEA101', '#FF8465', '#53BDE7']}
-                    />
-                  </div>
-                </div>
-              </Card>
-            ) : (
-              <Card
-                loading={loading}
-                title="床位"
-                style={cardStyle}
-                bodyStyle={{ 
-                  minHeight: 260, 
-                }}
-                hoverable
-                onClick={() => this.handleCardClick(3)}
-              >
-                <div className={styles.rowCardContent}>
-                  {badSpace.map(data => {
-                    return (
-                      <div className={styles.part} key={data.item}>
-                        <div className={styles.partOne}>{data.item}</div>
-                        <div className={styles.partTwo} style={{ color: data.color }}>{data.count || '--'}</div>
-                        {rangeDateType === 'monthly' && (
-                          <div className={styles.partThree}>
-                            <Compare value={data.mom} />
-                          </div>
-                        )}                        
+            <Card
+              loading={loading}
+              title="床位"
+              hoverable={bedModule ? true : false}
+              bodyStyle={{ 
+                height: 260,
+                padding: rangeDateType === 'daily' ? '0 10px 20px 38px' : '30px 0'
+              }}
+              style={cardStyle}
+              onClick={() => bedModule && this.handleCardClick(3)}>
+              {bedModule ? 
+                (
+                  rangeDateType === 'daily' ? 
+                  (
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center'}}>
+                      <div>
+                        {badSpace.map(data => {
+                          return (
+                            <div className={styles.badSpaceLegend} key={data.item}>
+                              <span className={styles.point} style={{ background: data.color}}></span>
+                              <span className={styles.item}>{data.item}</span>
+                              <div style={{ color: data.color, fontSize: 20, paddingLeft: 20 }}>{data.count}</div>
+                            </div>
+                          )
+                        })}
                       </div>
-                    )                 
-                  })}
-                  <div className={styles.bedVertical} style={{ left: '50%' }}></div>
-                </div>
-              </Card>
-            )}
+                      <div style={{flex: 1}}>            
+                        <Pie
+                          innerRadius={0.6}
+                          subTitle="使用床位"
+                          total={bedModule.totalBedCount}
+                          data={badSpace}
+                          height={240}
+                          colors={['#FEA101', '#FF8465', '#53BDE7']}
+                        />
+                      </div>
+                    </div>
+                  ) : 
+                  (
+                    <div className={styles.rowCardContent}>
+                      {badSpace.map(data => {
+                        return (
+                          <div className={styles.part} key={data.item}>
+                            <div className={styles.partOne}>{data.item}</div>
+                            <div className={styles.partTwo} style={{ color: data.color }}>{data.count || '--'}</div>
+                            {rangeDateType === 'monthly' && (
+                              <div className={styles.partThree}>
+                                <Compare value={data.mom} />
+                              </div>
+                            )}                        
+                          </div>
+                        )                 
+                      })}
+                      <div className={styles.bedVertical} style={{ left: '50%' }}></div>
+                    </div>
+                  )
+                ) : ( <NoData />)
+              }
+            </Card>
           </Col>
         </Row>
 
@@ -512,66 +493,74 @@ export default class Emphasis extends PureComponent {
             <Card
               loading={loading}
               title="医技"
-              bodyStyle={{ minHeight: 288, padding: '0 10px' }}
-              style={cardStyle}
-            >
-              {medicalTechnologyModule.map(item => {
-                return (
-                  <div className={styles.wrapCard} key={item.medicalTechName}>
-                    <Card
-                      className={styles.technologyCard}
-                      bodyStyle={{ padding: '6px 0 6px 0' }}
-                    >
-                      <div className={styles.item}>{item.medicalTechName}</div>
-                      <div className={styles.count}>{typeof item.medicalTechCount === 'number' ? item.medicalTechCount : '--'}</div>
-                      {rangeDateType === 'monthly' && (
-                        <div className={styles.compare}>
-                          <Compare value={item.medicalTechCountMom} />
-                        </div>
-                      )}  
-                    </Card>
-                  </div>
-                )
-              })}
+              bodyStyle={{ height: 288, padding: '0 10px' }}
+              style={cardStyle}>
+              {medicalTechnologyModule ? 
+                (
+                  medicalTechnologyModule.map(item => {
+                    return (
+                      <div className={styles.wrapCard} key={item.medicalTechName}>
+                        <Card
+                          className={styles.technologyCard}
+                          bodyStyle={{ padding: '6px 0 6px 0' }}>
+                          <div className={styles.item}>{item.medicalTechName}</div>
+                          <div className={styles.count}>{typeof item.medicalTechCount === 'number' ? item.medicalTechCount : '--'}</div>
+                          {rangeDateType === 'monthly' && (
+                            <div className={styles.compare}>
+                              <Compare value={item.medicalTechCountMom} />
+                            </div>
+                          )}  
+                        </Card>
+                      </div>
+                    )
+                  })
+                ) : (<NoData />)
+              }
             </Card>
           </Col>
           <Col xl={10} lg={24} md={24} sm={24} xs={24}>
             <Card
               loading={loading}
               title="预约"
-              hoverable
-              bodyStyle={{ minHeight: 288, padding: '0 20px' }}
+              hoverable={reservationModule ? true : false}
+              bodyStyle={{ height: 288, padding: '0 20px' }}
               style={cardStyle}
-              onClick={() => this.handleCardClick(4)}
-            >
-              <div className={styles.rowCardContent}>
-                {appointment.map(data => {
-                  return (
-                    <div className={styles.part} key={data.item}>
-                      <div className={styles.partOne}>{data.item}</div>
-                      <div className={styles.partTwo} style={{ color: data.color }}>{data.count || '--'}</div>
-                      {rangeDateType === 'monthly' && (
-                        <div className={styles.partThree}>
-                          <Compare value={data.mom} />
-                        </div>
-                      )}  
+              onClick={() => reservationModule && this.handleCardClick(4)}>
+              {reservationModule ? 
+                (
+                  <div>
+                    <div className={styles.rowCardContent}>
+                      {appointment.map(data => {
+                        return (
+                          <div className={styles.part} key={data.item}>
+                            <div className={styles.partOne}>{data.item}</div>
+                            <div className={styles.partTwo} style={{ color: data.color }}>{data.count || '--'}</div>
+                            {rangeDateType === 'monthly' && (
+                              <div className={styles.partThree}>
+                                <Compare value={data.mom} />
+                              </div>
+                            )}  
+                          </div>
+                        )                 
+                      })}             
                     </div>
-                  )                 
-                })}             
-              </div>
-              <div className={styles.horizontalProgress}>
-                <div style={{flex: 1}}>
-                  <Progress 
-                    percent={reservationModule.visitRate}
-                    width={20}
-                    radius={8}
-                    color='#FF8465'
-                    background='#FCDFD8'
-                    textSize={20}
-                  />
-                </div>
-                <div className={styles.item}>预约就诊率</div> 
-              </div>
+                    <div className={styles.horizontalProgress}>
+                      <div style={{flex: 1}}>
+                        <Progress 
+                          percent={reservationModule.visitRate}
+                          width={20}
+                          radius={8}
+                          color='#FF8465'
+                          background='#FCDFD8'
+                          textSize={20}
+                        />
+                      </div>
+                      <div className={styles.item}>预约就诊率</div> 
+                    </div>
+                  </div>
+                ) : 
+                (<NoData />)
+              }             
             </Card>
           </Col>
         </Row>

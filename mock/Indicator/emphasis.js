@@ -220,7 +220,7 @@ const emphasis_daily = {
 export function getMockEmphasis(req, res, u) {
   let result = {};
   console.log(req.query)
-  result = computeDays(req.query.beginDate, req.query.endDate) > 14 ? emphasis_monthly : emphasis_daily;
+  result = computeDays(req.query.beginDate, req.query.endDate) >= 14 ? emphasis_monthly : emphasis_daily;
   if (res && res.json) {
     res.json(result);
   } else {
