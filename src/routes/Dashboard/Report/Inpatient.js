@@ -75,7 +75,7 @@ export default class Inpatient extends Component {
         </div>
         <Card
           loading={loading}
-          title="不同科室本期入院和出院人数"
+          title="本期不同科室入院和出院人数"
           bodyStyle={{ padding: '0 20px', minHeight: 420 }}
           style={cardStyle}
         >
@@ -95,7 +95,7 @@ export default class Inpatient extends Component {
         </Card>
         <Card
           loading={loading}
-          title="不同科室在院人次"
+          title="本期不同科室在院人次"
           bodyStyle={{ padding: '0 20px', minHeight: 420 }}
           style={cardStyle}
         >
@@ -125,23 +125,24 @@ export default class Inpatient extends Component {
           >
             {rangeDate > 31 ? (
               <LineOrArea
-                area
+                //area
                 line
+                point
                 legend={false}
-                shape="smooth"
+                //shape="smooth"
                 areaColor={['#FFDB9C', '#CCC']}
                 lineColor={['#FEA101', '#CCC']}
                 fillOpacity={[0.5, 0.2]}
                 height={400}
                 titleMap={{
-                  x: 'dateStr',
+                  x: 'date',
                   filedsMap: {
                     入院人数: '入院人数',
                     出院人数: '出院人数',
                   },
                 }}
-                data={dailyStatisticInfoData}
-              />
+                xAxisRotate={30}
+                data={dailyStatisticInfoData} />
             ) : (
               <Bar
                 height={400}
@@ -157,8 +158,10 @@ export default class Inpatient extends Component {
                     出院人数: '出院人数',
                   },
                 }}
-                data={dailyStatisticInfoData}
-                chartSetting={
+                keyLabelRotate={30}
+                keyLabelTextAlign='start'
+                data={dailyStatisticInfoData} 
+                chartSetting= {
                   {
                     scale: {
                       date: {
@@ -192,6 +195,7 @@ export default class Inpatient extends Component {
               areaColor={['#FFDB9C']}
               lineColor={['#FEA101']}
               grid={null}
+              xAxisRotate={30}
             />
           </Card>
         ) : null}

@@ -48,14 +48,36 @@ export default class Bedspace extends Component {
     const { rangeDateType, isOneDay } = this.state;
     const { bedspace, loading, date } = this.props;
     const {
-      internalSliceBedInfoModule = {}, // 内科片床位使用率
-      surgicalSliceBedInfoModule = {}, // 外科片床位使用率
-      specialSliceBedInfoModule = {}, // 特殊科室片区床位使用率
-      diffSickBlockInfoModule = [], // 本月不同病区加床数和床位周转次数
-      highestTurnoverTopTenModule = [], // 床位周转率最高的前十科室
-      lowestTurnoverTopTenModule = [], // 床位周转率最低的前十科室
+      internalSliceBedInfoModule = {}, //内科片床位使用率
+      surgicalSliceBedInfoModule = {}, //外科片床位使用率
+      specialSliceBedInfoModule = {}, //特殊科室片区床位使用率
+      diffSickBlockInfoModule = [], //本期不同病区加床数和床位周转次数
+      highestTurnoverTopTenModule = [], //床位周转率最高的前十科室
+      lowestTurnoverTopTenModule = [] //床位周转率最低的前十科室
     } = bedspace;
-
+    
+    if(diffSickBlockInfoModule) {
+      let area = {};
+      diffSickBlockInfoModule.forEach(data => {
+        if(area.hasOwnProperty(data.areaName)){
+          area[data.areaName] += 1;
+        }else {
+          area[data.areaName] = 1;
+        }
+      })
+      for(let [key, value] of Object.entries(area)) {
+        let mark = false;
+        diffSickBlockInfoModule.forEach(data => {
+          if(!mark && data.areaName === key) {
+            data.setLength = value;
+            mark = true;
+          }else if(data.areaName === key) {
+            data.setLength = 0;
+          }
+        })
+      }
+    }
+    
     const internalData = [
       {
         item: '内科片区核定床位',
@@ -103,30 +125,50 @@ export default class Bedspace extends Component {
         title: '片区',
         dataIndex: 'areaName',
         key: '1',
-      },
+        render: (value, row, index) => {
+          const obj = {
+            children: value,
+            props: {},
+          };
+          console.log(row)
+          if (row.setLength) {
+            obj.props.rowSpan = row.setLength;
+          }else if(row.setLength == 0) {
+            obj.props.rowSpan = row.setLength;
+          }else{
+            obj.props.rowSpan = 1;
+          }
+          return obj;
+        },
+        width: 100
+      }, 
       {
         title: '病区',
         dataIndex: 'wardName',
         key: '2',
+        width: 110
       },
       {
         title: '床位周转次数',
         dataIndex: 'turnoverRate',
         key: '4',
+        width: 120
       },
       {
         title: '床位周转次数环比数据',
         dataIndex: 'turnoverRateMom',
         key: '5',
-        render: (text) => {
-          return formatPercent(text);
+        render: text => {
+          return <Compare value={text} />
         },
+        width: 160
       },
     ];
     const cardStyle = {
       marginBottom: 20,
-      boxShadow: '0 0 4px 0 #E8E8E8',
-    };
+      boxShadow: "0 0 4px 0 #E8E8E8",
+      flex: 1
+    }
     return (
       <Fragment>
         <div style={{
@@ -313,6 +355,7 @@ export default class Bedspace extends Component {
                   legend={false}
                   data={specialSliceBedInfoModule.diffSickBlockBedUsedInfo}
                   shapeTypes={['borderRadius']}
+                  keyLabelTextAlign='start'
                   labelSetting={{
                       htmlTemplate: (text, item, index) => `<div
                        style='transform: translate(10%, 100%);
@@ -327,94 +370,86 @@ export default class Bedspace extends Component {
             </Col>
           </Row>
         ) : (
-          <Row gutter={24}>
-            <Col xl={11} lg={24} md={24} sm={24} xs={24}>
-              <Card
-                loading={loading}
-                title="本期不同病区加床数和床位周转次数"
-                bodyStyle={{
-                  minHeight: 582,
-                  padding: 0,
-                }}
-                style={cardStyle}
-              >
-                <Table
+          <div className="autoHeightCardWrap">
+            <div className="autoHeightCard" style={{ marginRight: 20, width: '50%' }}>
+              <div className="cardTitle">本期不同病区床位周转次数</div>
+              <div className="cardBody" style={{ padding: 0 }}>
+                <Table 
                   loading={loading}
                   dataSource={diffSickBlockInfoModule}
                   columns={columns}
                   pagination={false}
-                  rowClassName={(record, index) =>
-                    (index % 2 === 0 ? 'stripe' : '')
-                  }
+                  scroll={{ y: true }}
+                  // rowClassName={(record, index) => 
+                  //   index % 2 === 0 ? 'stripe' : ''
+                  // }
                 />
+              </div>
+            </div>
+            <div style={{ 
+              width: '50%',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column'
+            }}>
+              <Card
+                loading={loading}
+                title="床位周转率最高的前十科室"
+                style={{
+                  marginBottom: 20,
+                  boxShadow: "0 0 4px 0 #E8E8E8",
+                  flex: 1
+                }}
+                bodyStyle={{ 
+                  padding: '0 20px',                
+                }}>
+                  <Bar 
+                    height={230}
+                    size={25}
+                    pbg={null}
+                    grid={null} 
+                    padding={[20, 40, 50, 45]}
+                    legend={false}
+                    color="#3AC9A8"
+                    formatPercent={val => formatPercent(val)}
+                    fieldsMap={{
+                        x: 'departName', 
+                        keyMap: {
+                          'turnoverRate': '周转率'
+                        }
+                      }}
+                    data={highestTurnoverTopTenModule} />      
               </Card>
-            </Col>
-            <Col xl={13} lg={24} md={24} sm={24} xs={24}>
-              <Row gutter={24}>
-                <Col>
-                  <Card
-                    loading={loading}
-                    title="床位周转率最高的前十科室"
-                    style={cardStyle}
-                    bodyStyle={{
-                      height: 250,
-                      padding: '0 20px',
+              <Card
+                loading={loading}
+                title="床位周转率最低的前十科室"
+                style={{
+                  boxShadow: "0 0 4px 0 #E8E8E8",
+                  flex: 1
+                }}
+                bodyStyle={{ 
+                  padding: '0 20px',
+                }}> 
+                  <Bar 
+                    height={230}
+                    size={25}
+                    pbg={null}
+                    grid={null}
+                    padding={[20, 40, 50, 45]} 
+                    legend={false}
+                    color="#53BDE7"
+                    formatPercent={val => formatPercent(val)}
+                    fieldsMap={{
+                      x: 'departName', 
+                      keyMap: {
+                        'turnoverRate': '周转率'
+                      }
                     }}
-                  >
-                    <Bar
-                        height={230}
-                        size={25}
-                        pbg={null}
-                        grid={null}
-                        padding={[20, 40, 50, 45]}
-                        legend={false}
-                        color="#3AC9A8"
-                        formatPercent={val => formatPercent(val)}
-                        fieldsMap={{
-                            x: 'departName',
-                            keyMap: {
-                              turnoverRate: '周转率',
-                            },
-                          }}
-                        data={highestTurnoverTopTenModule}
-                      />
-                  </Card>
-                </Col>
-              </Row>
-              <Row gutter={24}>
-                <Col>
-                  <Card
-                    loading={loading}
-                    title="床位周转率最低的前十科室"
-                    style={cardStyle}
-                    bodyStyle={{
-                      height: 250,
-                      padding: '0 20px',
-                    }}
-                  >
-                    <Bar
-                        height={230}
-                        size={25}
-                        pbg={null}
-                        grid={null}
-                        padding={[20, 40, 50, 45]}
-                        legend={false}
-                        color="#53BDE7"
-                        formatPercent={val => formatPercent(val)}
-                        fieldsMap={{
-                          x: 'departName',
-                          keyMap: {
-                            turnoverRate: '周转率',
-                          },
-                        }}
-                        data={lowestTurnoverTopTenModule}
-                      />
-                  </Card>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        )}
+                    data={lowestTurnoverTopTenModule} />      
+              </Card>
+            </div>  
+          </div>
+        )}  
       </Fragment>
     );
   }

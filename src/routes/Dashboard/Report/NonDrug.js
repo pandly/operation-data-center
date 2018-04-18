@@ -62,7 +62,7 @@ export default class NonDrug extends Component {
         width: 160
       }, 
       {
-        title: '门诊非药物中医治疗数',
+        title: '门诊非药物中医诊疗人次',
         dataIndex: 'patientNonDrugCount',
         key: 'patientNonDrugCount',
         width: 200

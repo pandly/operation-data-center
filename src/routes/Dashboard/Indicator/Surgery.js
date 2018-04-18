@@ -71,25 +71,25 @@ export default class Surgery extends Component {
       diffLevelSurgeryModule = [] 
     } = surgery;
     
-    const diffCategorySurgeryData = diffCategorySurgeryModule && transformArr(diffCategorySurgeryModule);
-    const diffLevelSurgeryData = diffLevelSurgeryModule && transformArr(diffLevelSurgeryModule);
+    const diffCategorySurgeryData = diffCategorySurgeryModule && transformArr(diffCategorySurgeryModule).map(ele=>({...ele,...{date:ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/,'$1-$2-$3')}}));
+    const diffLevelSurgeryData = diffLevelSurgeryModule && transformArr(diffLevelSurgeryModule).map(ele=>({...ele,...{date:ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/,'$1-$2-$3')}}));
     
     const levelMap = [
       {
         key: 1,
-        name: '一类手术'
+        name: '一类'
       },
       {
         key: 2,
-        name: '二类手术'
+        name: '二类'
       },
       {
         key: 3,
-        name: '三类手术'
+        name: '三类'
       },
       {
         key: 4,
-        name: '四类手术'
+        name: '四类'
       },
       {
         key: 5,
@@ -211,13 +211,14 @@ export default class Surgery extends Component {
         {rangeDateType === 'daily' && (
           <div className="autoHeightCardWrap">
             <div className="autoHeightCard" style={{ marginRight: 20, width: '50%' }}>
-              <div className="cardTitle">门急诊、择期手术名称和例数</div>
-              <div className="cardBody" style={{ padding: 0 }}>
-                <Tabs 
-                  onChange={this.changeTypeTab} 
-                  type='card'>
-                  {typeMap.map(data => <TabPane tab={data.name} key={data.key}></TabPane>)}
-                </Tabs>
+              <div className="cardTitle">急诊、择期手术名称和例数</div>
+              <Tabs 
+                onChange={this.changeTypeTab} 
+                type='card'
+                style={{ zIndex: 2 }}>
+                {typeMap.map(data => <TabPane tab={data.name} key={data.key}></TabPane>)}
+              </Tabs>
+              <div className="cardBody" style={{ padding: 0, top: 100 }}>
                 <Table 
                   loading={loading}
                   dataSource={diffCategorySurgeryModule}
@@ -232,10 +233,13 @@ export default class Surgery extends Component {
             </div>
             <div className="autoHeightCard" style={{ width: '50%' }}>
               <div className="cardTitle">不同级别手术名称和例数</div>
-              <div className="cardBody" style={{ padding: 0 }}>
-                <Tabs onChange={this.changeLevelTab} type='card'>
-                  {levelMap.map(data => <TabPane tab={data.name} key={data.key}></TabPane>)}
-                </Tabs>
+              <Tabs 
+                onChange={this.changeLevelTab} 
+                type='card' 
+                style={{ zIndex: 2 }}>
+                {levelMap.map(data => <TabPane tab={data.name} key={data.key}></TabPane>)}
+              </Tabs>
+              <div className="cardBody" style={{ padding: 0, top: 100 }}>
                 <Table 
                   loading={loading}
                   dataSource={diffLevelSurgeryModule}
@@ -253,7 +257,7 @@ export default class Surgery extends Component {
         {rangeDateType === 'monthly' && (
           <Card
             loading={loading}
-            title="本期每天不同级别手术例数"
+            title="本期每天不同类别手术例数"
             bodyStyle={{ padding: '0 20px', minHeight: 420 }}
             style={cardStyle}
           >
@@ -272,13 +276,23 @@ export default class Surgery extends Component {
               dodge={-1}
               keyLabelRotate={30}
               label={false}
+              keyLabelTextAlign='start'
+              chartSetting= {
+                {
+                  scale:{
+                    date:{
+                      type: 'cat'
+                    }
+                  }
+                }
+              }
             />
           </Card>
         )}
         {rangeDateType === 'monthly' && (
           <Card
             loading={loading}
-            title="本期每天不同类别手术例数"
+            title="本期每天不同级别手术例数"
             bodyStyle={{ padding: '0 20px', minHeight: 420 }}
             style={cardStyle}
           >

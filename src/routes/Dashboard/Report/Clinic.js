@@ -184,6 +184,7 @@ export default class Clinic extends Component {
                         verticalAlign:middle
                     '>${text} </div>`,
                 }}
+                keyLabelTextAlign='start'
                 />
             </Card>
           </Col>
@@ -220,6 +221,7 @@ export default class Clinic extends Component {
                         verticalAlign:middle
                     '>${text} </div>`,
                 }}
+                keyLabelTextAlign='start'
                 />
             </Card>
           </Col>
@@ -256,6 +258,7 @@ export default class Clinic extends Component {
                         verticalAlign:middle
                     '>${text} </div>`,
                 }}
+                keyLabelTextAlign='start'
                 />
             </Card>
           </Col>
@@ -300,6 +303,7 @@ export default class Clinic extends Component {
                   门急诊人次: '门急诊人次',
                 },
               }}
+              xAxisRotate={30}
               data={dailyOutpatientEmergencyData}
               scale={{
                 date: {

@@ -74,6 +74,7 @@ export default class LineOrArea extends React.Component {
               name={titleMap.x}
               label={xlabel}
               line={axisLine}
+              tickLine={null}
             />
             <Axis 
               grid={null}

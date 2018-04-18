@@ -189,7 +189,7 @@ export default class Emphasis extends PureComponent {
     ]
     const badSpace = rangeDateType === 'daily' ? [
       {
-        item: '急诊留观使用床位',
+        item: '急诊病区使用床位',
         count: bedModule.emergencyBedCount,
         color: '#FEA101'
       },
@@ -378,7 +378,7 @@ export default class Emphasis extends PureComponent {
           <Col xl={14} lg={24} md={24} sm={24} xs={24}>
             <Card
               loading={loading}
-              title="手术"
+              title="手术和占比"
               hoverable
               style={cardStyle}
               bodyStyle={{ 
@@ -564,7 +564,7 @@ export default class Emphasis extends PureComponent {
                   <Progress 
                     percent={reservationModule.visitRate}
                     width={20}
-                    radius={2}
+                    radius={8}
                     color='#FF8465'
                     background='#FCDFD8'
                     textSize={20}

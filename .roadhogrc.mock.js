@@ -17,6 +17,21 @@ const noProxy = process.env.NO_PROXY === 'true';
 console.log('proxy:' + noProxy);
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 const proxy = {
+  'GET /api/currentUser': {
+    $desc: "获取当前用户接口",
+    $params: {
+      pageSize: {
+        desc: '分页',
+        exp: 2,
+      },
+    },
+    $body: {
+      name: '沈浩',
+      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
+      userid: '00000001',
+      notifyCount: 12,
+    },
+  },
   'GET /api/today_dynamic_info': mock_dynamic,
   'GET /api/total_outemer_info': mock_clinic,
   'GET /api/tcm_prescription_info': mock_prescription,
