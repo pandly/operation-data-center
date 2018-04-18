@@ -28,6 +28,7 @@ export default class LineOrArea extends React.Component {
       type = 'line',
       shape,
       xAxisRotate,
+      scale
     } = this.props;
     
     const position = `${titleMap.x}*value`
@@ -64,10 +65,11 @@ export default class LineOrArea extends React.Component {
       stroke: '#e8e8e8',
       lineWidth: 1
     };
+
     return (
       <div className={styles.timelineChart} style={{ height: height }}>
         <div>
-          <Chart height={height} padding={padding || 'auto'} data={dv} forceFit>
+          <Chart height={height} padding={padding || 'auto'} data={dv} forceFit scale={scale}>
             <Axis 
               name={titleMap.x}
               label={xlabel}

@@ -9,6 +9,7 @@ export interface ITimelineChartProps {
   padding?: [number, number, number, number];
   height?: number;
   style?: React.CSSProperties;
+  scale?: object;
 }
 
 export default class TimelineChart extends React.Component<

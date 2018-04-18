@@ -11,7 +11,7 @@ import {
 import {
   Pie,
   Bar,
-  WaterWave
+  WaterWave,
 } from 'components/Charts';
 import Progress from '../../../components/Progress';
 import Compare from '../../../components/Compare';
@@ -34,15 +34,15 @@ export default class Emphasis extends PureComponent {
     rangePickerValue: getRangePickerValue(this.props.date.indicator),
     rangeDateType: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) < 14 ? 'daily' : 'monthly',
   };
- 
+
   componentDidMount() {
     const { date } = this.props;
     this.props.dispatch({
       type: 'emphasis/fetch',
       payload: {
         beginDate: date.indicator.beginDate,
-        endDate: date.indicator.endDate
-      }
+        endDate: date.indicator.endDate,
+      },
     });
   }
 
@@ -52,47 +52,48 @@ export default class Emphasis extends PureComponent {
       type: 'emphasis/clear',
     });
   }
-  
+
   handleCardClick = (num) => {
-    let params, title;
-    switch(num) {
-      case 0: 
+    let params, 
+title;
+    switch (num) {
+      case 0:
         params = 'consumable';
         title = '耗材';
         break;
-      case 1: 
+      case 1:
         params = 'quality';
         title = '医疗质量';
         break;
-      case 2: 
+      case 2:
         params = 'surgery';
         title = '手术';
         break;
-      case 3: 
+      case 3:
         params = 'bedspace';
         title = '床位';
         break;
-      case 4: 
+      case 4:
         params = 'appointment';
         title = '预约';
-        break;  
+        break;
     }
-    let path = {
+    const path = {
       pathname: `/dashboard/indicator/${params}`,
-      search: this.props.location.search
+      search: this.props.location.search,
     };
     const payload = {
       title,
       key: path.pathname,
-      content: ''
-    }
+      content: '',
+    };
     this.props.dispatch({
       type: 'tab/update',
-      payload
-    })
+      payload,
+    });
     this.props.dispatch(routerRedux.push(path));
   };
-  
+
   handleRangePickerChange = (rangePickerValue, dateStr) => {
     if(dateStr[0] === ''){
       return;
@@ -106,99 +107,99 @@ export default class Emphasis extends PureComponent {
       type: 'emphasis/fetch',
       payload: {
         beginDate: dateStr[0],
-        endDate: dateStr[1]
-      }
+        endDate: dateStr[1],
+      },
     });
     this.props.dispatch({
       type: 'date/update',
       payload: {
         indicator: {
           beginDate: dateStr[0],
-          endDate: dateStr[1]
-        }
-      }
-    })
+          endDate: dateStr[1],
+        },
+      },
+    });
   };
   disabledDate = (current) => {
-    let currentDate = new Date().toLocaleDateString() + ' 08:00:00';
+    const currentDate = `${new Date().toLocaleDateString()  } 08:00:00`;
     // can not select days after today
     return current.valueOf() >= new Date(currentDate).valueOf();
   };
   render() {
     const { rangePickerValue, rangeDateType } = this.state;
     const { emphasis, loading } = this.props;
-    
+
     const {
-      supplyModule = [], //耗材
-      medicalQuantityModule = {}, //医疗质量
-      surgeryModule = {}, //手术
-      bedModule = {}, //床位
-      medicalTechnologyModule = [], //医技
-      reservationModule = {}, //预约
+      supplyModule = [], // 耗材
+      medicalQuantityModule = {}, // 医疗质量
+      surgeryModule = {}, // 手术
+      bedModule = {}, // 床位
+      medicalTechnologyModule = [], // 医技
+      reservationModule = {}, // 预约
     } = emphasis;
 
     const surgeryData = surgeryModule && [
       {
         item: '一类',
         count: surgeryModule.oneTypeSurgeryCount,
-        rate: surgeryModule.oneTypeSurgeryRate
+        rate: surgeryModule.oneTypeSurgeryRate,
       },
       {
         item: '二类',
         count: surgeryModule.twoTypeSurgeryCount,
-        rate: surgeryModule.twoTypeSurgeryRate
+        rate: surgeryModule.twoTypeSurgeryRate,
       },
       {
         item: '三类',
         count: surgeryModule.threeTypeSurgeryCount,
-        rate: surgeryModule.threeTypeSurgeryRate
+        rate: surgeryModule.threeTypeSurgeryRate,
       },
       {
         item: '四类',
         count: surgeryModule.fourTypeSurgeryCount,
-        rate: surgeryModule.fourTypeSurgeryRate
+        rate: surgeryModule.fourTypeSurgeryRate,
       },
       {
         item: '特类',
         count: surgeryModule.specialSurgeryCount,
-        rate: surgeryModule.specialSurgeryRate
+        rate: surgeryModule.specialSurgeryRate,
       },
       {
         item: '检查操作',
         count: surgeryModule.checkOperationCount,
-        rate: surgeryModule.checkOperationRate
+        rate: surgeryModule.checkOperationRate,
       },
       {
         item: '治疗操作',
         count: surgeryModule.treatmentOperationCount,
-        rate: surgeryModule.treatmentOperationRate
+        rate: surgeryModule.treatmentOperationRate,
       },
       {
         item: '急诊手术',
         count: surgeryModule.emerSurgeryCount,
-        mom: surgeryModule.emerSurgeryCountMom
+        mom: surgeryModule.emerSurgeryCountMom,
       },
       {
         item: '择期手术',
         count: surgeryModule.electiveSurgeryCount,
-        mom: surgeryModule.electiveSurgeryCountMom
+        mom: surgeryModule.electiveSurgeryCountMom,
       },
     ]
     const badSpace = bedModule && (rangeDateType === 'daily' ? [
       {
         item: '急诊病区使用床位',
         count: bedModule.emergencyBedCount,
-        color: '#FEA101'
+        color: '#FEA101',
       },
       {
         item: '重症科医学使用床位',
         count: bedModule.citicalBedCount,
-        color: '#FF8465'
+        color: '#FF8465',
       },
       {
         item: '其他使用床位',
         count: bedModule.otherBedCount,
-        color: '#53BDE7'
+        color: '#53BDE7',
       },
     ] : [
       {
@@ -219,35 +220,35 @@ export default class Emphasis extends PureComponent {
         item: '预约人数',
         count: reservationModule.reservationCount,
         color: '#FEA101',
-        mom: reservationModule.reservationCountMom
+        mom: reservationModule.reservationCountMom,
       },
       {
         item: '预约就诊人数',
         count: reservationModule.visitCount,
         color: '#FF8465',
-        mom: reservationModule.visitCountMom
+        mom: reservationModule.visitCountMom,
       },
-    ]
+    ];
     const extra = (
       <div style={{ textAlign: 'right' }}>
         <span style={{ marginRight: 13 }}>
-          <span className={styles.extra} style={{ background: '#FEA101' }}></span>
+          <span className={styles.extra} style={{ background: '#FEA101' }} />
           <span style={{ color: '#FEA101' }}>上月</span>
         </span>
         <span style={{ marginRight: 13 }}>
-          <span className={styles.extra} style={{ background: '#FF8465' }}></span>
+          <span className={styles.extra} style={{ background: '#FF8465' }} />
           <span style={{ color: '#FF8465' }}>当月</span>
         </span>
         <span style={{ marginRight: 13 }}>
-          <span className={styles.extra} style={{ background: '#3AC9A8' }}></span>
+          <span className={styles.extra} style={{ background: '#3AC9A8' }} />
           <span style={{ color: '#3AC9A8' }}>去年当月</span>
         </span>
       </div>
-    )
+    );
     const cardStyle = {
       marginBottom: 20,
-      boxShadow: "0 0 4px 0 #E8E8E8"
-    }
+      boxShadow: '0 0 4px 0 #E8E8E8',
+    };
     return (
       <Fragment>
         <Card
@@ -560,7 +561,7 @@ export default class Emphasis extends PureComponent {
                   </div>
                 ) : 
                 (<NoData />)
-              }             
+              }
             </Card>
           </Col>
         </Row>
