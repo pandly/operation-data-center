@@ -14,7 +14,6 @@ import {
   DodgeBar,
 } from 'components/Charts';
 import styles from './Inpatient.less';
-import { scale } from 'gl-matrix/src/gl-matrix/vec2';
 
 @connect(({ inpatient, date, loading }) => ({
   inpatient,
@@ -125,11 +124,11 @@ export default class Inpatient extends Component {
           >
             {rangeDate > 31 ? (
               <LineOrArea
-                //area
+                // area
                 line
                 point
                 legend={false}
-                //shape="smooth"
+                // shape="smooth"
                 areaColor={['#FFDB9C', '#CCC']}
                 lineColor={['#FEA101', '#CCC']}
                 fillOpacity={[0.5, 0.2]}
@@ -142,7 +141,8 @@ export default class Inpatient extends Component {
                   },
                 }}
                 xAxisRotate={30}
-                data={dailyStatisticInfoData} />
+                data={dailyStatisticInfoData}
+              />
             ) : (
               <Bar
                 height={400}
@@ -159,9 +159,9 @@ export default class Inpatient extends Component {
                   },
                 }}
                 keyLabelRotate={30}
-                keyLabelTextAlign='start'
-                data={dailyStatisticInfoData} 
-                chartSetting= {
+                keyLabelTextAlign="start"
+                data={dailyStatisticInfoData}
+                chartSetting={
                   {
                     scale: {
                       date: {

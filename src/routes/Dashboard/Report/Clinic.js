@@ -184,7 +184,7 @@ export default class Clinic extends Component {
                         verticalAlign:middle
                     '>${text} </div>`,
                 }}
-                keyLabelTextAlign='start'
+                keyLabelTextAlign="start"
                 />
             </Card>
           </Col>
@@ -221,7 +221,7 @@ export default class Clinic extends Component {
                         verticalAlign:middle
                     '>${text} </div>`,
                 }}
-                keyLabelTextAlign='start'
+                keyLabelTextAlign="start"
                 />
             </Card>
           </Col>
@@ -258,7 +258,7 @@ export default class Clinic extends Component {
                         verticalAlign:middle
                     '>${text} </div>`,
                 }}
-                keyLabelTextAlign='start'
+                keyLabelTextAlign="start"
                 />
             </Card>
           </Col>
