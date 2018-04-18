@@ -102,15 +102,6 @@ export default class Clinic extends Component {
       dailyOutpatientEmergencyInfo.name = '门急诊人次';
       dailyOutpatientEmergencyData = transformArr([dailyOutpatientEmergencyInfo]);
     }
-<<<<<<< HEAD
-    // dailyOutpatientEmergencyData= [
-    //   ...dailyOutpatientEmergencyData.map(ele=>({...ele,...{data:ele['data']/2},...{type: '门急诊人次'}})),
-    //   ...dailyOutpatientEmergencyData.map(ele=>({...ele,...{data:ele['data']+200},...{type: '门急诊人次B'}})),
-    //   ...dailyOutpatientEmergencyData.map(ele=>({...ele,...{type: '门急诊人次C'}}))
-    // ]
-    registrationStatistic = registrationStatistic || {};
-=======
->>>>>>> 5f115bcc781897cd3b140a59b549bfdf50c10443
     const registrationStatisticData = [
       {
         item: '普通号',
