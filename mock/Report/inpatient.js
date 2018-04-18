@@ -2,157 +2,157 @@ const mock_inpatient = {
 	"result": {
 	    "diffDepartStatisticInfoModule": [
 	      {
-	        "admissionCount": 48,
+	        "admissionCount": 77,
 	        "departCode": "115",
-	        "recoverCount": 50,
-	        "inHospitalCount": 614,
+	        "recoverCount": 80,
+	        "inHospitalCount": 863,
 	        "departName": "风湿免疫科2"
 	      },
 	      {
-	        "admissionCount": 70,
+	        "admissionCount": 99,
 	        "departCode": "137",
-	        "recoverCount": 71,
-	        "inHospitalCount": 359,
+	        "recoverCount": 92,
+	        "inHospitalCount": 494,
 	        "departName": "儿科"
 	      },
 	      {
-	        "admissionCount": 34,
+	        "admissionCount": 52,
 	        "departCode": "147",
-	        "recoverCount": 24,
-	        "inHospitalCount": 322,
+	        "recoverCount": 34,
+	        "inHospitalCount": 448,
 	        "departName": "急诊医学科"
 	      },
 	      {
-	        "admissionCount": 68,
+	        "admissionCount": 96,
 	        "departCode": "501",
-	        "recoverCount": 65,
-	        "inHospitalCount": 900,
+	        "recoverCount": 79,
+	        "inHospitalCount": 1179,
 	        "departName": "内分泌科"
 	      },
 	      {
-	        "admissionCount": 135,
+	        "admissionCount": 193,
 	        "departCode": "502",
-	        "recoverCount": 137,
-	        "inHospitalCount": 1234,
+	        "recoverCount": 186,
+	        "inHospitalCount": 1689,
 	        "departName": "心血管内科"
 	      },
 	      {
-	        "admissionCount": 104,
+	        "admissionCount": 168,
 	        "departCode": "503",
-	        "recoverCount": 122,
-	        "inHospitalCount": 1650,
+	        "recoverCount": 176,
+	        "inHospitalCount": 2325,
 	        "departName": "呼吸内科"
 	      },
 	      {
-	        "admissionCount": 89,
+	        "admissionCount": 124,
 	        "departCode": "504",
-	        "recoverCount": 87,
-	        "inHospitalCount": 1362,
+	        "recoverCount": 120,
+	        "inHospitalCount": 1820,
 	        "departName": "神经内科"
 	      },
 	      {
-	        "admissionCount": 78,
+	        "admissionCount": 111,
 	        "departCode": "505",
-	        "recoverCount": 67,
-	        "inHospitalCount": 903,
+	        "recoverCount": 93,
+	        "inHospitalCount": 1193,
 	        "departName": "消化内科"
 	      },
 	      {
-	        "admissionCount": 87,
+	        "admissionCount": 139,
 	        "departCode": "506",
-	        "recoverCount": 95,
-	        "inHospitalCount": 1851,
+	        "recoverCount": 135,
+	        "inHospitalCount": 2531,
 	        "departName": "神经外科"
 	      },
 	      {
-	        "admissionCount": 29,
+	        "admissionCount": 37,
 	        "departCode": "507",
-	        "recoverCount": 26,
-	        "inHospitalCount": 379,
+	        "recoverCount": 30,
+	        "inHospitalCount": 449,
 	        "departName": "血管外科"
 	      },
 	      {
-	        "admissionCount": 31,
+	        "admissionCount": 56,
 	        "departCode": "508",
-	        "recoverCount": 29,
-	        "inHospitalCount": 554,
+	        "recoverCount": 47,
+	        "inHospitalCount": 769,
 	        "departName": "血液科"
 	      },
 	      {
-	        "admissionCount": 72,
+	        "admissionCount": 110,
 	        "departCode": "509",
-	        "recoverCount": 65,
-	        "inHospitalCount": 1052,
+	        "recoverCount": 101,
+	        "inHospitalCount": 1431,
 	        "departName": "肿瘤科"
 	      },
 	      {
-	        "admissionCount": 32,
+	        "admissionCount": 46,
 	        "departCode": "510",
-	        "recoverCount": 35,
-	        "inHospitalCount": 1166,
+	        "recoverCount": 48,
+	        "inHospitalCount": 1636,
 	        "departName": "老年病科"
 	      },
 	      {
-	        "admissionCount": 19,
+	        "admissionCount": 28,
 	        "departCode": "511",
-	        "recoverCount": 24,
-	        "inHospitalCount": 69,
+	        "recoverCount": 28,
+	        "inHospitalCount": 88,
 	        "departName": "眼科"
 	      },
 	      {
-	        "admissionCount": 110,
+	        "admissionCount": 153,
 	        "departCode": "512",
-	        "recoverCount": 119,
-	        "inHospitalCount": 1596,
+	        "recoverCount": 140,
+	        "inHospitalCount": 2057,
 	        "departName": "骨科(创伤)"
 	      },
 	      {
-	        "admissionCount": 21,
+	        "admissionCount": 24,
 	        "departCode": "513",
-	        "recoverCount": 24,
-	        "inHospitalCount": 602,
+	        "recoverCount": 29,
+	        "inHospitalCount": 840,
 	        "departName": "重症医学科"
 	      },
 	      {
-	        "admissionCount": 53,
+	        "admissionCount": 72,
 	        "departCode": "514",
-	        "recoverCount": 52,
-	        "inHospitalCount": 775,
+	        "recoverCount": 70,
+	        "inHospitalCount": 1052,
 	        "departName": "肛肠外科"
 	      },
 	      {
-	        "admissionCount": 163,
+	        "admissionCount": 227,
 	        "departCode": "515",
-	        "recoverCount": 154,
-	        "inHospitalCount": 1345,
+	        "recoverCount": 200,
+	        "inHospitalCount": 1733,
 	        "departName": "泌尿外科"
 	      },
 	      {
-	        "admissionCount": 81,
+	        "admissionCount": 120,
 	        "departCode": "516",
-	        "recoverCount": 78,
-	        "inHospitalCount": 1343,
+	        "recoverCount": 97,
+	        "inHospitalCount": 1732,
 	        "departName": "骨科(关节)"
 	      },
 	      {
-	        "admissionCount": 20,
+	        "admissionCount": 29,
 	        "departCode": "518",
-	        "recoverCount": 21,
-	        "inHospitalCount": 138,
+	        "recoverCount": 24,
+	        "inHospitalCount": 174,
 	        "departName": "整形外科"
 	      },
 	      {
-	        "admissionCount": 77,
+	        "admissionCount": 106,
 	        "departCode": "519",
-	        "recoverCount": 71,
-	        "inHospitalCount": 1004,
+	        "recoverCount": 100,
+	        "inHospitalCount": 1353,
 	        "departName": "胸外科、肿瘤外科"
 	      },
 	      {
-	        "admissionCount": 42,
+	        "admissionCount": 55,
 	        "departCode": "520",
-	        "recoverCount": 46,
-	        "inHospitalCount": 464,
+	        "recoverCount": 50,
+	        "inHospitalCount": 596,
 	        "departName": "风湿免疫科1"
 	      },
 	      {
@@ -163,73 +163,73 @@ const mock_inpatient = {
 	        "departName": "口腔科"
 	      },
 	      {
-	        "admissionCount": 12,
+	        "admissionCount": 13,
 	        "departCode": "522",
-	        "recoverCount": 12,
-	        "inHospitalCount": 68,
+	        "recoverCount": 13,
+	        "inHospitalCount": 74,
 	        "departName": "耳鼻喉科"
 	      },
 	      {
-	        "admissionCount": 174,
+	        "admissionCount": 238,
 	        "departCode": "523",
-	        "recoverCount": 182,
-	        "inHospitalCount": 991,
+	        "recoverCount": 215,
+	        "inHospitalCount": 1292,
 	        "departName": "妇产科"
 	      },
 	      {
-	        "admissionCount": 23,
+	        "admissionCount": 36,
 	        "departCode": "525",
-	        "recoverCount": 24,
-	        "inHospitalCount": 519,
+	        "recoverCount": 40,
+	        "inHospitalCount": 749,
 	        "departName": "感染性疾病科"
 	      },
 	      {
-	        "admissionCount": 23,
+	        "admissionCount": 37,
 	        "departCode": "526",
-	        "recoverCount": 19,
-	        "inHospitalCount": 461,
+	        "recoverCount": 34,
+	        "inHospitalCount": 647,
 	        "departName": "血透科室"
 	      },
 	      {
-	        "admissionCount": 11,
+	        "admissionCount": 15,
 	        "departCode": "527",
-	        "recoverCount": 9,
-	        "inHospitalCount": 168,
+	        "recoverCount": 12,
+	        "inHospitalCount": 225,
 	        "departName": "脑外重症室"
 	      },
 	      {
-	        "admissionCount": 66,
+	        "admissionCount": 97,
 	        "departCode": "533",
-	        "recoverCount": 63,
-	        "inHospitalCount": 830,
+	        "recoverCount": 84,
+	        "inHospitalCount": 1116,
 	        "departName": "肝胆外科"
 	      },
 	      {
-	        "admissionCount": 73,
+	        "admissionCount": 105,
 	        "departCode": "534",
-	        "recoverCount": 72,
-	        "inHospitalCount": 1261,
+	        "recoverCount": 89,
+	        "inHospitalCount": 1665,
 	        "departName": "骨科(脊柱)"
 	      },
 	      {
-	        "admissionCount": 46,
+	        "admissionCount": 75,
 	        "departCode": "582",
-	        "recoverCount": 42,
-	        "inHospitalCount": 1143,
+	        "recoverCount": 65,
+	        "inHospitalCount": 1580,
 	        "departName": "康复医学科"
 	      },
 	      {
-	        "admissionCount": 8,
+	        "admissionCount": 12,
 	        "departCode": "600",
-	        "recoverCount": 6,
-	        "inHospitalCount": 107,
+	        "recoverCount": 12,
+	        "inHospitalCount": 138,
 	        "departName": "EICU"
 	      },
 	      {
-	        "admissionCount": 73,
+	        "admissionCount": 108,
 	        "departCode": "612",
-	        "recoverCount": 77,
-	        "inHospitalCount": 542,
+	        "recoverCount": 107,
+	        "inHospitalCount": 760,
 	        "departName": "康桥院区"
 	      },
 	      {
@@ -243,6 +243,14 @@ const mock_inpatient = {
 	    "dailyStatisticInfoModule": [
 	      {
 	        "name": "在院人次",
+	        "2018年02月21日": 614,
+	        "2018年02月22日": 629,
+	        "2018年02月23日": 668,
+	        "2018年02月24日": 688,
+	        "2018年02月25日": 710,
+	        "2018年02月26日": 760,
+	        "2018年02月27日": 783,
+	        "2018年02月28日": 800,
 	        "2018年03月01日": 820,
 	        "2018年03月02日": 776,
 	        "2018年03月03日": 788,
@@ -273,10 +281,22 @@ const mock_inpatient = {
 	        "2018年03月28日": 835,
 	        "2018年03月29日": 834,
 	        "2018年03月30日": 793,
-	        "2018年03月31日": 803
+	        "2018年03月31日": 803,
+	        "2018年04月01日": 800,
+	        "2018年04月02日": 824,
+	        "2018年04月03日": 839,
+	        "2018年04月04日": 811
 	      },
 	      {
 	        "name": "出院人数",
+	        "2018年02月21日": 35,
+	        "2018年02月22日": 54,
+	        "2018年02月23日": 40,
+	        "2018年02月24日": 27,
+	        "2018年02月25日": 14,
+	        "2018年02月26日": 65,
+	        "2018年02月27日": 83,
+	        "2018年02月28日": 60,
 	        "2018年03月01日": 58,
 	        "2018年03月02日": 99,
 	        "2018年03月03日": 24,
@@ -307,10 +327,22 @@ const mock_inpatient = {
 	        "2018年03月28日": 63,
 	        "2018年03月29日": 72,
 	        "2018年03月30日": 102,
-	        "2018年03月31日": 28
+	        "2018年03月31日": 28,
+	        "2018年04月01日": 26,
+	        "2018年04月02日": 78,
+	        "2018年04月03日": 82,
+	        "2018年04月04日": 98
 	      },
 	      {
 	        "name": "入院人数",
+	        "2018年02月21日": 65,
+	        "2018年02月22日": 69,
+	        "2018年02月23日": 79,
+	        "2018年02月24日": 47,
+	        "2018年02月25日": 36,
+	        "2018年02月26日": 115,
+	        "2018年02月27日": 106,
+	        "2018年02月28日": 77,
 	        "2018年03月01日": 78,
 	        "2018年03月02日": 55,
 	        "2018年03月03日": 36,
@@ -341,7 +373,11 @@ const mock_inpatient = {
 	        "2018年03月28日": 68,
 	        "2018年03月29日": 71,
 	        "2018年03月30日": 62,
-	        "2018年03月31日": 38
+	        "2018年03月31日": 38,
+	        "2018年04月01日": 23,
+	        "2018年04月02日": 102,
+	        "2018年04月03日": 97,
+	        "2018年04月04日": 70
 	      }
 	    ]
 	}

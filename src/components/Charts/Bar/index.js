@@ -53,7 +53,7 @@ class Bar extends Component {
         offset: 15,
         textStyle: {
           textAlign: keyLabelTextAlign, // 文本对齐方向，可取值为： start center end
-          fontSize: 14,
+          fontSize: 12,
           color: '#333',
           rotate: keyLabelRotate,
         },
@@ -117,8 +117,21 @@ class Bar extends Component {
               label={axisValueLabel}
               line={axisLine}
             />
+            <Axis name={'_base'}  visible={false}/>
 
             <Tooltip showTitle />
+            {
+              showBase
+              &&<Geom  
+                size={size} 
+                type="interval" 
+                position={`${fieldsMap.x}*_base`} 
+                color={color||'#000'} 
+                shape={useShape&&shape[Symbol.for('name')]} 
+                opacity={0.3}
+                tooltip={false}
+                />
+            }
             <Geom
               size={size}
               type="interval"

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Route, Redirect, Switch } from 'dva/router';
-import NotFound from '../../Exception/404';
+import Empty from '../../../components/Empty';
 import { getRoutes } from '../../../utils/utils';
 
 export default class Indicator extends PureComponent {
@@ -26,7 +26,7 @@ export default class Indicator extends PureComponent {
           })
         }
         <Redirect exact from="/dashboard/indicator" to={path} />
-        <Route render={NotFound} />
+        <Route render={Empty} />
       </Switch>
     );
   }

@@ -276,7 +276,7 @@ const quality_monthly = {
 }
 export function getMockQuality(req, res, u) {
   let result = {};
-  result = computeDays(req.query.beginDate, req.query.endDate) > 14 ? quality_monthly : quality_daily;
+  result = computeDays(req.query.beginDate, req.query.endDate) >= 14 ? quality_monthly : quality_daily;
   if (res && res.json) {
     res.json(result);
   } else {

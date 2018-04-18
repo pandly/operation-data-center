@@ -163,6 +163,7 @@ export default class Quality extends Component {
                   'completeRecordsCount': '按时完成病历数',
                 },
               }}
+              xAxisRotate={30}
               data={diffDepartStatisticInfoModule} />
           </Card>
         )}

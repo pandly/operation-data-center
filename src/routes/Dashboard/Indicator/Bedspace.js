@@ -56,27 +56,27 @@ export default class Bedspace extends Component {
       lowestTurnoverTopTenModule = [] //床位周转率最低的前十科室
     } = bedspace;
     
-    if(diffSickBlockInfoModule) {
-      let area = {};
-      diffSickBlockInfoModule.forEach(data => {
-        if(area.hasOwnProperty(data.areaName)){
-          area[data.areaName] += 1;
-        }else {
-          area[data.areaName] = 1;
-        }
-      })
-      for(let [key, value] of Object.entries(area)) {
-        let mark = false;
-        diffSickBlockInfoModule.forEach(data => {
-          if(!mark && data.areaName === key) {
-            data.setLength = value;
-            mark = true;
-          }else if(data.areaName === key) {
-            data.setLength = 0;
-          }
-        })
-      }
-    }
+    // if(diffSickBlockInfoModule) {
+    //   let area = {};
+    //   diffSickBlockInfoModule.forEach(data => {
+    //     if(area.hasOwnProperty(data.areaName)){
+    //       area[data.areaName] += 1;
+    //     }else {
+    //       area[data.areaName] = 1;
+    //     }
+    //   })
+    //   for(let [key, value] of Object.entries(area)) {
+    //     let mark = false;
+    //     diffSickBlockInfoModule.forEach(data => {
+    //       if(!mark && data.areaName === key) {
+    //         data.setLength = value;
+    //         mark = true;
+    //       }else if(data.areaName === key) {
+    //         data.setLength = 0;
+    //       }
+    //     })
+    //   }
+    // }
     
     const internalData = [
       {
@@ -125,21 +125,20 @@ export default class Bedspace extends Component {
         title: '片区',
         dataIndex: 'areaName',
         key: '1',
-        render: (value, row, index) => {
-          const obj = {
-            children: value,
-            props: {},
-          };
-          console.log(row)
-          if (row.setLength) {
-            obj.props.rowSpan = row.setLength;
-          }else if(row.setLength == 0) {
-            obj.props.rowSpan = row.setLength;
-          }else{
-            obj.props.rowSpan = 1;
-          }
-          return obj;
-        },
+        // render: (value, row, index) => {
+        //   const obj = {
+        //     children: value,
+        //     props: {},
+        //   };
+        //   if (row.setLength) {
+        //     obj.props.rowSpan = row.setLength;
+        //   }else if(row.setLength == 0) {
+        //     obj.props.rowSpan = row.setLength;
+        //   }else{
+        //     obj.props.rowSpan = 1;
+        //   }
+        //   return obj;
+        // },
         width: 100
       }, 
       {

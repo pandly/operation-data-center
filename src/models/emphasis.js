@@ -8,7 +8,7 @@ export default {
     medicalQuantityModule: {},
     bedModule: {},
     medicalTechnologyModule: [],
-    reservationModule: [],
+    reservationModule: {},
     surgeryModule: {}
   },
 
@@ -35,7 +35,7 @@ export default {
         medicalQuantityModule: {},
         bedModule: {},
         medicalTechnologyModule: [],
-        reservationModule: [],
+        reservationModule: {},
         surgeryModule: {}
       }
     }

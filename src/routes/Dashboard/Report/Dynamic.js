@@ -92,18 +92,14 @@ export default class Dynamic extends PureComponent {
   };
   
   handleRangePickerChange = (rangePickerValue, dateStr) => {
-    const days = computeDays(dateStr[0], dateStr[1]);
-    if(days > 14) {
-      this.setState({
-        rangeDateType: 'monthly',
+    if(dateStr[0] === ''){
+      return;
+    }
+    const days = computeDays(dateStr[0], dateStr[1]);   
+    this.setState({
+        rangeDateType: days < 14 ? 'daily' : 'monthly',
         rangePickerValue
-      });
-    }else {
-      this.setState({
-        rangeDateType: 'daily',
-        rangePickerValue
-      });
-    }  
+      }); 
     this.props.dispatch({
       type: 'dynamic/fetch',
       payload: {
@@ -320,7 +316,7 @@ export default class Dynamic extends PureComponent {
                 iconName="icon-feiyaowu"             
                 color="#FF8465"
                 title="非药物中治率(门诊)"
-                content={nondrugTreatmentRateModule.nondrugTreatmentRate ? formatPercent(nondrugTreatmentRateModule.nondrugTreatmentRate).replace('%','') : '--'}
+                content={nondrugTreatmentRateModule.nondrugTreatmentRate ? formatPercent(nondrugTreatmentRateModule.nondrugTreatmentRate).replace('%','')-0 : '--'}
                 unit="%"
                 onCardClick={() => this.handleCardClick(2)}
               />
@@ -329,7 +325,7 @@ export default class Dynamic extends PureComponent {
                 loading={loading}          
                 color="#FF8465"
                 title="非药物中治率(门诊)"
-                content={nondrugTreatmentRateModule.nondrugTreatmentRate ? formatPercent(nondrugTreatmentRateModule.nondrugTreatmentRate).replace('%','') : '--'}
+                content={nondrugTreatmentRateModule.nondrugTreatmentRate ? formatPercent(nondrugTreatmentRateModule.nondrugTreatmentRate).replace('%','')-0 : '--'}
                 increase={nondrugTreatmentRateModule.nondrugTreatmentRateYoy}
                 decrease={nondrugTreatmentRateModule.nondrugTreatmentRateMom}
                 unit="%"

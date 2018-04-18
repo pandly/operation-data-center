@@ -32,25 +32,24 @@ class TabNav extends React.Component {
     this[action](targetKey);
   }
   remove = (targetKey) => {
-    const { tab, search } = this.props;
+    const { tab } = this.props;
     const { panes, activeKey } = tab;
     const panesLength = panes.length;
     let lastIndex = 0;
-    const findList = panes.findIndex(item => item.key === targetKey);
-    if(findList === 0) {
-      return;
-    }
-    findList === panesLength - 1 ? lastIndex = panesLength - 2 : lastIndex = findList + 1;
-    const lastKey = panes[lastIndex].key;
+    const findIndex = panes.findIndex(item => item.key === targetKey);
+    // if(findList === 0) {
+    //   return;
+    // }
+    findIndex === panesLength - 1 ? lastIndex = panesLength - 2 : lastIndex = findList + 1;
+    const lastKey = lastIndex >= 0 ? panes[lastIndex].key : 'empty';
     let path = {
       pathname: lastKey,
-      search
     };
     this.props.dispatch(routerRedux.push(path));
     this.props.dispatch({
       type: 'tab/delete',
       payload: {
-        findList,
+        findIndex,
         lastKey
       }
     })
