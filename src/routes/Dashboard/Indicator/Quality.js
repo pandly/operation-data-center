@@ -24,7 +24,8 @@ export default class Quality extends Component {
   
   state = {
     rangeDateType: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) < 14 ? 'daily' : 'monthly',
-    isOneDay: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) === 0 ? true : false
+    isOneDay: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) === 0 ? true : false,
+    rangeDate: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) + 1,
   };
 
   componentDidMount() {
@@ -44,16 +45,52 @@ export default class Quality extends Component {
       type: 'quality/clear',
     });
   }
-
+  
+  changeData = (oldData,fields) =>{
+    let newData = []
+    oldData.forEach(element => {
+      
+      for (const key in element) {
+        let newObj = {}
+        if (element.hasOwnProperty(key)&& key !== 'date'&&(fields||[]).indexOf(key)<0) {
+          newObj.type = key;
+          newObj.value = element[key]
+          newObj.date = element.date
+          newData.push(newObj) 
+        }
+      } 
+    });
+    return newData
+  }
+  switchTime=(length)=>{
+    if(length<=31){
+      return 1
+    }
+    if(length>31&&length<=90){
+      return 3
+    }
+    if(length>90&&length<=180){
+      return 6
+    }
+    if(length>180&&length<=270){
+      return 9
+    }
+    if(length>270&&length<=365){
+      return 12
+    }
+    if(length>365){
+      return 30
+    }
+  }
   render() {
-    const { rangeDateType, isOneDay } = this.state;
+    const { rangeDateType, isOneDay, rangeDate } = this.state;
     const { quality, loading, date } = this.props;
     let { 
       dailyStatisticInfoModule = [], 
       diffDepartStatisticInfoModule = [] 
     } = quality;
 
-    const dailyStatisticInfoData = dailyStatisticInfoModule ? transformArr(dailyStatisticInfoModule).map(ele=>({...ele,...{date:ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/,'$1-$2-$3')}})) : [];
+    const dailyStatisticInfoData = dailyStatisticInfoModule && transformArr(dailyStatisticInfoModule);
     const cardStyle = {
       padding: 0,
       marginBottom: 20,
@@ -115,30 +152,120 @@ export default class Quality extends Component {
             bodyStyle={{ 
               minHeight: 270, 
               padding: '0 10px 20px 20px',
-            }}> 
-            <Bar 
-              height={400}
-              size={15}
-              pbg={null}
-              label={false}
-              color={['#FEA101','#CCC']}
-              fieldsMap={{
-                x: 'date',
-                keyMap: {
-                  '运行病历数': '运行病历数',
-                  '按时完成病历数': '按时完成病历数'
-                }
-              }}
-              chartSetting= {
-                {
-                  scale:{
-                    date:{
-                      type: 'cat'
-                    }
+            }}>
+            {rangeDate > 31 ? (
+              <LineOrArea
+                area
+                line
+                legend
+                shape="smooth"
+                fillOpacity={[0.5, 0.2]}
+                height={400}
+                titleMap={{
+                  x: 'date',
+                  y: 'type',
+                  filedsMap: {
+                    value: 'value',
+                  },
+                }}
+                opacity={0.6}
+                xAxisRotate={30}
+                data={this.changeData(dailyStatisticInfoData,'在院人次')}
+                LegendSetting={{
+                  name:'type'
+                }}
+                GeomConfig={{
+                  line:{
+                    color:['type', '#FEA101-#eaeaea'],
+                    tooltip:['date*type*value', (date,type, value) => {
+                      return {
+                        name: type,
+                        title: date,
+                        value: value
+                      };
+                    }]
+                  },
+                  area:{
+                    color:['type', '#FFDB9C-#eaeaea'],
+                  },
+                }}
+                scale={{
+                  date: {
+                    type: 'cat',
+                    tickCount: Math.ceil(dailyStatisticInfoData.length / this.switchTime(dailyStatisticInfoData.length)),
+                    formatter: (text) => {
+                      const prev = this[Symbol.for('lastDate')];
+                      this[Symbol.for('lastDate')] = text;
+                      const prevArr =prev&&prev.match(/\d+/g)||[];
+                      const nowArr = text&&text.match(/\d+/g)||[];
+                      if (dailyStatisticInfoData.length <= 365) {
+                        if (prevArr[0] !== nowArr[0]) {
+                          return `${nowArr[0]}年${nowArr[1]}月${nowArr[2]}日`;
+                        }
+                        if (prevArr[1] !==  nowArr[1]) {
+                          return `${nowArr[1]}月${nowArr[2]}日`;
+                        }
+                        return `${nowArr[2]}日`;
+                      } else{
+                        if (prevArr[0] !== nowArr[0]) {
+                          return `${nowArr[0]}年${nowArr[1]}月`;
+                        }
+                        return `${nowArr[1]}月`;
+                      }
+                    },
+                  },
+                }}
+              />
+            ) : (
+              <Bar
+                height={400}
+                size={15}
+                pbg={null}
+                grid={null}
+                label={false}
+                color={['#FEA101', '#CCC']}
+                fieldsMap={{
+                  x: 'date',
+                  keyMap: {
+                    运行病历数: '运行病历数',
+                    按时完成病历数: '按时完成病历数',
+                  },
+                }}
+                keyLabelRotate={30}
+                keyLabelTextAlign="start"
+                data={dailyStatisticInfoData}
+                chartSetting={
+                  {
+                    scale: {
+                      date: {
+                        type: 'cat',
+                        tickCount: Math.ceil(dailyStatisticInfoData.length / this.switchTime(dailyStatisticInfoData.length)),
+                        formatter: (text) => {
+                          const prev = this[Symbol.for('lastDate')];
+                          this[Symbol.for('lastDate')] = text;
+                          const prevArr =prev&&prev.match(/\d+/g)||[];
+                          const nowArr = text&&text.match(/\d+/g)||[];
+                          if (dailyStatisticInfoData.length <= 365) {
+                            if (prevArr[0] !== nowArr[0]) {
+                              return `${nowArr[0]}年${nowArr[1]}月${nowArr[2]}日`;
+                            }
+                            if (prevArr[1] !==  nowArr[1]) {
+                              return `${nowArr[1]}月${nowArr[2]}日`;
+                            }
+                            return `${nowArr[2]}日`;
+                          } else{
+                            if (prevArr[0] !== nowArr[0]) {
+                              return `${nowArr[0]}年${nowArr[1]}月`;
+                            }
+                            return `${nowArr[1]}月`;
+                          }
+                        },
+                      },
+                    },
                   }
                 }
-              }
-              data={dailyStatisticInfoData} />
+              />
+            )}
           </Card>
         )}
         {rangeDateType === 'monthly' && (

@@ -139,27 +139,27 @@ export default class Emphasis extends PureComponent {
 
     const surgeryData = surgeryModule && [
       {
-        item: '一类',
+        item: '一类手术',
         count: surgeryModule.oneTypeSurgeryCount,
         rate: surgeryModule.oneTypeSurgeryRate,
       },
       {
-        item: '二类',
+        item: '二类手术',
         count: surgeryModule.twoTypeSurgeryCount,
         rate: surgeryModule.twoTypeSurgeryRate,
       },
       {
-        item: '三类',
+        item: '三类手术',
         count: surgeryModule.threeTypeSurgeryCount,
         rate: surgeryModule.threeTypeSurgeryRate,
       },
       {
-        item: '四类',
+        item: '四类手术',
         count: surgeryModule.fourTypeSurgeryCount,
         rate: surgeryModule.fourTypeSurgeryRate,
       },
       {
-        item: '特类',
+        item: '特殊手术',
         count: surgeryModule.specialSurgeryCount,
         rate: surgeryModule.specialSurgeryRate,
       },
@@ -327,8 +327,8 @@ export default class Emphasis extends PureComponent {
                 (rangeDateType === 'monthly' ? 
                   (
                     <div className={styles.monthlyQuality}>
-                      <WaterWave height={161} percent={68} />
-                      <Compare value={medicalQuantityModule.completeMedicalRecordsRate} />
+                      <WaterWave height={161} percent={parseFloat(formatPercent(medicalQuantityModule.completeMedicalRecordsRate))} />
+                      <Compare value={medicalQuantityModule.completeMedicalRecordsRateMom} />
                       <div className={styles.item}>运行病历按时完成率</div> 
                     </div>
                   ) : 

@@ -64,7 +64,6 @@ export default class Clinic extends Component {
     }
   }
   
-  // [{date:……, x:1,y:2}]=>[{date:……, value:1,type:'x'}, {date:……, value:2,type:'y'}]
   changeData = (oldData,fields) =>{
     let newData = []
     oldData.forEach(element => {
@@ -82,7 +81,6 @@ export default class Clinic extends Component {
     });
     return newData
   }
-
 
   render() {
     const { rangeDateType, isOneDay } = this.state;
@@ -429,7 +427,7 @@ export default class Clinic extends Component {
                       }}
                     >
                       <div className={styles.itemPart}>{data.item}</div>
-                      <div className={styles.countPart}>{data.count || '--'}</div>
+                      <div className={styles.countPart}>{data.count === undefined ? '--' : data.count}</div>
                     </Card>
                   </div>
                 );

@@ -7,7 +7,7 @@ const Empty = ({
 }) => {
 	return (
 		<div className={styles.empty}>
-	      <img className={styles.img} src={empty} alt="logo"/>  
+	      <img className={styles.img} src={empty} alt="empty"/>  
 	    </div>
 	)
 }

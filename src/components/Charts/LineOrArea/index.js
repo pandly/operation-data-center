@@ -55,7 +55,7 @@ export default class LineOrArea extends React.Component {
       textStyle: {
         textAlign: 'start', // 文本对齐方向，可取值为： start center end
         fill: '#333', // 文本的颜色
-        fontSize: '14', // 文本大小
+        fontSize: '12', // 文本大小
         //fontWeight: 'bold', // 文本粗细
         rotate: xAxisRotate, 
         //textBaseline: 'middle' // 文本基准线，可取 top middle bottom，默认为middle

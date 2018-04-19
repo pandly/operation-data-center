@@ -370,7 +370,7 @@ export default class Bedspace extends Component {
           </Row>
         ) : (
           <div className="autoHeightCardWrap">
-            <div className="autoHeightCard" style={{ marginRight: 20, width: '50%' }}>
+            <div className="autoHeightCard" style={{ marginRight: 20, width: '45%' }}>
               <div className="cardTitle">本期不同病区床位周转次数</div>
               <div className="cardBody" style={{ padding: 0 }}>
                 <Table 
@@ -379,14 +379,14 @@ export default class Bedspace extends Component {
                   columns={columns}
                   pagination={false}
                   scroll={{ y: true }}
-                  // rowClassName={(record, index) => 
-                  //   index % 2 === 0 ? 'stripe' : ''
-                  // }
+                  rowClassName={(record, index) => 
+                    index % 2 === 0 ? 'stripe' : ''
+                  }
                 />
               </div>
             </div>
             <div style={{ 
-              width: '50%',
+              width: '55%',
               height: '100%',
               display: 'flex',
               flexDirection: 'column'
@@ -407,7 +407,7 @@ export default class Bedspace extends Component {
                     size={25}
                     pbg={null}
                     grid={null} 
-                    padding={[20, 40, 50, 45]}
+                    padding={[20, 65, 50, 65]}
                     legend={false}
                     color="#3AC9A8"
                     formatPercent={val => formatPercent(val)}
@@ -434,7 +434,7 @@ export default class Bedspace extends Component {
                     size={25}
                     pbg={null}
                     grid={null}
-                    padding={[20, 40, 50, 45]} 
+                    padding={[20, 65, 50, 65]} 
                     legend={false}
                     color="#53BDE7"
                     formatPercent={val => formatPercent(val)}

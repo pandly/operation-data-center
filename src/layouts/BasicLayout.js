@@ -90,9 +90,9 @@ class BasicLayout extends React.PureComponent {
         isMobile: mobile,
       });
     });
-    // this.props.dispatch({
-    //   type: 'user/fetchCurrent',
-    // });
+    this.props.dispatch({
+      type: 'user/fetchCurrent',
+    });
   }
   getPageTitle() {
     const { routerData, location } = this.props;
@@ -130,17 +130,6 @@ class BasicLayout extends React.PureComponent {
       type: 'global/clearNotices',
       payload: type,
     });
-  }
-  handleMenuClick = ({ key }) => {
-    if (key === 'triggerError') {
-      this.props.dispatch(routerRedux.push('/exception/trigger'));
-      return;
-    }
-    if (key === 'logout') {
-      this.props.dispatch({
-        type: 'login/logout',
-      });
-    }
   }
   handleNoticeVisibleChange = (visible) => {
     if (visible) {
@@ -182,7 +171,6 @@ class BasicLayout extends React.PureComponent {
               isMobile={this.state.isMobile}
               onNoticeClear={this.handleNoticeClear}
               onCollapse={this.handleMenuCollapse}
-              onMenuClick={this.handleMenuClick}
               onNoticeVisibleChange={this.handleNoticeVisibleChange}
             />
           </Header>

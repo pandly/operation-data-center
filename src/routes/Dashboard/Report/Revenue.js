@@ -54,9 +54,7 @@ export default class Revenue extends Component {
       drugIncomeDetailsModule = {}, 
       nonDrugIncomeDetailsModule = [], 
     } = income;
-    let nonDrugLength = nonDrugIncomeDetailsModule.length;
-    let nonDrugIncomeDetailsModule1 = nonDrugIncomeDetailsModule.slice(0, nonDrugLength/2);
-    let nonDrugIncomeDetailsModule2 = nonDrugIncomeDetailsModule.slice(nonDrugLength/2);
+
     let [
       fourExpenses = {},
       drugCost = {},
@@ -178,7 +176,6 @@ export default class Revenue extends Component {
         title: '收入类别',
         dataIndex: 'incomeType',
         key: '6',
-        width: 100
       }, 
       {
         title: '收入金额',
@@ -187,7 +184,6 @@ export default class Revenue extends Component {
         render: text => {
           return yuan(text)
         },
-        width: 100
       }, 
     ];
     const drugMonthlyObj = rangeDateType === 'monthly' ? {
@@ -206,7 +202,6 @@ export default class Revenue extends Component {
       render: text => {
         return formatPercent(text)
       },
-      width: 100
     }
     drugColumn.push(drugMonthlyObj)
 
@@ -319,31 +314,14 @@ export default class Revenue extends Component {
               bodyStyle={{ padding: 0 }}
               style={{ marginBottom: 20 }}
             >
-              <div style={{ display: 'flex' }}>
                 <Table 
-                  dataSource={nonDrugIncomeDetailsModule1}
+                  dataSource={nonDrugIncomeDetailsModule}
                   columns={drugColumn}
                   pagination={false}
                   rowClassName={(record, index) => 
                     index % 2 === 0 ? 'stripe' : ''
                   }
-                  style={{
-                    width: '50%',
-                    borderRight: '1px solid #e8e8e8'
-                  }}
                 />
-                <Table 
-                  dataSource={nonDrugIncomeDetailsModule2}
-                  columns={drugColumn}
-                  pagination={false}
-                  rowClassName={(record, index) => 
-                    index % 2 === 0 ? 'stripe' : ''
-                  }
-                  style={{
-                    width: '50%'
-                  }}
-                />
-              </div>
             </Card>
           </Col>
         </Row>

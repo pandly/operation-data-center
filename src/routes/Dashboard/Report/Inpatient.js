@@ -26,7 +26,7 @@ export default class Inpatient extends Component {
   state = {
     rangeDateType: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) < 14 ? 'daily' : 'monthly',
     isOneDay: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) === 0,
-    rangeDate: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate),
+    rangeDate: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) + 1,
   };
 
   componentDidMount() {
@@ -47,7 +47,6 @@ export default class Inpatient extends Component {
     });
   }
  
-  // [{date:……, x:1,y:2}]=>[{date:……, value:1,type:'x'}, {date:……, value:2,type:'y'}]
   changeData = (oldData,fields) =>{
     let newData = []
     oldData.forEach(element => {
@@ -168,7 +167,7 @@ export default class Inpatient extends Component {
             grid={null}
           />
         </Card>
-        {rangeDateType === 'monthly' ? (
+        {rangeDateType === 'monthly' && (
           <Card
             loading={loading}
             title="本期每天入院、出院人数"
@@ -179,7 +178,6 @@ export default class Inpatient extends Component {
               <LineOrArea
                 area
                 line
-                // point
                 legend
                 shape="smooth"
                 fillOpacity={[0.5, 0.2]}
@@ -290,8 +288,8 @@ export default class Inpatient extends Component {
               />
             )}
           </Card>
-        ) : null}
-        {rangeDateType === 'monthly' ? (
+        )}
+        {rangeDateType === 'monthly' && (
           <Card
             loading={loading}
             title="本期每天在院人次"
@@ -352,7 +350,7 @@ export default class Inpatient extends Component {
               }}
             />
           </Card>
-        ) : null}
+        )}
       </Fragment>
     );
   }

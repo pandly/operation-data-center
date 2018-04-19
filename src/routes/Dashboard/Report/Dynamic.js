@@ -121,7 +121,7 @@ export default class Dynamic extends PureComponent {
   disabledDate = (current) => {
     let currentDate = new Date().toLocaleDateString() + ' 08:00:00';
     // can not select days after today
-    return current.valueOf() >= new Date(currentDate).valueOf();
+    return current.valueOf() >= new Date(currentDate).valueOf() || current.valueOf() < new Date('2016/1/1 08:00:00').valueOf();
   };
   render() {
     const { rangePickerValue, rangeDateType } = this.state;
@@ -189,60 +189,56 @@ export default class Dynamic extends PureComponent {
       },
     ]
 
-    const [
-      perOutpatientTreatFees = {}, //门诊人均诊疗费用
-      perMedicalExaminationFees = {}, //每体检人次费用
-      perPrescriptionFees = {}, //人均处方金额
-      perDaysOfRecover = {}, //出院患者平均住院日
-      perRecoverDrugFees = {}, //出院病人人均药品费用
-      perOutpatientEmergencyFees = {}, //门急诊均次费用
-      perOutpatientDrugFees = {},  //门诊人均药品费用
-      perInHospitalFees = {}, //住院均次费用
-    ] = patientBurdenModule
-    
+    let patientBurdenObject = {};
+
+    patientBurdenModule && patientBurdenModule.map(data => {
+      for(let [key, value] of Object.entries(data)) {
+        patientBurdenObject[key] = value;
+      }
+    })
     const burdenData = [
       {
         item: '门急诊均次费用',
-        count: yuan(perOutpatientEmergencyFees.perOutpatientEmergencyFees),
-        decrease: perOutpatientEmergencyFees.perOutpatientEmergencyFeesMom
+        count: yuan(patientBurdenObject.perOutpatientEmergencyFees),
+        decrease: patientBurdenObject.perOutpatientEmergencyFeesMom
       },
       {
         item: '门诊人次药品费用',
-        count: yuan(perOutpatientDrugFees.perOutpatientDrugFees),
-        decrease: perOutpatientDrugFees.perOutpatientDrugFeesMom
+        count: yuan(patientBurdenObject.perOutpatientDrugFees),
+        decrease: patientBurdenObject.perOutpatientDrugFeesMom
       },
       {
         item: '门诊人次中药费用',
-        count: yuan(perOutpatientTreatFees.perOutpatientTreatFees),
-        decrease: perOutpatientTreatFees.perOutpatientTreatFeesMom
+        count: yuan(patientBurdenObject.perOutpatientTreatFees),
+        decrease: patientBurdenObject.perOutpatientTreatFeesMom
       },
       {
         item: '平均处方金额',
-        count: yuan(perPrescriptionFees.perPrescriptionFees),
-        decrease: perPrescriptionFees.perPrescriptionFeesMom
+        count: yuan(patientBurdenObject.perPrescriptionFees),
+        decrease: patientBurdenObject.perPrescriptionFeesMom
       },
       {
         item: '住院均次费用',
-        count: yuan(perInHospitalFees.perInHospitalFees),
-        decrease: perInHospitalFees.perInHospitalFeesMom
+        count: yuan(patientBurdenObject.perInHospitalFees),
+        decrease: patientBurdenObject.perInHospitalFeesMom
       },
       {
         item: '出院病人人均药品费用',
-        count: yuan(perRecoverDrugFees.perRecoverDrugFees),
-        decrease: perRecoverDrugFees.perRecoverDrugFeesMom
+        count: yuan(patientBurdenObject.perRecoverDrugFees),
+        decrease: patientBurdenObject.perRecoverDrugFeesMom
       },
       {
         item: '每体检人次费用',
-        count: yuan(perMedicalExaminationFees.perMedicalExaminationFees),
-        decrease: perMedicalExaminationFees.perMedicalExaminationFeesMom
+        count: yuan(patientBurdenObject.perMedicalExaminationFees),
+        decrease: patientBurdenObject.perMedicalExaminationFeesMom
       },
     ]
     
     if(rangeDateType === 'monthly') {
       burdenData.splice(5, 0, {
         item: '出院患者平均住院日',
-        count: perDaysOfRecover.perDaysOfRecover,
-        decrease: perDaysOfRecover.perDaysOfRecoverMom
+        count: patientBurdenObject.perDaysOfRecover,
+        decrease: patientBurdenObject.perDaysOfRecoverMom
       })
     }
     const cardStyle = {
@@ -459,7 +455,7 @@ export default class Dynamic extends PureComponent {
                           bodyStyle={{ padding: '8px 0 10px 0' }}
                         >
                           <div className={styles.item}>{item.item}</div>
-                          <div className={styles.count}>{item.count || '--'}</div>
+                          <div className={styles.count}>{item.count === undefined ? '--' : item.count}</div>
                           {rangeDateType === 'monthly' && (
                             <div className={styles.compare}>
                               <Compare type="环比" value={item.decrease} />
