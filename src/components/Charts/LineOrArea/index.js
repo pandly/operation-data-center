@@ -29,7 +29,8 @@ export default class LineOrArea extends React.Component {
       shape,
       xAxisRotate,
       scale,
-      GeomConfig
+      GeomConfig,
+      LegendSetting
     } = this.props;
     
     const position = `${titleMap.x}*value`
@@ -83,7 +84,7 @@ export default class LineOrArea extends React.Component {
               line={axisLine} 
             />
             <Tooltip crosshairs />
-            {legend && (<Legend name='key' position="top" />)}
+            {legend && (<Legend name='key' position="top" {...LegendSetting}/>)}
             {area && (
               <Geom 
                 type="area"
@@ -92,7 +93,7 @@ export default class LineOrArea extends React.Component {
                 opacity={opacity}
                 tooltip={false}
                 color={areaColor ? areaColor : lineColor}
-                {...GeomConfig.area}
+                {...GeomConfig?GeomConfig.area:{}}
                  />
             )}
             {line && (
@@ -108,7 +109,7 @@ export default class LineOrArea extends React.Component {
                     value: value
                   }
                 }]}
-                {...GeomConfig.line}
+                {...GeomConfig?GeomConfig.line:{}}
               />
             )}
             {point && (
@@ -119,7 +120,7 @@ export default class LineOrArea extends React.Component {
                 shape={'circle'} 
                 tooltip={false}
                 color={['key', lineColor]}
-                {...GeomConfig.point}
+                {...GeomConfig?GeomConfig.point:{}}
                 />
             )}         
           </Chart>
