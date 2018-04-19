@@ -71,7 +71,7 @@ export default class GlobalHeader extends PureComponent {
             <span style={{
               fontSize: 18,
               color: '#15984b'
-            }}>经营数据中心</span>
+            }}>运营数据中心</span>
           </span>
         </div>
       </div>

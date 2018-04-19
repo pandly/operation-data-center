@@ -10,19 +10,22 @@ const emphasis_monthly = {
 	result: {
 	    "supplyModule": [
 	      {
-	        "materialRate": 0,
+	        "materialRate": 0.0989,
 	        "materialRateLastMonth": 0.1325,
 	        "materialRateLastYear": 0.1567,
 	        "name": "耗材收入占比"
 	      },
 	      {
-	        "materialRate": 0.0046,
-	        "materialRateLastMonth": 0.0054,
-	        "materialRateLastYear": 0.0049,
+	        "materialRate": 0.1046,
+	        "materialRateLastMonth": 0.0954,
+	        "materialRateLastYear": 0.1749,
 	        "name": "高值耗材成本"
 	      }
 	    ],
-	    "medicalQuantityModule": 0.68,
+	    "medicalQuantityModule": {
+	    	'completeMedicalRecordsRate': 0.68,
+	    	'completeMedicalRecordsRateMom': 0.2012
+	    },
 	    "surgeryModule": {
 	      "specialSurgeryCount": 5,
 	      "emerSurgeryCount": 65,
