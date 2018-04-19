@@ -63,6 +63,46 @@ export default class Surgery extends Component {
     this.setState({category: activeKey}, () => {this.dispatch()});
   };
 
+  // [{date:……, x:1,y:2}]=>[{date:……, value:1,type:'x'}, {date:……, value:2,type:'y'}]
+  changeData = (oldData,fields) =>{
+    let newData = []
+    oldData.forEach(element => {
+      
+      for (const key in element) {
+        let newObj = {}
+        if (element.hasOwnProperty(key)&& key !== 'date'&&(fields||[]).indexOf(key)<0) {
+          newObj.type = key;
+          newObj.value = element[key]
+          newObj.date = element.date
+          newData.push(newObj) 
+        }
+      }
+     
+    });
+    return newData
+  }
+
+  switchTime=(length)=>{
+    if(length<=31){
+      return 1
+    }
+    if(length>31&&length<=90){
+      return 3
+    }
+    if(length>90&&length<=180){
+      return 6
+    }
+    if(length>180&&length<=270){
+      return 9
+    }
+    if(length>270&&length<=365){
+      return 12
+    }
+    if(length>365){
+      return 30
+    }
+  }
+  
   render() {
     const { rangeDateType, isOneDay } = this.state;
     const { surgery, loading, date } = this.props;
@@ -199,6 +239,7 @@ export default class Surgery extends Component {
       boxShadow: "0 0 4px 0 #E8E8E8",
       marginBottom: 20
     }
+    console.log(diffLevelSurgeryData)
     return (
       <Fragment>
         <div style={{
@@ -297,11 +338,13 @@ export default class Surgery extends Component {
             style={cardStyle}
           >
             <LineOrArea
+              area
               line
-              point
               legend
+              shape={'smooth'}
               lineColor={['#53BDE7', '#FF8465', '#FEA101', '#3AC9A8', '#1E439B', '#4D7BF3', '#FECD01']}
               height={400}
+              opacity={0.6}
               titleMap={{
                 x: 'date',
                 filedsMap: {
@@ -314,8 +357,60 @@ export default class Surgery extends Component {
                   '治疗操作': '治疗操作'
                 },
               }}
+              titleMap={{
+                x: 'date',
+                y: 'type',
+                filedsMap: {
+                  value: 'value',
+                },
+              }}
               xAxisRotate={30}
-              data={diffLevelSurgeryData} />
+              data={this.changeData(diffLevelSurgeryData)} 
+              LegendSetting={{
+                name:'type'
+              }}
+              GeomConfig={{
+                line:{
+                  color:['type', '#53BDE7-#FF8465-#FEA101-#3AC9A8-#1E439B-#4D7BF3-#FECD01'],
+                  tooltip:['date*type*value', (date,type, value) => {
+                    return {
+                      name: type,
+                      title: date,
+                      value: value
+                    };
+                  }]
+                },
+                area:{
+                  color:['type', '#53BDE7-#FF8465-#FEA101-#3AC9A8-#1E439B-#4D7BF3-#FECD01'],
+                },
+              }}
+              scale={{
+                date: {
+                  type: 'cat',
+                  tickCount: Math.ceil(diffLevelSurgeryData.length / this.switchTime(diffLevelSurgeryData.length)),
+                  formatter: (text) => {
+                    const prev = this[Symbol.for('lastDate')];
+                    this[Symbol.for('lastDate')] = text;
+                    const prevArr =prev&&prev.match(/\d+/g)||[];
+                    const nowArr = text&&text.match(/\d+/g)||[];
+                    if (diffLevelSurgeryData.length <= 365) {
+                      if (prevArr[0] !== nowArr[0]) {
+                        return `${nowArr[0]}年${nowArr[1]}月${nowArr[2]}日`;
+                      }
+                      if (prevArr[1] !==  nowArr[1]) {
+                        return `${nowArr[1]}月${nowArr[2]}日`;
+                      }
+                      return `${nowArr[2]}日`;
+                    } else{
+                      if (prevArr[0] !== nowArr[0]) {
+                        return `${nowArr[0]}年${nowArr[1]}月`;
+                      }
+                      return `${nowArr[1]}月`;
+                    }
+                  },
+                },
+              }}
+              />
           </Card>
         )}
       </Fragment>

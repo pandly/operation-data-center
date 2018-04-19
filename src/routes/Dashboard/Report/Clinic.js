@@ -63,6 +63,27 @@ export default class Clinic extends Component {
       return 30
     }
   }
+  
+  // [{date:……, x:1,y:2}]=>[{date:……, value:1,type:'x'}, {date:……, value:2,type:'y'}]
+  changeData = (oldData,fields) =>{
+    let newData = []
+    oldData.forEach(element => {
+      
+      for (const key in element) {
+        let newObj = {}
+        if (element.hasOwnProperty(key)&& key !== 'date'&&(fields||[]).indexOf(key)<0) {
+          newObj.type = key;
+          newObj.value = element[key]
+          newObj.date = element.date
+          newData.push(newObj) 
+        }
+      }
+     
+    });
+    return newData
+  }
+
+
   render() {
     const { rangeDateType, isOneDay } = this.state;
     const { clinic, loading, date } = this.props;
@@ -316,12 +337,13 @@ export default class Clinic extends Component {
               legend={false}
               titleMap={{
                 x: 'date',
+                y: 'type',
                 filedsMap: {
-                  门急诊人次: '门急诊人次',
+                  value: 'value',
                 },
               }}
               xAxisRotate={30}
-              data={dailyOutpatientEmergencyData}
+              data={this.changeData(dailyOutpatientEmergencyData)}
               scale={{
                 date: {
                   type: 'cat',
@@ -330,7 +352,7 @@ export default class Clinic extends Component {
                     const prev = this[Symbol.for('lastDate')];
                     this[Symbol.for('lastDate')] = text;
                     const prevArr =prev&&prev.match(/\d+/g)||[];
-                    const nowArr = text.match(/\d+/g)||[];
+                    const nowArr = text&&text.match(/\d+/g)||[];
                     if (dailyOutpatientEmergencyData.length <= 365) {
                       if (prevArr[0] !== nowArr[0]) {
                         return `${nowArr[0]}年${nowArr[1]}月${nowArr[2]}日`;
@@ -353,14 +375,14 @@ export default class Clinic extends Component {
               }}
               GeomConfig={{
                 area:{
-                  tooltip:[`date*value`, (time, sold) => {
+                  tooltip:['date*type*value', (date,type, value) => {
                     return {
-                      name: '门急诊人次',
-                      title: time,
-                      value: sold
+                      name: type,
+                      title: date,
+                      value: value
                     };
                   }]
-                }
+                },
               }}
             />
           </Card>
