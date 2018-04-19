@@ -180,8 +180,8 @@ export default class Inpatient extends Component {
                 area
                 line
                 // point
-                legend={false}
-                // shape="smooth"
+                legend
+                shape="smooth"
                 fillOpacity={[0.5, 0.2]}
                 height={400}
                 titleMap={{
@@ -194,6 +194,9 @@ export default class Inpatient extends Component {
                 opacity={0.6}
                 xAxisRotate={30}
                 data={this.changeData(dailyStatisticInfoData,'在院人次')}
+                LegendSetting={{
+                  name:'type'
+                }}
                 GeomConfig={{
                   line:{
                     color:['type', '#FEA101-#eaeaea'],

@@ -214,6 +214,7 @@ export default class Appointment extends Component {
               <LineOrArea
                 line
                 area
+                shape="smooth"
                 legend
                 lineColor={['#53BDE7', '#FF8465', '#3AC9A8', '#FEA101']}
                 height={400}
@@ -227,9 +228,12 @@ export default class Appointment extends Component {
                 }}
                 xAxisRotate={30}
                 data={this.changeData(reservationVisitsData,['普通号'])} 
+                LegendSetting={{
+                  name:'type'
+                }}
                 GeomConfig={{
                   line:{
-                    color:['type', '#FEA101-#eaeaea'],
+                    color:['type', '#53BDE7-#FF8465-#3AC9A8-#FEA101'],
                     tooltip:['date*type*value', (date,type, value) => {
                       return {
                         name: type,

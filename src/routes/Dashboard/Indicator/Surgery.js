@@ -340,8 +340,8 @@ export default class Surgery extends Component {
             <LineOrArea
               area
               line
-              point
               legend
+              shape={'smooth'}
               lineColor={['#53BDE7', '#FF8465', '#FEA101', '#3AC9A8', '#1E439B', '#4D7BF3', '#FECD01']}
               height={400}
               opacity={0.6}
@@ -366,10 +366,12 @@ export default class Surgery extends Component {
               }}
               xAxisRotate={30}
               data={this.changeData(diffLevelSurgeryData)} 
+              LegendSetting={{
+                name:'type'
+              }}
               GeomConfig={{
                 line:{
                   color:['type', '#53BDE7-#FF8465-#FEA101-#3AC9A8-#1E439B-#4D7BF3-#FECD01'],
-
                   tooltip:['date*type*value', (date,type, value) => {
                     return {
                       name: type,
