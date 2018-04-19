@@ -10,6 +10,7 @@ export interface IBarProps {
   }>;
   labelSetting?:object;
   chartSetting?:object;
+  GeomSetting?:object;
   autoLabel?: boolean;
   shapeTypes?: Array;
   transpose?: boolean;
