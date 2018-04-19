@@ -95,7 +95,11 @@ export default class Inpatient extends Component {
       dailyStatisticInfoModule = [],
     } = inpatient;
 
+<<<<<<< HEAD
+    const dailyStatisticInfoData = dailyStatisticInfoModule && transformArr(dailyStatisticInfoModule).map(ele => ({ ...ele, ...{ date: ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/, '$1-$2-$3') } }));
+=======
     let dailyStatisticInfoData = dailyStatisticInfoModule && transformArr(dailyStatisticInfoModule);
+>>>>>>> 05e7d3bb80a2633fcebcba7ef4cd3a65bfab5f63
     const cardStyle = {
       padding: 0,
       marginBottom: 20,
