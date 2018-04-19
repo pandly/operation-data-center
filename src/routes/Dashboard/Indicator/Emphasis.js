@@ -128,7 +128,7 @@ export default class Emphasis extends PureComponent {
     const { rangePickerValue, rangeDateType } = this.state;
     const { emphasis, loading } = this.props;
 
-    const {
+    let {
       supplyModule = [], // 耗材
       medicalQuantityModule = {}, // 医疗质量
       surgeryModule = {}, // 手术
@@ -228,22 +228,18 @@ export default class Emphasis extends PureComponent {
         mom: reservationModule.visitCountMom,
       },
     ];
-    const extra = (
-      <div style={{ textAlign: 'right' }}>
-        <span style={{ marginRight: 13 }}>
-          <span className={styles.extra} style={{ background: '#FEA101' }} />
-          <span style={{ color: '#FEA101' }}>上月</span>
-        </span>
-        <span style={{ marginRight: 13 }}>
-          <span className={styles.extra} style={{ background: '#FF8465' }} />
-          <span style={{ color: '#FF8465' }}>当月</span>
-        </span>
-        <span style={{ marginRight: 13 }}>
-          <span className={styles.extra} style={{ background: '#3AC9A8' }} />
-          <span style={{ color: '#3AC9A8' }}>去年当月</span>
-        </span>
-      </div>
-    );
+    const keyMap = {};
+    if(supplyModule && supplyModule.length !== 0){
+      if(supplyModule[0].materialRateLastMonth){
+        keyMap['materialRateLastMonth'] ='上期'
+      }
+      if(supplyModule[0].materialRate){
+        keyMap['materialRate'] = '本期'
+      }
+      if(supplyModule[0].materialRateLastYear){
+        keyMap['materialRateLastYear'] = '去年本期'
+      }
+    } 
     const cardStyle = {
       marginBottom: 20,
       boxShadow: '0 0 4px 0 #E8E8E8',
@@ -279,7 +275,6 @@ export default class Emphasis extends PureComponent {
                   rangeDateType === 'monthly' ? 
                   (
                     <div>
-                      {extra}
                       <Bar 
                         height={230}
                         size={25} 
@@ -288,14 +283,11 @@ export default class Emphasis extends PureComponent {
                         axisValueLabel={null}
                         legend={false}
                         padding={['10%',0]}
+                        legend
                         formatPercent={val => formatPercent(val)}
                         fieldsMap={{
                           x: 'name', 
-                          keyMap: {
-                            'materialRateLastMonth': '上月',
-                            'materialRate': '当月',
-                            'materialRateLastYear': '去年'
-                          }
+                          keyMap
                         }}
                         shapeTypes={['borderRadius']}
                         data={supplyModule} 

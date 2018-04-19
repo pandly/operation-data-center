@@ -29,7 +29,7 @@ export default class LineOrArea extends React.Component {
       shape,
       xAxisRotate,
       scale,
-      GeomConfig
+      GeomConfig={}
     } = this.props;
     
     const position = `${titleMap.x}*value`

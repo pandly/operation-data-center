@@ -140,6 +140,7 @@ export default class Dynamic extends PureComponent {
       admissions = {}, //入院人数
       inHospital = {} //在院人数
     ] = inHospitalModule;
+
     const inHospitalData = [
       {
         item: '出院人数',
@@ -168,6 +169,7 @@ export default class Dynamic extends PureComponent {
       totalIncome = {}, //总收入
       nonDrugIncome = {} //非药品收入
     ] = totalIncomeModule;
+
     const pieData = [
       {
         item: '住院收入',
@@ -235,6 +237,7 @@ export default class Dynamic extends PureComponent {
         decrease: perMedicalExaminationFees.perMedicalExaminationFeesMom
       },
     ]
+    
     if(rangeDateType === 'monthly') {
       burdenData.splice(5, 0, {
         item: '出院患者平均住院日',

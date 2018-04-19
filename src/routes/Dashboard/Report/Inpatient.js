@@ -56,7 +56,6 @@ export default class Inpatient extends Component {
     } = inpatient;
 
     const dailyStatisticInfoData = dailyStatisticInfoModule && transformArr(dailyStatisticInfoModule).map(ele => ({ ...ele, ...{ date: ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/, '$1-$2-$3') } }));
-
     const cardStyle = {
       padding: 0,
       marginBottom: 20,
