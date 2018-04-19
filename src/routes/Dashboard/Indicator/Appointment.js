@@ -100,7 +100,8 @@ export default class Appointment extends Component {
       {
         title: '科室名称',
         dataIndex: 'departName',
-        key: '1'
+        key: '1',
+        width: 120
       }, 
       // {
       //   title: '普通号预约数',
@@ -110,26 +111,31 @@ export default class Appointment extends Component {
       {
         title: '专家号预约数',
         dataIndex: 'expertReservation',
+        sorter: (a, b) => a.expertReservation - b.expertReservation,
         key: '3'
       }, 
       {
         title: '特需预约数',
         dataIndex: 'specialNeedReservation',
+        sorter: (a, b) => a.specialNeedReservation - b.specialNeedReservation,
         key: '4'
       },  
       {
         title: '专科预约数',
         dataIndex: 'specialRegistReservation',
+        sorter: (a, b) => a.specialRegistReservation - b.specialRegistReservation,
         key: '5'
       },
       {
         title: '总预约数',
         dataIndex: 'totalReservationCount',
+        sorter: (a, b) => a.totalReservationCount - b.totalReservationCount,
         key: '6'
       },
       {
         title: '总预约就诊数',
         dataIndex: 'totalVisitCount',
+        sorter: (a, b) => a.totalVisitCount - b.totalVisitCount,
         key: '7',
       },
       // {
@@ -144,6 +150,7 @@ export default class Appointment extends Component {
         title: '专家号预约就诊率',
         dataIndex: 'expertVisitRate',
         key: '9',
+        sorter: (a, b) => a.expertVisitRate - b.expertVisitRate,
         render: text => {
           return formatPercent(text);
         },
@@ -152,6 +159,7 @@ export default class Appointment extends Component {
         title: '特需预约就诊率',
         dataIndex: 'specialNeedVisitRate',
         key: '10',
+        sorter: (a, b) => a.specialNeedVisitRate - b.specialNeedVisitRate,
         render: text => {
           return formatPercent(text);
         },
@@ -160,6 +168,7 @@ export default class Appointment extends Component {
         title: '专科预约就诊率',
         dataIndex: 'specialRegistVisitRate',
         key: '11',
+        sorter: (a, b) => a.specialRegistVisitRate - b.specialRegistVisitRate,
         render: text => {
           return formatPercent(text);
         },

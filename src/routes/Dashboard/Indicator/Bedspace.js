@@ -145,22 +145,24 @@ export default class Bedspace extends Component {
         title: '病区',
         dataIndex: 'wardName',
         key: '2',
-        width: 110
+        width: 100
       },
       {
         title: '床位周转次数',
         dataIndex: 'turnoverRate',
+        sorter: (a, b) => a.turnoverRate - b.turnoverRate,
         key: '4',
-        width: 120
+        width: 140
       },
       {
         title: '床位周转次数环比数据',
         dataIndex: 'turnoverRateMom',
         key: '5',
+        sorter: (a, b) => a.turnoverRateMom - b.turnoverRateMom,
         render: text => {
           return <Compare value={text} />
         },
-        width: 160
+        width: 190
       },
     ];
     const cardStyle = {

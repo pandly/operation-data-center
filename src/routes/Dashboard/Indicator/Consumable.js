@@ -55,6 +55,7 @@ export default class Consumable extends Component {
         title: '门诊材料费',
         dataIndex: 'outpatientMaterialCostCount',
         key: 'outpatientMaterialCostCount',
+        sorter: (a, b) => a.outpatientMaterialCostCount - b.outpatientMaterialCostCount,
         render: text => {
           return yuan(text)
         },
@@ -64,6 +65,7 @@ export default class Consumable extends Component {
         title: '住院材料费',
         dataIndex: 'inHospitalMaterialCostCount',
         key: 'inHospitalMaterialCostCount',
+        sorter: (a, b) => a.inHospitalMaterialCostCount - b.inHospitalMaterialCostCount,
         render: text => {
           return yuan(text)
         },
@@ -73,6 +75,7 @@ export default class Consumable extends Component {
         title: '卫生总费用',
         dataIndex: 'totalHealthCostCount',
         key: 'totalHealthCostCount',
+        sorter: (a, b) => a.totalHealthCostCount - b.totalHealthCostCount,
         render: text => {
           return yuan(text)
         },
@@ -82,6 +85,7 @@ export default class Consumable extends Component {
         title: '耗材收入占比',
         dataIndex: 'materialCostRate',
         key: 'materialCostRate',
+        sorter: (a, b) => a.materialCostRate - b.materialCostRate,
         render: text => {
           return formatPercent(text);
         },
@@ -93,6 +97,7 @@ export default class Consumable extends Component {
         title: '耗材收入占比环比',
         dataIndex: 'materialCostRateMom',
         key: 'materialCostRateMom',
+        sorter: (a, b) => a.materialCostRateMom - b.materialCostRateMom,
         render: text => {
           return (
             <Compare value={text} />

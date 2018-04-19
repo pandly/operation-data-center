@@ -44,7 +44,10 @@ export default class Prescription extends Component {
       type: 'prescription/clear',
     });
   }
-
+  
+  onChange = (pagination, filters, sorter) => {
+    console.log('params', pagination, filters, sorter);
+  }
   render() {
     const { rangeDateType, isOneDay } = this.state;
     const { prescription, loading, date } = this.props;
@@ -99,24 +102,27 @@ export default class Prescription extends Component {
         title: '科室名称',
         dataIndex: 'departName',
         key: 'departName',
-        width: 200
+        width: 130
       }, 
       {
         title: '处方数量',
         dataIndex: 'prescriptionQuantity',
         key: 'prescriptionQuantity',
-        width: 150
+        width: 150,
+        sorter: (a, b) => a.prescriptionQuantity - b.prescriptionQuantity
       }, 
       {
         title: '中医处方数量',
         dataIndex: 'chinaPrescriptionQuantity',
         key: 'chinaPrescriptionQuantity',
-        width: 150
+        width: 150,
+        sorter: (a, b) => a.chinaPrescriptionQuantity - b.chinaPrescriptionQuantity
       }, 
       {
         title: '中医处方率',
         dataIndex: 'chinaPrescriptionRate',
         key: 'chinaPrescriptionRate',
+        sorter: (a, b) => a.chinaPrescriptionRate - b.chinaPrescriptionRate,
         render: text => {
           return formatPercent(text);
         },
@@ -126,6 +132,7 @@ export default class Prescription extends Component {
         title: '成药比',
         dataIndex: 'chinaPatentMedicineQuantityRate',
         key: 'chinaPatentMedicineQuantityRate',
+        sorter: (a, b) => a.chinaPatentMedicineQuantityRate - b.chinaPatentMedicineQuantityRate,
         render: text => {
           return formatPercent(text);
         },
@@ -135,6 +142,7 @@ export default class Prescription extends Component {
         title: '门诊饮片处方比',
         dataIndex: 'piecesPrescriptionQuantityRate',
         key: 'piecesPrescriptionQuantityRate',
+        sorter: (a, b) => a.piecesPrescriptionQuantityRate - b.piecesPrescriptionQuantityRate,
         render: text => {
           return formatPercent(text);
         },
@@ -144,6 +152,7 @@ export default class Prescription extends Component {
         title: '门诊饮片人次比',
         dataIndex: 'piecesPrescriptionHumanRate',
         key: 'piecesPrescriptionHumanRate',
+        sorter: (a, b) => a.piecesPrescriptionHumanRate - b.piecesPrescriptionHumanRate,
         render: text => {
           return formatPercent(text);
         },
@@ -153,6 +162,7 @@ export default class Prescription extends Component {
         title: '出院饮片人次比',
         dataIndex: 'dischargedPiecesRate',
         key: 'dischargedPiecesRate',
+        sorter: (a, b) => a.dischargedPiecesRate - b.dischargedPiecesRate,
         render: text => {
           return formatPercent(text);
         },
@@ -164,6 +174,7 @@ export default class Prescription extends Component {
         title: '中医处方率环比数据',
         dataIndex: 'chinaPrescriptionRateMom',
         key: 'chinaPrescriptionRateMom',
+        sorter: (a, b) => a.chinaPrescriptionRateMom - b.chinaPrescriptionRateMom,
         render: text => {
           return (
             <Compare value={text} />
@@ -194,6 +205,7 @@ export default class Prescription extends Component {
             <div className="cardTitle">不同科室所开处方数量</div>
             <div className="cardBody" style={{ padding: 0 }}>
               <Table 
+                onChange={this.onChange}
                 loading={loading}
                 dataSource={departmentPrescriptionInfo}
                 columns={columns}

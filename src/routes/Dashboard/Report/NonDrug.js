@@ -59,37 +59,41 @@ export default class NonDrug extends Component {
         title: '科室名称',
         dataIndex: 'departName',
         key: 'departName',
-        width: 160
+        width: 140
       }, 
       {
         title: '门诊非药物中医诊疗人次',
         dataIndex: 'patientNonDrugCount',
         key: 'patientNonDrugCount',
-        width: 200
+        sorter: (a, b) => a.patientNonDrugCount - b.patientNonDrugCount,
+        width: 180
       }, 
       {
         title: '门诊非药物中治率',
         dataIndex: 'patientNonDrugCountRate',
         key: 'patientNonDrugCountRate',
+        sorter: (a, b) => a.patientNonDrugCountRate - b.patientNonDrugCountRate,
         render: text => {
           return formatPercent(text)
         },
-        width: 180
+        width: 140
       },   
       {
         title: '出院非药物中医诊疗人次',
         dataIndex: 'recoverNonDrugCount',
         key: 'recoverNonDrugCount',
-        width: 200
+        sorter: (a, b) => a.recoverNonDrugCount - b.recoverNonDrugCount,
+        width: 180
       },
       {
         title: '出院非药物中治率',
         dataIndex: 'recoverNonDrugRate',
         key: 'recoverNonDrugRate',
+        sorter: (a, b) => a.recoverNonDrugRate - b.recoverNonDrugRate,
         render: text => {
           return formatPercent(text)
         },
-        width: 180
+        width: 140
       },
     ];
     if(rangeDateType === 'monthly') {
@@ -97,6 +101,7 @@ export default class NonDrug extends Component {
         title: '门诊非药物中治率环比数据',
         dataIndex: 'patientNonDrugCountRateMom',
         key: 'patientNonDrugCountRateMom',
+        sorter: (a, b) => a.patientNonDrugCountRateMom - b.patientNonDrugCountRateMom,
         render: text => {
           return (
             <Compare value={text} />
@@ -108,6 +113,7 @@ export default class NonDrug extends Component {
         title: '出院非药物中治率环比数据',
         dataIndex: 'recoverNonDrugRateMom',
         key: 'recoverNonDrugRateMom',
+        sorter: (a, b) => a.recoverNonDrugRateMom - b.recoverNonDrugRateMom,
         render: text => {
           return (
             <Compare value={text} />

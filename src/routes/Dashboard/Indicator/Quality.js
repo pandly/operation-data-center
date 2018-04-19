@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'dva';
 import Compare from '../../../components/Compare';
+import NoData from '../../../components/NoData';
 import { computeDays, getDateFromString, formatPercent, transformArr } from '../../../utils/utils';
 import {
   Row,
@@ -108,18 +109,21 @@ export default class Quality extends Component {
         title: '按时完成病历数',
         dataIndex: 'completeMedicalRecords',
         key: '2',
+        sorter: (a, b) => a.completeMedicalRecords - b.completeMedicalRecords,
         width: 150
       }, 
       {
         title: '运行病历数',
         dataIndex: 'totalMedicalRecords',
         key: '3',
+        sorter: (a, b) => a.totalMedicalRecords - b.totalMedicalRecords,
         width: 100
       },   
       {
         title: '完成率',
         dataIndex: 'completeRecordsRate',
         key: '4',
+        sorter: (a, b) => a.completeRecordsRate - b.completeRecordsRate,
         render: text => {
           return formatPercent(text)
         },
@@ -129,6 +133,7 @@ export default class Quality extends Component {
         title: '完成率环比数据',
         dataIndex: 'completeRecordsRateMom',
         key: '5',
+        sorter: (a, b) => a.completeRecordsRateMom - b.completeRecordsRateMom,
         render: text => {
           return <Compare value={text} />
         },
@@ -153,128 +158,134 @@ export default class Quality extends Component {
               minHeight: 270, 
               padding: '0 10px 20px 20px',
             }}>
-            {rangeDate > 31 ? (
-              <LineOrArea
-                area
-                line
-                legend
-                shape="smooth"
-                fillOpacity={[0.5, 0.2]}
-                height={400}
-                titleMap={{
-                  x: 'date',
-                  y: 'type',
-                  filedsMap: {
-                    value: 'value',
-                  },
-                }}
-                opacity={0.6}
-                xAxisRotate={30}
-                data={this.changeData(dailyStatisticInfoData,'在院人次')}
-                LegendSetting={{
-                  name:'type'
-                }}
-                GeomConfig={{
-                  line:{
-                    color:['type', '#FEA101-#eaeaea'],
-                    tooltip:['date*type*value', (date,type, value) => {
-                      return {
-                        name: type,
-                        title: date,
-                        value: value
-                      };
-                    }]
-                  },
-                  area:{
-                    color:['type', '#FFDB9C-#eaeaea'],
-                  },
-                }}
-                scale={{
-                  date: {
-                    type: 'cat',
-                    tickCount: Math.ceil(dailyStatisticInfoData.length / this.switchTime(dailyStatisticInfoData.length)),
-                    formatter: (text) => {
-                      const prev = this[Symbol.for('lastDate')];
-                      this[Symbol.for('lastDate')] = text;
-                      const prevArr =prev&&prev.match(/\d+/g)||[];
-                      const nowArr = text&&text.match(/\d+/g)||[];
-                      if (dailyStatisticInfoData.length <= 365) {
-                        if (prevArr[0] !== nowArr[0]) {
-                          return `${nowArr[0]}年${nowArr[1]}月${nowArr[2]}日`;
-                        }
-                        if (prevArr[1] !==  nowArr[1]) {
-                          return `${nowArr[1]}月${nowArr[2]}日`;
-                        }
-                        return `${nowArr[2]}日`;
-                      } else{
-                        if (prevArr[0] !== nowArr[0]) {
-                          return `${nowArr[0]}年${nowArr[1]}月`;
-                        }
-                        return `${nowArr[1]}月`;
-                      }
-                    },
-                  },
-                }}
-              />
-            ) : (
-              <Bar
-                height={400}
-                size={15}
-                pbg={null}
-                grid={null}
-                label={false}
-                color={['#FEA101', '#CCC']}
-                fieldsMap={{
-                  x: 'date',
-                  keyMap: {
-                    运行病历数: '运行病历数',
-                    按时完成病历数: '按时完成病历数',
-                  },
-                }}
-                keyLabelRotate={30}
-                keyLabelTextAlign="start"
-                data={dailyStatisticInfoData}
-                chartSetting={
-                  {
-                    scale: {
-                      date: {
-                        type: 'cat',
-                        tickCount: Math.ceil(dailyStatisticInfoData.length / this.switchTime(dailyStatisticInfoData.length)),
-                        formatter: (text) => {
-                          const prev = this[Symbol.for('lastDate')];
-                          this[Symbol.for('lastDate')] = text;
-                          const prevArr =prev&&prev.match(/\d+/g)||[];
-                          const nowArr = text&&text.match(/\d+/g)||[];
-                          if (dailyStatisticInfoData.length <= 365) {
-                            if (prevArr[0] !== nowArr[0]) {
-                              return `${nowArr[0]}年${nowArr[1]}月${nowArr[2]}日`;
-                            }
-                            if (prevArr[1] !==  nowArr[1]) {
-                              return `${nowArr[1]}月${nowArr[2]}日`;
-                            }
-                            return `${nowArr[2]}日`;
-                          } else{
-                            if (prevArr[0] !== nowArr[0]) {
-                              return `${nowArr[0]}年${nowArr[1]}月`;
-                            }
-                            return `${nowArr[1]}月`;
+              {dailyStatisticInfoModule.length != 0 ? 
+                (
+                  rangeDate > 31 ? 
+                    (
+                      <LineOrArea
+                        area
+                        line
+                        legend
+                        shape="smooth"
+                        fillOpacity={[0.5, 0.2]}
+                        height={400}
+                        titleMap={{
+                          x: 'date',
+                          y: 'type',
+                          filedsMap: {
+                            value: 'value',
+                          },
+                        }}
+                        opacity={0.6}
+                        xAxisRotate={30}
+                        data={this.changeData(dailyStatisticInfoData,'在院人次')}
+                        LegendSetting={{
+                          name:'type'
+                        }}
+                        GeomConfig={{
+                          line:{
+                            color:['type', '#FEA101-#eaeaea'],
+                            tooltip:['date*type*value', (date,type, value) => {
+                              return {
+                                name: type,
+                                title: date,
+                                value: value
+                              };
+                            }]
+                          },
+                          area:{
+                            color:['type', '#FFDB9C-#eaeaea'],
+                          },
+                        }}
+                        scale={{
+                          date: {
+                            type: 'cat',
+                            tickCount: Math.ceil(dailyStatisticInfoData.length / this.switchTime(dailyStatisticInfoData.length)),
+                            formatter: (text) => {
+                              const prev = this[Symbol.for('lastDate')];
+                              this[Symbol.for('lastDate')] = text;
+                              const prevArr =prev&&prev.match(/\d+/g)||[];
+                              const nowArr = text&&text.match(/\d+/g)||[];
+                              if (dailyStatisticInfoData.length <= 365) {
+                                if (prevArr[0] !== nowArr[0]) {
+                                  return `${nowArr[0]}年${nowArr[1]}月${nowArr[2]}日`;
+                                }
+                                if (prevArr[1] !==  nowArr[1]) {
+                                  return `${nowArr[1]}月${nowArr[2]}日`;
+                                }
+                                return `${nowArr[2]}日`;
+                              } else{
+                                if (prevArr[0] !== nowArr[0]) {
+                                  return `${nowArr[0]}年${nowArr[1]}月`;
+                                }
+                                return `${nowArr[1]}月`;
+                              }
+                            },
+                          },
+                        }}
+                      />
+                    ) : 
+                    (
+                      <Bar
+                        height={400}
+                        size={15}
+                        pbg={null}
+                        grid={null}
+                        label={false}
+                        color={['#FEA101', '#CCC']}
+                        fieldsMap={{
+                          x: 'date',
+                          keyMap: {
+                            运行病历数: '运行病历数',
+                            按时完成病历数: '按时完成病历数',
+                          },
+                        }}
+                        keyLabelRotate={30}
+                        keyLabelTextAlign="start"
+                        data={dailyStatisticInfoData}
+                        chartSetting={
+                          {
+                            scale: {
+                              date: {
+                                type: 'cat',
+                                tickCount: Math.ceil(dailyStatisticInfoData.length / this.switchTime(dailyStatisticInfoData.length)),
+                                formatter: (text) => {
+                                  const prev = this[Symbol.for('lastDate')];
+                                  this[Symbol.for('lastDate')] = text;
+                                  const prevArr =prev&&prev.match(/\d+/g)||[];
+                                  const nowArr = text&&text.match(/\d+/g)||[];
+                                  if (dailyStatisticInfoData.length <= 365) {
+                                    if (prevArr[0] !== nowArr[0]) {
+                                      return `${nowArr[0]}年${nowArr[1]}月${nowArr[2]}日`;
+                                    }
+                                    if (prevArr[1] !==  nowArr[1]) {
+                                      return `${nowArr[1]}月${nowArr[2]}日`;
+                                    }
+                                    return `${nowArr[2]}日`;
+                                  } else{
+                                    if (prevArr[0] !== nowArr[0]) {
+                                      return `${nowArr[0]}年${nowArr[1]}月`;
+                                    }
+                                    return `${nowArr[1]}月`;
+                                  }
+                                },
+                              },
+                            },
                           }
-                        },
-                      },
-                    },
-                  }
-                }
-                GeomSetting={
-                  {tooltip: ['date*key*value', (date,key, value) => {
-                    return {
-                      name: key,
-                      title: date,
-                      value: value
-                    };
-                  }]}
-                }
-              />
-            )}
+                        }
+                        GeomSetting={
+                          {tooltip: ['date*key*value', (date,key, value) => {
+                            return {
+                              name: key,
+                              title: date,
+                              value: value
+                            };
+                          }]}
+                        }
+                      />
+                    )
+                ) : ( <NoData />)
+              }
           </Card>
         )}
         {rangeDateType === 'monthly' && (
@@ -286,21 +297,25 @@ export default class Quality extends Component {
               minHeight: 270, 
               padding: '0 10px 20px 20px',
             }}> 
-            <LineOrArea
-              line
-              point
-              legend
-              lineColor={['#FEA101', '#CCC']}
-              height={400}
-              titleMap={{
-                x: 'departName',
-                filedsMap: {
-                  'totalRecordsCount': '运行病历数',
-                  'completeRecordsCount': '按时完成病历数',
-                },
-              }}
-              xAxisRotate={30}
-              data={diffDepartStatisticInfoModule} />
+            {diffDepartStatisticInfoModule.length != 0 ? 
+              (
+                <LineOrArea
+                  line
+                  point
+                  legend
+                  lineColor={['#FEA101', '#CCC']}
+                  height={400}
+                  titleMap={{
+                    x: 'departName',
+                    filedsMap: {
+                      'totalRecordsCount': '运行病历数',
+                      'completeRecordsCount': '按时完成病历数',
+                    },
+                  }}
+                  xAxisRotate={30}
+                  data={diffDepartStatisticInfoModule} />
+              ) : ( <NoData />)
+            }
           </Card>
         )}
         {rangeDateType === 'daily' && (
