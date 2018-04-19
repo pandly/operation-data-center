@@ -93,7 +93,7 @@ export default class Appointment extends Component {
       reservationVisitsInfoModule = [] 
     } = appointment;
     
-    const reservationVisitsData = reservationVisitsInfoModule ? transformArr(reservationVisitsInfoModule).map(ele=>({...ele,...{date:ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/,'$1-$2-$3')}})) : []; 
+    const reservationVisitsData = reservationVisitsInfoModule ? transformArr(reservationVisitsInfoModule): []; 
 
     //不同途径普通号和专家号人数
     let columns = [

@@ -262,6 +262,7 @@ export default class Inpatient extends Component {
                         type: 'cat',
                         tickCount: Math.ceil(dailyStatisticInfoData.length / this.switchTime(dailyStatisticInfoData.length)),
                         formatter: (text) => {
+                          console.log(text)
                           const prev = this[Symbol.for('lastDate')];
                           this[Symbol.for('lastDate')] = text;
                           const prevArr =prev&&prev.match(/\d+/g)||[];
@@ -284,6 +285,15 @@ export default class Inpatient extends Component {
                       },
                     },
                   }
+                }
+                GeomSetting={
+                  {tooltip: ['date*key*value', (date,key, value) => {
+                    return {
+                      name: key,
+                      title: date,
+                      value: value
+                    };
+                  }]}
                 }
               />
             )}
