@@ -264,6 +264,15 @@ export default class Quality extends Component {
                     },
                   }
                 }
+                GeomSetting={
+                  {tooltip: ['date*key*value', (date,key, value) => {
+                    return {
+                      name: key,
+                      title: date,
+                      value: value
+                    };
+                  }]}
+                }
               />
             )}
           </Card>

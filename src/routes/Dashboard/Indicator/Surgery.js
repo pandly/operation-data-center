@@ -351,6 +351,15 @@ export default class Surgery extends Component {
                     }
                   }
                 }
+                GeomSetting={
+                  {tooltip: ['date*key*value', (date,key, value) => {
+                    return {
+                      name: key,
+                      title: date,
+                      value: value
+                    };
+                  }]}
+                }
               />
               : <LineOrArea
               area

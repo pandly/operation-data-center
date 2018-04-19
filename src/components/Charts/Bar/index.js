@@ -67,6 +67,7 @@ class Bar extends Component {
       shapeTypes = [],
       labelSetting,
       chartSetting,
+      GeomSetting,
     } = this.props;
     const ds = new DataSet();
     const dv = ds.createView().source(data);
@@ -127,6 +128,9 @@ class Bar extends Component {
               adjust={[{ type: 'dodge', marginRatio: dodge }]}
               tooltip={tooltip}
               shape={shapeTypes.length && shape[Symbol.for('name')]}
+              {
+                ...GeomSetting
+              }
             >
               {label && (
               <Label
