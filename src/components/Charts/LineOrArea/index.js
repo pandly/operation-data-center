@@ -29,12 +29,8 @@ export default class LineOrArea extends React.Component {
       shape,
       xAxisRotate,
       scale,
-<<<<<<< HEAD
-      GeomConfig={}
-=======
       GeomConfig,
       LegendSetting
->>>>>>> 05e7d3bb80a2633fcebcba7ef4cd3a65bfab5f63
     } = this.props;
     
     const position = `${titleMap.x}*value`
