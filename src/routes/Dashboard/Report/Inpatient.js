@@ -262,6 +262,27 @@ export default class Inpatient extends Component {
                     scale: {
                       date: {
                         type: 'cat',
+                        tickCount: Math.ceil(dailyStatisticInfoData.length / this.switchTime(dailyStatisticInfoData.length)),
+                        formatter: (text) => {
+                          const prev = this[Symbol.for('lastDate')];
+                          this[Symbol.for('lastDate')] = text;
+                          const prevArr =prev&&prev.match(/\d+/g)||[];
+                          const nowArr = text&&text.match(/\d+/g)||[];
+                          if (dailyStatisticInfoData.length <= 365) {
+                            if (prevArr[0] !== nowArr[0]) {
+                              return `${nowArr[0]}年${nowArr[1]}月${nowArr[2]}日`;
+                            }
+                            if (prevArr[1] !==  nowArr[1]) {
+                              return `${nowArr[1]}月${nowArr[2]}日`;
+                            }
+                            return `${nowArr[2]}日`;
+                          } else{
+                            if (prevArr[0] !== nowArr[0]) {
+                              return `${nowArr[0]}年${nowArr[1]}月`;
+                            }
+                            return `${nowArr[1]}月`;
+                          }
+                        },
                       },
                     },
                   }

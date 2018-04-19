@@ -88,7 +88,6 @@ class Bar extends Component {
       }),
     ];
     const position = `${fieldsMap.x}*value`;
-
     return (
       <div className={styles.chart} style={{ height }} ref={this.handleRoot} >
         <div ref={this.handleRef}>

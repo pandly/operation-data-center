@@ -111,8 +111,8 @@ export default class Surgery extends Component {
       diffLevelSurgeryModule = [] 
     } = surgery;
     
-    const diffCategorySurgeryData = diffCategorySurgeryModule && transformArr(diffCategorySurgeryModule).map(ele=>({...ele,...{date:ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/,'$1-$2-$3')}}));
-    const diffLevelSurgeryData = diffLevelSurgeryModule && transformArr(diffLevelSurgeryModule).map(ele=>({...ele,...{date:ele.date.replace(/^(\d+).+?(\d+).+?(\d+).+$/,'$1-$2-$3')}}));
+    const diffCategorySurgeryData = diffCategorySurgeryModule && transformArr(diffCategorySurgeryModule)
+    const diffLevelSurgeryData = diffLevelSurgeryModule && transformArr(diffLevelSurgeryModule)
     
     const levelMap = [
       {
@@ -239,7 +239,6 @@ export default class Surgery extends Component {
       boxShadow: "0 0 4px 0 #E8E8E8",
       marginBottom: 20
     }
-    console.log(diffLevelSurgeryData)
     return (
       <Fragment>
         <div style={{
@@ -302,32 +301,126 @@ export default class Surgery extends Component {
             bodyStyle={{ padding: '0 20px', minHeight: 420 }}
             style={cardStyle}
           >
-            <Bar 
-              height={400}
-              size={22}
-              color={['#FEA101', '#3AC9A8']}
-              data={diffCategorySurgeryData} 
-              fieldsMap={{
-                x: 'date', 
-                keyMap: {
-                  '择期手术':'择期手术',
-                  '急诊手术':'急诊手术',
-                }
-              }}
-              dodge={-1}
-              keyLabelRotate={30}
-              label={false}
-              keyLabelTextAlign='start'
-              chartSetting= {
-                {
-                  scale:{
-                    date:{
-                      type: 'cat'
+            {
+              (diffCategorySurgeryData.length/2)<=31?
+              <Bar 
+                height={400}
+                size={22}
+                color={['#FEA101', '#3AC9A8']}
+                data={diffCategorySurgeryData} 
+                fieldsMap={{
+                  x: 'date', 
+                  keyMap: {
+                    '择期手术':'择期手术',
+                    '急诊手术':'急诊手术',
+                  }
+                }}
+                dodge={-1}
+                keyLabelRotate={30}
+                label={false}
+                keyLabelTextAlign='start'
+                chartSetting= {
+                  {
+                    scale:{
+                      date:{
+                        type: 'cat',
+                        tickCount: Math.ceil(diffLevelSurgeryData.length / this.switchTime(diffLevelSurgeryData.length)),
+                        formatter: (text) => {
+                          const prev = this[Symbol.for('lastDate')];
+                          this[Symbol.for('lastDate')] = text;
+                          const prevArr =prev&&prev.match(/\d+/g)||[];
+                          const nowArr = text&&text.match(/\d+/g)||[];
+                          if (diffLevelSurgeryData.length <= 365) {
+                            if (prevArr[0] !== nowArr[0]) {
+                              return `${nowArr[0]}年${nowArr[1]}月${nowArr[2]}日`;
+                            }
+                            if (prevArr[1] !==  nowArr[1]) {
+                              return `${nowArr[1]}月${nowArr[2]}日`;
+                            }
+                            return `${nowArr[2]}日`;
+                          } else{
+                            if (prevArr[0] !== nowArr[0]) {
+                              return `${nowArr[0]}年${nowArr[1]}月`;
+                            }
+                            return `${nowArr[1]}月`;
+                          }
+                        },
+                      }
                     }
                   }
                 }
-              }
-            />
+              />
+              : <LineOrArea
+              area
+              line
+              legend
+              shape={'smooth'}
+              lineColor={['#FEA101', '#3AC9A8']}
+              height={400}
+              opacity={0.6}
+              titleMap={{
+                x: 'date',
+                filedsMap: {
+                  '择期手术':'择期手术',
+                  '急诊手术':'急诊手术',
+                },
+              }}
+              titleMap={{
+                x: 'date',
+                y: 'type',
+                filedsMap: {
+                  value: 'value',
+                },
+              }}
+              xAxisRotate={30}
+              data={this.changeData(diffCategorySurgeryData)} 
+              LegendSetting={{
+                name:'type'
+              }}
+              GeomConfig={{
+                line:{
+                  color:['type', '#FEA101-#3AC9A8'],
+                  tooltip:['date*type*value', (date,type, value) => {
+                    return {
+                      name: type,
+                      title: date,
+                      value: value
+                    };
+                  }]
+                },
+                area:{
+                  color:['type', '#FEA101-#3AC9A8'],
+                },
+              }}
+              scale={{
+                date: {
+                  type: 'cat',
+                  tickCount: Math.ceil(diffLevelSurgeryData.length / this.switchTime(diffLevelSurgeryData.length)),
+                  formatter: (text) => {
+                    const prev = this[Symbol.for('lastDate')];
+                    this[Symbol.for('lastDate')] = text;
+                    const prevArr =prev&&prev.match(/\d+/g)||[];
+                    const nowArr = text&&text.match(/\d+/g)||[];
+                    if (diffLevelSurgeryData.length <= 365) {
+                      if (prevArr[0] !== nowArr[0]) {
+                        return `${nowArr[0]}年${nowArr[1]}月${nowArr[2]}日`;
+                      }
+                      if (prevArr[1] !==  nowArr[1]) {
+                        return `${nowArr[1]}月${nowArr[2]}日`;
+                      }
+                      return `${nowArr[2]}日`;
+                    } else{
+                      if (prevArr[0] !== nowArr[0]) {
+                        return `${nowArr[0]}年${nowArr[1]}月`;
+                      }
+                      return `${nowArr[1]}月`;
+                    }
+                  },
+                },
+              }}
+              />
+
+            }
           </Card>
         )}
         {rangeDateType === 'monthly' && (
