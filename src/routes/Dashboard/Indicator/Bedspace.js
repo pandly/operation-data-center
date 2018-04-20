@@ -24,6 +24,7 @@ export default class Bedspace extends Component {
   state = {
     rangeDateType: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) < 14 ? 'daily' : 'monthly',
     isOneDay: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) === 0,
+    canvasHeights: [],
   };
 
   componentDidMount() {
@@ -35,6 +36,14 @@ export default class Bedspace extends Component {
         endDate: date.indicator.endDate,
       },
     });
+    window.onresize = () => {
+      this.setState({
+        canvasHeights: this.canvasCards.map(ele => ele.container.querySelector('.ant-card-body').clientHeight),
+      });
+    };
+    this.setState({
+      canvasHeights: this.canvasCards.map(ele => ele.container.querySelector('.ant-card-body').clientHeight),
+    });
   }
 
   componentWillUnmount() {
@@ -43,19 +52,19 @@ export default class Bedspace extends Component {
       type: 'bedspace/clear',
     });
   }
-
+  canvasCards= []
   render() {
     const { rangeDateType, isOneDay } = this.state;
     const { bedspace, loading, date } = this.props;
     const {
-      internalSliceBedInfoModule = {}, //内科片床位使用率
-      surgicalSliceBedInfoModule = {}, //外科片床位使用率
-      specialSliceBedInfoModule = {}, //特殊科室片区床位使用率
-      diffSickBlockInfoModule = [], //本期不同病区加床数和床位周转次数
-      highestTurnoverTopTenModule = [], //床位周转率最高的前十科室
-      lowestTurnoverTopTenModule = [] //床位周转率最低的前十科室
+      internalSliceBedInfoModule = {}, // 内科片床位使用率
+      surgicalSliceBedInfoModule = {}, // 外科片床位使用率
+      specialSliceBedInfoModule = {}, // 特殊科室片区床位使用率
+      diffSickBlockInfoModule = [], // 本期不同病区加床数和床位周转次数
+      highestTurnoverTopTenModule = [], // 床位周转率最高的前十科室
+      lowestTurnoverTopTenModule = [], // 床位周转率最低的前十科室
     } = bedspace;
-    
+
     // if(diffSickBlockInfoModule) {
     //   let area = {};
     //   diffSickBlockInfoModule.forEach(data => {
@@ -77,7 +86,7 @@ export default class Bedspace extends Component {
     //     })
     //   }
     // }
-    
+
     const internalData = [
       {
         item: '内科片区核定床位',
@@ -139,37 +148,37 @@ export default class Bedspace extends Component {
         //   }
         //   return obj;
         // },
-        width: 100
-      }, 
+        width: 100,
+      },
       {
         title: '病区',
         dataIndex: 'wardName',
         key: '2',
-        width: 100
+        width: 100,
       },
       {
         title: '床位周转次数',
         dataIndex: 'turnoverRate',
         sorter: (a, b) => a.turnoverRate - b.turnoverRate,
         key: '4',
-        width: 140
+        width: 140,
       },
       {
         title: '床位周转次数环比数据',
         dataIndex: 'turnoverRateMom',
         key: '5',
         sorter: (a, b) => a.turnoverRateMom - b.turnoverRateMom,
-        render: text => {
-          return <Compare value={text} />
+        render: (text) => {
+          return <Compare value={text} />;
         },
-        width: 190
+        width: 190,
       },
     ];
     const cardStyle = {
       marginBottom: 20,
-      boxShadow: "0 0 4px 0 #E8E8E8",
-      flex: 1
-    }
+      boxShadow: '0 0 4px 0 #E8E8E8',
+      flex: 1,
+    };
     return (
       <Fragment>
         <div style={{
@@ -356,7 +365,7 @@ export default class Bedspace extends Component {
                   legend={false}
                   data={specialSliceBedInfoModule.diffSickBlockBedUsedInfo}
                   shapeTypes={['borderRadius']}
-                  keyLabelTextAlign='start'
+                  keyLabelTextAlign="start"
                   labelSetting={{
                       htmlTemplate: (text, item, index) => `<div
                        style='transform: translate(10%, 100%);
@@ -375,82 +384,100 @@ export default class Bedspace extends Component {
             <div className="autoHeightCard" style={{ marginRight: 20, width: '45%' }}>
               <div className="cardTitle">本期不同病区床位周转次数</div>
               <div className="cardBody" style={{ padding: 0 }}>
-                <Table 
+                <Table
                   loading={loading}
                   dataSource={diffSickBlockInfoModule}
                   columns={columns}
                   pagination={false}
                   scroll={{ y: true }}
-                  rowClassName={(record, index) => 
-                    index % 2 === 0 ? 'stripe' : ''
+                  rowClassName={(record, index) =>
+                    (index % 2 === 0 ? 'stripe' : '')
                   }
                 />
               </div>
             </div>
-            <div style={{ 
+            <div style={{
               width: '55%',
               height: '100%',
               display: 'flex',
-              flexDirection: 'column'
-            }}>
+              flexDirection: 'column',
+            }}
+            >
               <Card
                 loading={loading}
                 title="床位周转率最高的前十科室"
                 style={{
                   marginBottom: 20,
-                  boxShadow: "0 0 4px 0 #E8E8E8",
-                  flex: 1
+                  boxShadow: '0 0 4px 0 #E8E8E8',
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  overflow: 'hidden',
                 }}
-                bodyStyle={{ 
-                  padding: '0 20px',                
-                }}>
-                  <Bar 
-                    height={230}
-                    size={25}
-                    pbg={null}
-                    grid={null} 
-                    padding={[20, 65, 50, 65]}
-                    legend={false}
-                    color="#3AC9A8"
-                    formatPercent={val => formatPercent(val)}
-                    fieldsMap={{
-                        x: 'departName', 
+                bodyStyle={{
+                  padding: '0 20px',
+                  flexGrow: 1,
+                  overflow: 'hidden',
+                }}
+                ref={node => this.canvasCards[0] = node}
+                >
+                <Bar
+                  height={this.state.canvasHeights[0] || 0}
+                  size={25}
+                  pbg={null}
+                  grid={null}
+                  padding={[20, 65, 50, 65]}
+                  legend={false}
+                  color="#3AC9A8"
+                  formatPercent={val => formatPercent(val)}
+                  fieldsMap={{
+                        x: 'departName',
                         keyMap: {
-                          'turnoverRate': '周转率'
-                        }
+                          turnoverRate: '周转率',
+                        },
                       }}
-                    data={highestTurnoverTopTenModule} />      
+                  data={highestTurnoverTopTenModule}
+                  />
               </Card>
               <Card
                 loading={loading}
                 title="床位周转率最低的前十科室"
                 style={{
-                  boxShadow: "0 0 4px 0 #E8E8E8",
-                  flex: 1
+                  marginBottom: 20,
+                  boxShadow: '0 0 4px 0 #E8E8E8',
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  overflow: 'hidden',
                 }}
-                bodyStyle={{ 
+                bodyStyle={{
                   padding: '0 20px',
-                }}> 
-                  <Bar 
-                    height={230}
-                    size={25}
-                    pbg={null}
-                    grid={null}
-                    padding={[20, 65, 50, 65]} 
-                    legend={false}
-                    color="#53BDE7"
-                    formatPercent={val => formatPercent(val)}
-                    fieldsMap={{
-                      x: 'departName', 
+                  flexGrow: 1,
+                  overflow: 'hidden',
+                }}
+                ref={node => this.canvasCards[0] = node}
+              >
+                <Bar
+                  height={this.state.canvasHeights[0] || 0}
+                  size={25}
+                  pbg={null}
+                  grid={null}
+                  padding={[20, 65, 50, 65]}
+                  legend={false}
+                  color="#53BDE7"
+                  formatPercent={val => formatPercent(val)}
+                  fieldsMap={{
+                      x: 'departName',
                       keyMap: {
-                        'turnoverRate': '周转率'
-                      }
+                        turnoverRate: '周转率',
+                      },
                     }}
-                    data={lowestTurnoverTopTenModule} />      
+                  data={lowestTurnoverTopTenModule}
+                  />
               </Card>
-            </div>  
+            </div>
           </div>
-        )}  
+        )}
       </Fragment>
     );
   }
