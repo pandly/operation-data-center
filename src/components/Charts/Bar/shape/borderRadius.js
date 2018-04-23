@@ -13,7 +13,7 @@ const borderRadius = (cfg, container, shape, transpose) => {
     width: path[2][1] - path[0][1],
     height: path[0][2] - path[2][2],
     fill: cfg.color,
-    radius: path[2][1] - path[0][1] > path[0][2] - path[2][2] ? (path[0][2] - path[2][2]) / 2:0,
+    radius: path[2][1] - path[0][1] > path[0][2] - path[2][2] ? (path[0][2] - path[2][2]) / 2 : 0,
     opacity: cfg.opacity,
   } : {
     x: path[1][1],

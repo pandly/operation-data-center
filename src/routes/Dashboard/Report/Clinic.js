@@ -210,7 +210,7 @@ export default class Clinic extends Component {
                 }}
                 legend={false}
                 data={outpatientSlice}
-                shapeTypes={['borderRadius', 'baseLine']}
+                shapeTypes={['baseLine', 'borderRadius']}
                 labelSetting={{
                   htmlTemplate: (text, item, index) => `<div
                      style='transform: translate(-35%, 60%);
@@ -246,7 +246,7 @@ export default class Clinic extends Component {
                 }}
                 legend={false}
                 data={surgricalSlice}
-                shapeTypes={['borderRadius', 'baseLine']}
+                shapeTypes={['baseLine', 'borderRadius']}
                 labelSetting={{
                   htmlTemplate: (text, item, index) => `<div
                      style='transform: translate(-35%, 60%);
@@ -282,7 +282,7 @@ export default class Clinic extends Component {
                 }}
                 legend={false}
                 data={internalSlice}
-                shapeTypes={['borderRadius', 'baseLine']}
+                shapeTypes={['baseLine', 'borderRadius']}
                 labelSetting={{
                     htmlTemplate: (text, item, index) => `<div
                      style='transform: translate(-35%, 60%);

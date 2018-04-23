@@ -13,16 +13,18 @@ const shape = (transpose, shapeTypes) => {
 
   Shape.registerShape('interval', shape[Symbol.for('name')], {
     draw(cfg, container) {
-      // const setting = types[shapeTypes](cfg, container, this, transpose);
-      // return container.addShape('rect', {
-      //   attrs: setting,
-      // });
-      shapeTypes.forEach(element => {
-        const setting = types[element](cfg, container, this, transpose);
+      for (let i = 0; i < shapeTypes.length; i++) {
+        const setting = types[shapeTypes[i]](cfg, container, this, transpose);
+        if (i === shapeTypes.length - 1) {
+          return container.addShape('rect', {
+            attrs: setting,
+          });
+        } else {
           container.addShape('rect', {
             attrs: setting,
           });
-      });
+        }
+      }
     },
   });
 
