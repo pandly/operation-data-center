@@ -65,14 +65,14 @@ export default class NonDrug extends Component {
         title: '门诊非药物中医诊疗人次',
         dataIndex: 'patientNonDrugCount',
         key: 'patientNonDrugCount',
-        sorter: (a, b) => a.patientNonDrugCount - b.patientNonDrugCount,
+        sorter: (a, b) => (a.patientNonDrugCount || 0) - (b.patientNonDrugCount || 0),
         width: 180
       }, 
       {
         title: '门诊非药物中治率',
         dataIndex: 'patientNonDrugCountRate',
         key: 'patientNonDrugCountRate',
-        sorter: (a, b) => a.patientNonDrugCountRate - b.patientNonDrugCountRate,
+        sorter: (a, b) => (a.patientNonDrugCountRate || 0) - (b.patientNonDrugCountRate || 0),
         render: text => {
           return formatPercent(text)
         },
@@ -82,14 +82,14 @@ export default class NonDrug extends Component {
         title: '出院非药物中医诊疗人次',
         dataIndex: 'recoverNonDrugCount',
         key: 'recoverNonDrugCount',
-        sorter: (a, b) => a.recoverNonDrugCount - b.recoverNonDrugCount,
+        sorter: (a, b) => (a.recoverNonDrugCount || 0) - (b.recoverNonDrugCount || 0),
         width: 180
       },
       {
         title: '出院非药物中治率',
         dataIndex: 'recoverNonDrugRate',
         key: 'recoverNonDrugRate',
-        sorter: (a, b) => a.recoverNonDrugRate - b.recoverNonDrugRate,
+        sorter: (a, b) => (a.recoverNonDrugRate || 0) - (b.recoverNonDrugRate || 0),
         render: text => {
           return formatPercent(text)
         },
@@ -101,7 +101,7 @@ export default class NonDrug extends Component {
         title: '门诊非药物中治率环比数据',
         dataIndex: 'patientNonDrugCountRateMom',
         key: 'patientNonDrugCountRateMom',
-        sorter: (a, b) => a.patientNonDrugCountRateMom - b.patientNonDrugCountRateMom,
+        sorter: (a, b) => (a.patientNonDrugCountRateMom || 0) - (b.patientNonDrugCountRateMom || 0),
         render: text => {
           return (
             <Compare value={text} />
@@ -113,7 +113,7 @@ export default class NonDrug extends Component {
         title: '出院非药物中治率环比数据',
         dataIndex: 'recoverNonDrugRateMom',
         key: 'recoverNonDrugRateMom',
-        sorter: (a, b) => a.recoverNonDrugRateMom - b.recoverNonDrugRateMom,
+        sorter: (a, b) => (a.recoverNonDrugRateMom || 0) - (b.recoverNonDrugRateMom || 0),
         render: text => {
           return (
             <Compare value={text} />
@@ -176,8 +176,7 @@ export default class NonDrug extends Component {
                         bodyStyle={{ 
                           height: '125px',
                           padding: '15px'
-                        }}                       
-                      > 
+                        }}> 
                         {[0, 1, 2].includes(index) ? (
                           <div className={`${styles.arrow} ${index === 0 ? styles.one : (index === 1 ? styles.two : styles.three)}`} >
                             <span className={styles.num}>{index + 1}</span>
@@ -189,7 +188,7 @@ export default class NonDrug extends Component {
                         )}                        
                         <div className={styles.part1}>{data.therapyName}</div> 
                         <div className={styles.part2}>                    
-                          <div className={styles.left}>{data.frequency || '--'}</div>
+                          <div className={styles.left}>{data.frequency == undefined ? '--' : data.frequency}</div>
                           <Divider type="vertical" style={{ height: 20 }}/>
                           <div className={styles.right}>
                              <Compare value={data.frequencyMom} />
@@ -206,8 +205,7 @@ export default class NonDrug extends Component {
                           justifyContent: 'space-between',
                           alignItems: 'center', 
                           height: '125px'
-                        }}                       
-                      > 
+                        }}> 
                         {[0, 1, 2].includes(index) ? (
                           <div className={`${styles.arrow} ${index === 0 ? styles.one : (index === 1 ? styles.two : styles.three)}`} >
                             <span className={styles.num}>{index + 1}</span>
@@ -218,7 +216,7 @@ export default class NonDrug extends Component {
                           </div>
                         )}                        
                         <div className={styles.part1}>{data.therapyName}</div>                     
-                        <div className={styles.part2}>{data.frequency || '--'}</div>                                                        
+                        <div className={styles.part2}>{data.frequency == undefined ? '--' : data.frequency}</div>                                                        
                       </Card>
                     </div>
                   )               

@@ -167,20 +167,20 @@ export default class Surgery extends Component {
         title: '手术名称',
         dataIndex: 'surgeryName',
         key: '2',
-        width: 200
+        width: 150
       }, 
       {
         title: '手术例数',
         dataIndex: 'surgeryCount',
         key: '3',
-        sorter: (a, b) => a.surgeryCount - b.surgeryCount,
-        width: 140
+        sorter: (a, b) => (a.surgeryCount || 0) - (b.surgeryCount || 0),
+        width: 170
       }, 
       {
         title: '手术级别',
         dataIndex: 'surgeryLevel',
         key: '4',
-        width: 120,
+        width: 150,
         render: text => {
           return levelMap.filter(data => data.key == text)[0].name
         }
@@ -189,13 +189,13 @@ export default class Surgery extends Component {
         title: '手术例数环比数据',
         dataIndex: 'surgeryCountMom',
         key: '5',
-        sorter: (a, b) => a.surgeryCountMom - b.surgeryCountMom,
+        sorter: (a, b) => (a.surgeryCountMom || 0) - (b.surgeryCountMom || 0),
         render: text => {
           return (
             <Compare value={text} />
           )  
         },
-        width: 220
+        width: 200
       }
     ];
     let columns2 = [
@@ -209,20 +209,20 @@ export default class Surgery extends Component {
         title: '手术名称',
         dataIndex: 'surgeryName',
         key: '2',
-        width: 200
+        width: 150
       }, 
       {
         title: '手术例数',
         dataIndex: 'surgeryCount',
-        sorter: (a, b) => a.surgeryCount - b.surgeryCount,
+        sorter: (a, b) => (a.surgeryCount || 0) - (b.surgeryCount || 0),
         key: '3',
-        width: 140
+        width: 170
       }, 
       {
         title: '手术类型',
         dataIndex: 'surgeryType',
         key: '4',
-        width: 120,
+        width: 150,
         render: text => {
           return typeMap.filter(data => data.key === text)[0].name
         }
@@ -231,13 +231,13 @@ export default class Surgery extends Component {
         title: '手术例数环比数据',
         dataIndex: 'surgeryCountMom',
         key: '5',
-        sorter: (a, b) => a.surgeryCountMom - b.surgeryCountMom,
+        sorter: (a, b) => (a.surgeryCountMom || 0) - (b.surgeryCountMom || 0),
         render: text => {
           return (
             <Compare value={text} />
           )  
         },
-        width: 220
+        width: 200
       }
     ];
 

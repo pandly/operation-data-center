@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'dva';
 import Compare from '../../../components/Compare';
+import NoData from '../../../components/NoData';
 import {
   Row,
   Col,
@@ -54,7 +55,7 @@ export default class Revenue extends Component {
       drugIncomeDetailsModule = {}, 
       nonDrugIncomeDetailsModule = [], 
     } = income;
-
+    console.log(drugIncomeDetailsModule)
     let [
       fourExpenses = {},
       drugCost = {},
@@ -131,7 +132,7 @@ export default class Revenue extends Component {
         title: '门急诊收入',
         dataIndex: 'outEmerIncomeCount',
         key: '2',
-        sorter: (a, b) => a.outEmerIncomeCount - b.outEmerIncomeCount,
+        sorter: (a, b) => (a.outEmerIncomeCount || 0) - (b.outEmerIncomeCount || 0),
         render: text => {
           return yuan(text)
         }
@@ -140,7 +141,7 @@ export default class Revenue extends Component {
         title: '住院收入',
         dataIndex: 'inHospitalIncomeCount',
         key: '3',
-        sorter: (a, b) => a.inHospitalIncomeCount - b.inHospitalIncomeCount,
+        sorter: (a, b) => (a.inHospitalIncomeCount || 0) - (b.inHospitalIncomeCount || 0),
         render: text => {
           return yuan(text)
         }
@@ -149,7 +150,7 @@ export default class Revenue extends Component {
         title: '总收入',
         dataIndex: 'totalIncomeCount',
         key: '4',
-        sorter: (a, b) => a.totalIncomeCount - b.totalIncomeCount,
+        sorter: (a, b) => (a.totalIncomeCount || 0) - (b.totalIncomeCount || 0),
         render: text => {
           return yuan(text)
         }
@@ -159,7 +160,7 @@ export default class Revenue extends Component {
       title: '总收入环比数据',
       dataIndex: 'totalIncomeCountMom',
       key: '5',
-      sorter: (a, b) => a.totalIncomeCountMom - b.totalIncomeCountMom,
+      sorter: (a, b) => (a.totalIncomeCountMom || 0) - (b.totalIncomeCountMom || 0),
       render: text => {
         return (
           <Compare value={text} />
@@ -169,7 +170,7 @@ export default class Revenue extends Component {
       title: '所占比例',
       dataIndex: 'totalIncomeRate',
       key: '5',
-      sorter: (a, b) => a.totalIncomeRate - b.totalIncomeRate,
+      sorter: (a, b) => (a.totalIncomeRate || 0) - (b.totalIncomeRate || 0),
       render: text => {
         return formatPercent(text)
       },
@@ -186,7 +187,7 @@ export default class Revenue extends Component {
         title: '收入金额',
         dataIndex: 'incomeCount',
         key: '7',
-        sorter: (a, b) => a.incomeCount - b.incomeCount,
+        sorter: (a, b) => (a.incomeCount || 0) - (b.incomeCount || 0),
         render: text => {
           return yuan(text)
         },
@@ -196,7 +197,7 @@ export default class Revenue extends Component {
       title: '收入金额环比数据',
       dataIndex: 'incomeCountMom',
       key: '8',
-      sorter: (a, b) => a.incomeCountMom - b.incomeCountMom,
+      sorter: (a, b) => (a.incomeCountMom || 0) - (b.incomeCountMom || 0),
       render: text => {
         return (
           <Compare value={text} />
@@ -206,7 +207,7 @@ export default class Revenue extends Component {
       title: '所占比例',
       dataIndex: 'incomeCountRate',
       key: '8',
-      sorter: (a, b) => a.incomeCountRate - b.incomeCountRate,
+      sorter: (a, b) => (a.incomeCountRate || 0) - (b.incomeCountRate || 0),
       render: text => {
         return formatPercent(text)
       },
@@ -214,7 +215,6 @@ export default class Revenue extends Component {
     drugColumn.push(drugMonthlyObj)
 
     //药品收入明细--饼状图数据
-    drugIncomeDetailsModule = drugIncomeDetailsModule || {};
     const pieData = [
       {
         item: '中成药',
@@ -255,7 +255,7 @@ export default class Revenue extends Component {
                     alignItems: 'center',
                     overflow: 'hidden'
                   }}> 
-                    <div className={styles.countPart}>{data.count || '--'}</div>                   
+                    <div className={styles.countPart}>{ data.count == undefined ? '--' : data.count }</div>                   
                     {data.item.includes('(') ? (
                       <div className={styles.itemPart}>
                         <div>{data.item.slice(0, data.item.indexOf('('))}</div>
@@ -280,11 +280,11 @@ export default class Revenue extends Component {
           })}
         </Row>
         <Row gutter={24}>
-          <Col xl={13} lg={24} md={24} sm={24} xs={24}>
+          <Col xl={14} lg={24} md={24} sm={24} xs={24}>
             <Card
               loading={loading}
               title="不同科室的收入明细"
-              bodyStyle={{ padding: 0 }}
+              bodyStyle={{ padding: 0, minHeight: 438 }}
               style={{ marginBottom: 24 }}
             >
               <Table
@@ -297,24 +297,27 @@ export default class Revenue extends Component {
               />
             </Card>
           </Col>
-          <Col xl={11} lg={24} md={24} sm={24} xs={24}>
+          <Col xl={10} lg={24} md={24} sm={24} xs={24}>
             <Card
               loading={loading}
               title="药品收入明细"
-              bodyStyle={{ minHeight: 190, padding: '0 20px' }}
-              style={{ marginBottom: 20 }}
-            >
-              <Pie
-                hasLegend = 'all'
-                legendWidth={250}
-                //hasLabel
-                innerRadius={0.6}
-                data={pieData}
-                valueFormat={val => yuan(val)}
-                height={160}
-                lineWidth={2}
-                colors={['#3AC9A8', '#53BDE7', '#FF8465']}
-              />
+              bodyStyle={{ minHeight: 200, padding: '0 20px' }}
+              style={{ marginBottom: 20 }}>
+              {drugIncomeDetailsModule ? 
+                (
+                  <Pie
+                    hasLegend = 'all'
+                    legendWidth={250}
+                    //hasLabel
+                    innerRadius={0.6}
+                    data={pieData}
+                    valueFormat={val => yuan(val)}
+                    height={160}
+                    lineWidth={2}
+                    colors={['#3AC9A8', '#53BDE7', '#FF8465']}
+                  />
+                ) : (<NoData />)
+              }       
             </Card>
             <Card
               loading={loading}

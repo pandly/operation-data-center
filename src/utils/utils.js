@@ -6,11 +6,11 @@ export function fixedZero(val) {
 }
 
 export const yuan = val => {
-  return val > 10000 ? `￥${numeral((val/10000).toFixed(2)).format('0,0.00')}万` : `￥${numeral(val).format('0,0.00')}`; 
+  return val == undefined ? '--' : (val > 10000 ? `￥${numeral((val/10000).toFixed(2)).format('0,0.00')}万` : `￥${numeral(val).format('0,0.00')}`); 
 }
 
 export const formatPercent = val => {
-  return typeof val === 'number' ? `${numeral(val).multiply(100)._value}%` : '--'
+  return val == undefined ? '--' : `${numeral(val).multiply(100)._value}%`
 }
 
 export const transformArr = arr => {

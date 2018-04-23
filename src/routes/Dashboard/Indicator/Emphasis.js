@@ -120,9 +120,9 @@ export default class Emphasis extends PureComponent {
     });
   };
   disabledDate = (current) => {
-    const currentDate = `${new Date().toLocaleDateString()  } 08:00:00`;
+    const currentDate = `${new Date().toLocaleDateString()} 08:00:00`;
     // can not select days after today
-    return current.valueOf() >= new Date(currentDate).valueOf();
+    return current.valueOf() >= new Date(currentDate).valueOf() || current.valueOf() < new Date('2016/1/1 08:00:00').valueOf();
   };
   render() {
     const { rangePickerValue, rangeDateType } = this.state;
@@ -496,7 +496,7 @@ export default class Emphasis extends PureComponent {
                           className={styles.technologyCard}
                           bodyStyle={{ padding: '6px 0 6px 0' }}>
                           <div className={styles.item}>{item.medicalTechName}</div>
-                          <div className={styles.count}>{typeof item.medicalTechCount === 'number' ? item.medicalTechCount : '--'}</div>
+                          <div className={styles.count}>{ item.medicalTechCount == undefined ? '--' : item.medicalTechCount }</div>
                           {rangeDateType === 'monthly' && (
                             <div className={styles.compare}>
                               <Compare value={item.medicalTechCountMom} />

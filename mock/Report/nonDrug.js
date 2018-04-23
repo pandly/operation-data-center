@@ -360,7 +360,7 @@ const mock_nonDrug = {
 	        "frequency": 4040
 	      },
 	      {
-	        "therapyName": "中药涂擦治疗（10%体表面积）/次",
+	        "therapyName": "中药涂擦治疗",
 	        "frequencyMom": -0.1142,
 	        "frequency": 3630
 	      },
@@ -390,7 +390,7 @@ const mock_nonDrug = {
 	        "frequency": 578
 	      },
 	      {
-	        "therapyName": "电针(普通电针)(≤20个穴位)/穴位",
+	        "therapyName": "电针",
 	        "frequencyMom": -0.2779,
 	        "frequency": 499
 	      },

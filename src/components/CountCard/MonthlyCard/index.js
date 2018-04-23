@@ -19,7 +19,7 @@ const MonthlyCard = ({
 		  <div className={styles.monthlyCardContent}>
         <div className={styles.title} style={{ backgroundColor: color }}>{title}</div>
         <div className={styles.content}>
-          <span className={styles.total} style={{ color }}>{typeof content === 'number' ? content : '--'}</span>
+          <span className={styles.total} style={{ color }}>{ content == undefined ? '--' : content }</span>
           {unit ? (
             <span className={styles.unit}>{unit}</span>
           ) : null}       

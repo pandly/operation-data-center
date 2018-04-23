@@ -102,27 +102,27 @@ export default class Prescription extends Component {
         title: '科室名称',
         dataIndex: 'departName',
         key: 'departName',
-        width: 130
+        width: 150
       }, 
       {
         title: '处方数量',
         dataIndex: 'prescriptionQuantity',
         key: 'prescriptionQuantity',
-        width: 150,
-        sorter: (a, b) => a.prescriptionQuantity - b.prescriptionQuantity
+        width: 130,
+        sorter: (a, b) => (a.prescriptionQuantity || 0) - (b.prescriptionQuantity || 0)
       }, 
       {
         title: '中医处方数量',
         dataIndex: 'chinaPrescriptionQuantity',
         key: 'chinaPrescriptionQuantity',
-        width: 150,
-        sorter: (a, b) => a.chinaPrescriptionQuantity - b.chinaPrescriptionQuantity
+        width: 160,
+        sorter: (a, b) => (a.chinaPrescriptionQuantity || 0) - (b.chinaPrescriptionQuantity || 0)
       }, 
       {
         title: '中医处方率',
         dataIndex: 'chinaPrescriptionRate',
         key: 'chinaPrescriptionRate',
-        sorter: (a, b) => a.chinaPrescriptionRate - b.chinaPrescriptionRate,
+        sorter: (a, b) => (a.chinaPrescriptionRate || 0) - (b.chinaPrescriptionRate || 0),
         render: text => {
           return formatPercent(text);
         },
@@ -132,41 +132,41 @@ export default class Prescription extends Component {
         title: '成药比',
         dataIndex: 'chinaPatentMedicineQuantityRate',
         key: 'chinaPatentMedicineQuantityRate',
-        sorter: (a, b) => a.chinaPatentMedicineQuantityRate - b.chinaPatentMedicineQuantityRate,
+        sorter: (a, b) => (a.chinaPatentMedicineQuantityRate || 0) - (b.chinaPatentMedicineQuantityRate || 0),
         render: text => {
           return formatPercent(text);
         },
-        width: 150
+        width: 160
       },
       {
         title: '门诊饮片处方比',
         dataIndex: 'piecesPrescriptionQuantityRate',
         key: 'piecesPrescriptionQuantityRate',
-        sorter: (a, b) => a.piecesPrescriptionQuantityRate - b.piecesPrescriptionQuantityRate,
+        sorter: (a, b) => (a.piecesPrescriptionQuantityRate || 0) - (b.piecesPrescriptionQuantityRate || 0),
         render: text => {
           return formatPercent(text);
         },
-        width: 150
+        width: 160
       }, 
       {
         title: '门诊饮片人次比',
         dataIndex: 'piecesPrescriptionHumanRate',
         key: 'piecesPrescriptionHumanRate',
-        sorter: (a, b) => a.piecesPrescriptionHumanRate - b.piecesPrescriptionHumanRate,
+        sorter: (a, b) => (a.piecesPrescriptionHumanRate || 0) - (b.piecesPrescriptionHumanRate || 0),
         render: text => {
           return formatPercent(text);
         },
-        width: 150
+        width: 160
       }, 
       {
         title: '出院饮片人次比',
         dataIndex: 'dischargedPiecesRate',
         key: 'dischargedPiecesRate',
-        sorter: (a, b) => a.dischargedPiecesRate - b.dischargedPiecesRate,
+        sorter: (a, b) => (a.dischargedPiecesRate || 0) - (b.dischargedPiecesRate || 0),
         render: text => {
           return formatPercent(text);
         },
-        width: 150
+        width: 160
       }
     ];
     if(rangeDateType === 'monthly') {
@@ -174,7 +174,7 @@ export default class Prescription extends Component {
         title: '中医处方率环比数据',
         dataIndex: 'chinaPrescriptionRateMom',
         key: 'chinaPrescriptionRateMom',
-        sorter: (a, b) => a.chinaPrescriptionRateMom - b.chinaPrescriptionRateMom,
+        sorter: (a, b) => (a.chinaPrescriptionRateMom || 0) - (b.chinaPrescriptionRateMom || 0),
         render: text => {
           return (
             <Compare value={text} />
@@ -184,13 +184,7 @@ export default class Prescription extends Component {
       }
       columns.splice(4, 0, columnObject);
     }
-    const cardStyle = {
-      height: '100%',
-      width: '30%',
-      boxShadow: "0 0 4px 0 #E8E8E8",
-      display: 'flex',
-      flexDirection: 'column'
-    }
+
     return (
       <Fragment>
         <div style={{
@@ -225,8 +219,13 @@ export default class Prescription extends Component {
               flex: 1, 
               overflowY: 'auto' 
             }}
-            style={cardStyle}
-          >
+            style={{
+              height: '100%',
+              width: '30%',
+              boxShadow: "0 0 4px 0 #E8E8E8",
+              display: 'flex',
+              flexDirection: 'column'
+            }}>
             {prescriptionSingleData.map(data => {
               return (
                 rangeDateType === 'monthly' ? (
@@ -241,9 +240,9 @@ export default class Prescription extends Component {
                   >  
                     <div style={{ color: '#666', marginBottom: 14 }}>{data.item}</div> 
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <div style={{ fontSize: '24px', flex: 2, textAlign: 'right', paddingRight: 22 }}>{data.count || '--'}</div>
+                      <div style={{ fontSize: '24px', flex: 2, textAlign: 'right', paddingRight: 14 }}>{data.count || '--'}</div>
                       <Divider type="vertical" style={{ height: 20 }}/>
-                      <div style={{ flex: 1, textAlign: 'left', paddingLeft: 17 }}>
+                      <div style={{ flex: 1, textAlign: 'left', paddingLeft: 10 }}>
                         <Compare value={data.decrease} />
                       </div>
                     </div>                                 
@@ -258,11 +257,10 @@ export default class Prescription extends Component {
                       justifyContent: 'space-between',
                       alignItems: 'center', 
                       height: '100px',
-                      padding: '24px 40px'
-                    }}
-                  >  
-                    <div style={{ fontSize: '24px' }}>{data.count || '--'}</div>                   
-                    <div>{data.item || '--'}</div>               
+                      padding: '0 20px'
+                    }}>  
+                    <div style={{ fontSize: '24px' }}>{data.count}</div>                   
+                    <div>{data.item}</div>               
                   </Card>
                 )
               )
