@@ -111,31 +111,31 @@ export default class Appointment extends Component {
       {
         title: '专家号预约数',
         dataIndex: 'expertReservation',
-        sorter: (a, b) => a.expertReservation - b.expertReservation,
+        sorter: (a, b) => (a.expertReservation || 0) - (b.expertReservation || 0),
         key: '3'
       }, 
       {
         title: '特需预约数',
         dataIndex: 'specialNeedReservation',
-        sorter: (a, b) => a.specialNeedReservation - b.specialNeedReservation,
+        sorter: (a, b) => (a.specialNeedReservation || 0) - (b.specialNeedReservation || 0),
         key: '4'
       },  
       {
         title: '专科预约数',
         dataIndex: 'specialRegistReservation',
-        sorter: (a, b) => a.specialRegistReservation - b.specialRegistReservation,
+        sorter: (a, b) => (a.specialRegistReservation || 0) - (b.specialRegistReservation || 0),
         key: '5'
       },
       {
         title: '总预约数',
         dataIndex: 'totalReservationCount',
-        sorter: (a, b) => a.totalReservationCount - b.totalReservationCount,
+        sorter: (a, b) => (a.totalReservationCount || 0) - (b.totalReservationCount || 0),
         key: '6'
       },
       {
         title: '总预约就诊数',
         dataIndex: 'totalVisitCount',
-        sorter: (a, b) => a.totalVisitCount - b.totalVisitCount,
+        sorter: (a, b) => (a.totalVisitCount || 0) - (b.totalVisitCount || 0),
         key: '7',
       },
       // {
@@ -150,7 +150,7 @@ export default class Appointment extends Component {
         title: '专家号预约就诊率',
         dataIndex: 'expertVisitRate',
         key: '9',
-        sorter: (a, b) => a.expertVisitRate - b.expertVisitRate,
+        sorter: (a, b) => (a.expertVisitRate || 0) - (b.expertVisitRate || 0),
         render: text => {
           return formatPercent(text);
         },
@@ -159,7 +159,7 @@ export default class Appointment extends Component {
         title: '特需预约就诊率',
         dataIndex: 'specialNeedVisitRate',
         key: '10',
-        sorter: (a, b) => a.specialNeedVisitRate - b.specialNeedVisitRate,
+        sorter: (a, b) => (a.specialNeedVisitRate || 0) - (b.specialNeedVisitRate || 0),
         render: text => {
           return formatPercent(text);
         },
@@ -168,7 +168,7 @@ export default class Appointment extends Component {
         title: '专科预约就诊率',
         dataIndex: 'specialRegistVisitRate',
         key: '11',
-        sorter: (a, b) => a.specialRegistVisitRate - b.specialRegistVisitRate,
+        sorter: (a, b) => (a.specialRegistVisitRate || 0) - (b.specialRegistVisitRate || 0),
         render: text => {
           return formatPercent(text);
         },

@@ -14,7 +14,7 @@ const bedSpace_daily = {
 	      "bedUsedRate": 0.0677,
 	      "diffSickBlockBedUsedInfo": [
 	        {
-	          "wardBedUsedRate": 0,
+	          "wardBedUsedRate": 0.0234,
 	          "wardName": "十五病区"
 	        },
 	        {
@@ -295,27 +295,27 @@ const bedSpace_monthly = {
 	    ],
 	    "lowestTurnoverTopTenModule": [
 	      {
-	        "turnoverRate": 0,
+	        "turnoverRate": 0.5678,
 	        "departName": "儿科"
 	      },
 	      {
-	        "turnoverRate": 0,
+	        "turnoverRate": 0.6543,
 	        "departName": "血透科室"
 	      },
 	      {
-	        "turnoverRate": 0,
+	        "turnoverRate": 0.76,
 	        "departName": "脑外重症室"
 	      },
 	      {
-	        "turnoverRate": 0,
+	        "turnoverRate": 0.78,
 	        "departName": "感染性疾病科"
 	      },
 	      {
-	        "turnoverRate": 0,
+	        "turnoverRate": 0.8634,
 	        "departName": "口腔科"
 	      },
 	      {
-	        "turnoverRate": 0,
+	        "turnoverRate": 0.8678,
 	        "departName": "针灸推拿科"
 	      },
 	      {
