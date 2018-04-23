@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'dva';
 import Compare from '../../../components/Compare';
-import { computeDays, getDateFromString, formatPercent, transformArr } from '../../../utils/utils';
+import { formatPercent, transformArr } from '../../../utils/utils';
 import {
   Row,
   Col,
@@ -26,9 +26,9 @@ const TabPane = Tabs.TabPane;
 export default class Surgery extends Component {
   
   state = {
-    rangeDateType: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) < 14 ? 'daily' : 'monthly',
-    rangeDate: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) + 1,
-    isOneDay: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) === 0 ? true : false,
+    rangeDateType: this.props.date.indicator.rangeDateType,
+    rangeDate: this.props.date.indicator.rangeDate,
+    isOneDay: this.props.date.indicator.isOneDay,
     category: 0,
     level: 1
   };
@@ -106,7 +106,6 @@ export default class Surgery extends Component {
   
   render() {
     const { rangeDateType, isOneDay, rangeDate } = this.state;
-    console.log(rangeDate)
     const { surgery, loading, date } = this.props;
     const { 
       diffCategorySurgeryModule = [], 

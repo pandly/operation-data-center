@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'dva';
 import Compare from '../../../components/Compare';
-import { computeDays, yuan, formatPercent } from '../../../utils/utils';
+import { yuan, formatPercent } from '../../../utils/utils';
 import {
   Row,
   Col,
@@ -23,8 +23,8 @@ import styles from './Prescription.less';
 export default class Prescription extends Component {
   
   state = {
-    rangeDateType: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) < 14 ? 'daily' : 'monthly',
-    isOneDay: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) === 0 ? true : false
+    rangeDateType: this.props.date.report.rangeDateType,
+    isOneDay: this.props.date.report.isOneDay
   };
 
   componentDidMount() {

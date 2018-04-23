@@ -19,7 +19,7 @@ const emphasis_monthly = {
 	        "materialRate": 0.1046,
 	        "materialRateLastMonth": 0.0954,
 	        "materialRateLastYear": 0.1749,
-	        "name": "高值耗材成本"
+	        "name": "高值耗材成本占比"
 	      }
 	    ],
 	    "medicalQuantityModule": {

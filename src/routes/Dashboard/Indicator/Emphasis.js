@@ -31,8 +31,8 @@ const { RangePicker } = DatePicker;
 export default class Emphasis extends PureComponent {
 
   state = {
-    rangePickerValue: getRangePickerValue(this.props.date.indicator),
-    rangeDateType: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) < 14 ? 'daily' : 'monthly',
+    rangePickerValue: this.props.date.indicator.rangePickerValue,
+    rangeDateType: this.props.date.indicator.rangeDateType,
   };
 
   componentDidMount() {
@@ -115,6 +115,10 @@ export default class Emphasis extends PureComponent {
         indicator: {
           beginDate: dateStr[0],
           endDate: dateStr[1],
+          rangePickerValue: getRangePickerValue(dateStr[0], dateStr[1]),
+          rangeDateType: computeDays(dateStr[0], dateStr[1]) < 14 ? 'daily' : 'monthly',
+          rangeDate: computeDays(dateStr[0], dateStr[1]) + 1,
+          isOneDay: computeDays(dateStr[0], dateStr[1]) === 0
         },
       },
     });
@@ -446,11 +450,11 @@ export default class Emphasis extends PureComponent {
                       </div>
                       <div style={{flex: 1}}>            
                         <Pie
-                          innerRadius={0.6}
+                          innerRadius={0.7}
                           subTitle="使用床位"
                           total={bedModule.totalBedCount}
                           data={badSpace}
-                          height={240}
+                          height={230}
                           colors={['#FEA101', '#FF8465', '#53BDE7']}
                         />
                       </div>

@@ -98,9 +98,9 @@ export function getDate(obj = '') {
   return `${year}-${month}-${day}`;
 }
 
-export function getRangePickerValue(obj) {
-  let startDate = new Date(obj.beginDate);
-  let endDate = new Date(obj.endDate);
+export function getRangePickerValue(begin, end) {
+  let startDate = new Date(begin);
+  let endDate = new Date(end);
   return [moment(startDate), moment(endDate)];
 }
 

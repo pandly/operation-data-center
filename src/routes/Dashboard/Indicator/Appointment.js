@@ -12,7 +12,7 @@ import {
   Bar
 } from 'components/Charts';
 import styles from './Appointment.less';
-import { computeDays, yuan, formatPercent, transformArr } from '../../../utils/utils';
+import { yuan, formatPercent, transformArr } from '../../../utils/utils';
 
 @connect(({ appointment, date, loading }) => ({
   appointment,
@@ -23,8 +23,8 @@ import { computeDays, yuan, formatPercent, transformArr } from '../../../utils/u
 export default class Appointment extends Component {
   
   state = {
-    rangeDateType: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) < 14 ? 'daily' : 'monthly',
-    isOneDay: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) === 0 ? true : false
+    rangeDateType: this.props.date.indicator.rangeDateType,
+    isOneDay: this.props.date.indicator.isOneDay
   };
 
   componentDidMount() {

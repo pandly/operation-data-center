@@ -30,8 +30,8 @@ const { RangePicker } = DatePicker;
 export default class Dynamic extends PureComponent {
 
   state = {
-    rangePickerValue: getRangePickerValue(this.props.date.report),
-    rangeDateType: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) < 14 ? 'daily' : 'monthly',
+    rangePickerValue: this.props.date.report.rangePickerValue,
+    rangeDateType: this.props.date.report.rangeDateType,
   };
  
   componentDidMount() {
@@ -113,7 +113,11 @@ export default class Dynamic extends PureComponent {
       payload: {
         report: {
           beginDate: dateStr[0],
-          endDate: dateStr[1]
+          endDate: dateStr[1],
+          rangePickerValue: getRangePickerValue(dateStr[0], dateStr[1]),
+          rangeDateType: computeDays(dateStr[0], dateStr[1]) < 14 ? 'daily' : 'monthly',
+          rangeDate: computeDays(dateStr[0], dateStr[1]) + 1,
+          isOneDay: computeDays(dateStr[0], dateStr[1]) === 0
         }
       }
     })

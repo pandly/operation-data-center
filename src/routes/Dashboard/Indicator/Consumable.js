@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'dva';
 import Compare from '../../../components/Compare';
-import { computeDays, getDateFromString, yuan, formatPercent } from '../../../utils/utils';
+import { yuan, formatPercent } from '../../../utils/utils';
 import {
   Table
 } from 'antd';
@@ -16,8 +16,8 @@ import styles from './Consumable.less';
 export default class Consumable extends Component {
 
   state = {
-    rangeDateType: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) < 14 ? 'daily' : 'monthly',
-    isOneDay: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) === 0 ? true : false
+    rangeDateType: this.props.date.indicator.rangeDateType,
+    isOneDay: this.props.date.indicator.isOneDay
   };
 
   componentDidMount() {

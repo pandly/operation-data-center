@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'dva';
 import Compare from '../../../components/Compare';
-import { computeDays, getDateFromString, formatPercent } from '../../../utils/utils';
+import { formatPercent } from '../../../utils/utils';
 import {
   Row,
   Col,
@@ -22,8 +22,8 @@ import styles from './Bedspace.less';
 export default class Bedspace extends Component {
 
   state = {
-    rangeDateType: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) < 14 ? 'daily' : 'monthly',
-    isOneDay: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) === 0,
+    rangeDateType: this.props.date.indicator.rangeDateType,
+    isOneDay: this.props.date.indicator.isOneDay,
     canvasHeights: [],
   };
 

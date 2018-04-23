@@ -23,8 +23,8 @@ import { computeDays, yuan, formatPercent } from '../../../utils/utils';
 export default class Revenue extends Component {
   
   state = {
-    rangeDateType: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) < 14 ? 'daily' : 'monthly',
-    isOneDay: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) === 0 ? true : false
+    rangeDateType: this.props.date.report.rangeDateType,
+    isOneDay: this.props.date.report.isOneDay
   };
 
   componentDidMount() {

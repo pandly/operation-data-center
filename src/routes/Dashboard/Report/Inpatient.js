@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'dva';
-import { computeDays, transformArr } from '../../../utils/utils';
+import { transformArr } from '../../../utils/utils';
 import {
   Row,
   Col,
@@ -24,9 +24,9 @@ import styles from './Inpatient.less';
 export default class Inpatient extends Component {
 
   state = {
-    rangeDateType: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) < 14 ? 'daily' : 'monthly',
-    isOneDay: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) === 0,
-    rangeDate: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) + 1,
+    rangeDateType: this.props.date.report.rangeDateType,
+    isOneDay: this.props.date.report.isOneDay,
+    rangeDate: this.props.date.report.rangeDate,
   };
 
   componentDidMount() {

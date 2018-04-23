@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'dva';
-import { computeDays, transformArr, formatPercent } from '../../../utils/utils';
+import { transformArr, formatPercent } from '../../../utils/utils';
 import {
   Row,
   Col,
@@ -21,8 +21,8 @@ import styles from './Clinic.less';
 export default class Clinic extends Component {
 
   state = {
-    rangeDateType: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) < 14 ? 'daily' : 'monthly',
-    isOneDay: computeDays(this.props.date.report.beginDate, this.props.date.report.endDate) === 0,
+    rangeDateType: this.props.date.report.rangeDateType,
+    isOneDay: this.props.date.report.isOneDay,
   };
 
   componentDidMount() {

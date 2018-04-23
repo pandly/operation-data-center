@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'dva';
 import Compare from '../../../components/Compare';
 import NoData from '../../../components/NoData';
-import { computeDays, getDateFromString, formatPercent, transformArr } from '../../../utils/utils';
+import { formatPercent, transformArr } from '../../../utils/utils';
 import {
   Row,
   Col,
@@ -24,9 +24,9 @@ import styles from './Quality.less';
 export default class Quality extends Component { 
   
   state = {
-    rangeDateType: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) < 14 ? 'daily' : 'monthly',
-    isOneDay: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) === 0 ? true : false,
-    rangeDate: computeDays(this.props.date.indicator.beginDate, this.props.date.indicator.endDate) + 1,
+    rangeDateType: this.props.date.indicator.rangeDateType,
+    isOneDay: this.props.date.indicator.isOneDay,
+    rangeDate: this.props.date.indicator.rangeDate,
   };
 
   componentDidMount() {
