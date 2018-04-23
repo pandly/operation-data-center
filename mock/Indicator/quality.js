@@ -220,7 +220,7 @@ const quality_monthly = {
 	      {
 	        "departCode": "512",
 	        "completeRecordsCount": 0,
-	        "totalRecordsCount": 80,
+	        "totalRecordsCount": 60,
 	        "departName": "骨科(创伤)"
 	      },
 	      {

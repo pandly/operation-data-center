@@ -109,21 +109,21 @@ export default class Quality extends Component {
         title: '按时完成病历数',
         dataIndex: 'completeMedicalRecords',
         key: '2',
-        sorter: (a, b) => a.completeMedicalRecords - b.completeMedicalRecords,
+        sorter: (a, b) => (a.completeMedicalRecords || 0) - (b.completeMedicalRecords || 0),
         width: 150
       }, 
       {
         title: '运行病历数',
         dataIndex: 'totalMedicalRecords',
         key: '3',
-        sorter: (a, b) => a.totalMedicalRecords - b.totalMedicalRecords,
+        sorter: (a, b) => (a.totalMedicalRecords || 0) - (b.totalMedicalRecords || 0),
         width: 100
       },   
       {
         title: '完成率',
         dataIndex: 'completeRecordsRate',
         key: '4',
-        sorter: (a, b) => a.completeRecordsRate - b.completeRecordsRate,
+        sorter: (a, b) => (a.completeRecordsRate || 0) - (b.completeRecordsRate || 0),
         render: text => {
           return formatPercent(text)
         },
@@ -133,7 +133,7 @@ export default class Quality extends Component {
         title: '完成率环比数据',
         dataIndex: 'completeRecordsRateMom',
         key: '5',
-        sorter: (a, b) => a.completeRecordsRateMom - b.completeRecordsRateMom,
+        sorter: (a, b) => (a.completeRecordsRateMom || 0) - (b.completeRecordsRateMom || 0),
         render: text => {
           return <Compare value={text} />
         },

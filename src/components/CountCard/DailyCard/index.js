@@ -18,7 +18,7 @@ const DailyCard = ({
         <div className={styles.text}>
           <div className={styles.title}>{title}</div>
           <div>
-            <span className={styles.total} style={{ color }}>{typeof content === 'number' ? content : '--'}</span>
+            <span className={styles.total} style={{ color }}>{ content == undefined ? '--' : content }</span>
             {unit ? (
               <span className={styles.unit}>{unit}</span>
             ) : null}       

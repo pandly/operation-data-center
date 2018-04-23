@@ -120,7 +120,6 @@ export default class Dynamic extends PureComponent {
   };
   disabledDate = (current) => {
     let currentDate = new Date().toLocaleDateString() + ' 08:00:00';
-    // can not select days after today
     return current.valueOf() >= new Date(currentDate).valueOf() || current.valueOf() < new Date('2016/1/1 08:00:00').valueOf();
   };
   render() {
@@ -317,7 +316,7 @@ export default class Dynamic extends PureComponent {
                 iconName="icon-feiyaowu"             
                 color="#FF8465"
                 title="非药物中治率(门诊)"
-                content={nondrugTreatmentRateModule.nondrugTreatmentRate ? formatPercent(nondrugTreatmentRateModule.nondrugTreatmentRate).replace('%','')-0 : '--'}
+                content={formatPercent(nondrugTreatmentRateModule.nondrugTreatmentRate).replace('%','')}
                 unit="%"
                 onCardClick={() => this.handleCardClick(2)}
               />
@@ -326,7 +325,7 @@ export default class Dynamic extends PureComponent {
                 loading={loading}          
                 color="#FF8465"
                 title="非药物中治率(门诊)"
-                content={nondrugTreatmentRateModule.nondrugTreatmentRate ? formatPercent(nondrugTreatmentRateModule.nondrugTreatmentRate).replace('%','')-0 : '--'}
+                content={formatPercent(nondrugTreatmentRateModule.nondrugTreatmentRate).replace('%', '')}
                 increase={nondrugTreatmentRateModule.nondrugTreatmentRateYoy}
                 decrease={nondrugTreatmentRateModule.nondrugTreatmentRateMom}
                 unit="%"
@@ -346,7 +345,7 @@ export default class Dynamic extends PureComponent {
                     return (
                       <div style={{ flex: 1, textAlign: 'center' }} key={data.item}>
                         <div>{data.item}</div>
-                        <div style={{ color: '#FEA101', fontSize: '36px' }}>{data.count || '--'}</div>
+                        <div style={{ color: '#FEA101', fontSize: '36px' }}>{typeof data.count === 'number' ? data.count : '--'}</div>
                       </div>                    
                     )
                   })}
@@ -368,7 +367,7 @@ export default class Dynamic extends PureComponent {
                     return (
                       <div className={styles.part} key={data.item}>
                         <div className={styles.partOne}>{data.item}</div>
-                        <div className={styles.partTwo}>{data.count || '--'}</div>
+                        <div className={styles.partTwo}>{typeof data.count === 'number' ? data.count : '--'}</div>
                         <div className={styles.partThree}>
                           <div>
                             <Compare type="同比" value={data.increase} />             
@@ -405,14 +404,14 @@ export default class Dynamic extends PureComponent {
                 (
                   <div>
                     <div className={styles.wrapPrice}>
-                      <div className={styles.price}>{yuan(totalIncome.totalIncome) || '--'}</div>
-                      {rangeDateType === 'monthly' ? (
+                      <div className={styles.price}>{yuan(totalIncome.totalIncome)}</div>
+                      {rangeDateType === 'monthly' && (
                         <div className={styles.compare}>
                           <Compare type="同比" value={totalIncome.totalIncomeYoy} />
                           <Divider type="vertical" />
                           <Compare type="环比" value={totalIncome.totalIncomeMom} />
                         </div>
-                      ) : null}          
+                      )}          
                     </div>
                     <Pie
                       hasLegend='title'
@@ -455,7 +454,7 @@ export default class Dynamic extends PureComponent {
                           bodyStyle={{ padding: '8px 0 10px 0' }}
                         >
                           <div className={styles.item}>{item.item}</div>
-                          <div className={styles.count}>{item.count === undefined ? '--' : item.count}</div>
+                          <div className={styles.count}>{item.count == undefined ? '--' : item.count}</div>
                           {rangeDateType === 'monthly' && (
                             <div className={styles.compare}>
                               <Compare type="环比" value={item.decrease} />

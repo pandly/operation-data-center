@@ -92,7 +92,7 @@ export default class Clinic extends Component {
       otherSlice = [], // 不参与考核科室的门急诊人次
       dailyOutpatientEmergencyInfo = {}, // 本期每天门急诊人次
       registrationStatistic = [], // 不同挂号类别数量
-      outpatientEmergencyStatistic = [], // 门急诊单项统计
+      outpatientEmergencyStatistic = {}, // 门急诊单项统计
     } = clinic;
 
     let dailyOutpatientEmergencyData = [];
@@ -121,7 +121,7 @@ export default class Clinic extends Component {
     const outpatientEmergencyStatisticData = [
       {
         item: '门诊人次',
-        count: outpatientEmergencyStatistic.outpatientCount,
+        count: outpatientEmergencyStatistic.outpatientCount, // null/undefined, number/0
       },
       {
         item: '门诊退号人次',
@@ -145,11 +145,11 @@ export default class Clinic extends Component {
       },
       {
         item: '门诊退号率',
-        count: typeof outpatientEmergencyStatistic.registeredReturnRate === 'number' ? formatPercent(outpatientEmergencyStatistic.registeredReturnRate) : '--',
+        count: formatPercent(outpatientEmergencyStatistic.registeredReturnRate), //string
       },
       {
         item: '门急诊复诊率',
-        count: typeof outpatientEmergencyStatistic.referralRate === 'number' ? formatPercent(outpatientEmergencyStatistic.referralRate) : '--',
+        count: formatPercent(outpatientEmergencyStatistic.referralRate),
       },
       {
         item: '门急诊医保人数',
@@ -157,9 +157,10 @@ export default class Clinic extends Component {
       },
       {
         item: '门诊免费人次比例',
-        count: typeof outpatientEmergencyStatistic.freeDiagnosisRate === 'number' ? formatPercent(outpatientEmergencyStatistic.freeDiagnosisRate) : '--',
+        count: formatPercent(outpatientEmergencyStatistic.freeDiagnosisRate),
       },
     ];
+
     const topColResponsiveProps = {
       xs: 24,
       sm: 24,
@@ -192,8 +193,7 @@ export default class Clinic extends Component {
               loading={loading}
               title="门诊片"
               bodyStyle={cardBody}
-              style={cardStyle}
-            >
+              style={cardStyle}>
               <Bar
                 height={293}
                 size={10}
@@ -229,8 +229,7 @@ export default class Clinic extends Component {
               loading={loading}
               title="外科片"
               bodyStyle={cardBody}
-              style={cardStyle}
-            >
+              style={cardStyle}>
               <Bar
                 height={550}
                 size={10}
@@ -266,8 +265,7 @@ export default class Clinic extends Component {
               loading={loading}
               title="内科片"
               bodyStyle={cardBody}
-              style={cardStyle}
-            >
+              style={cardStyle}>
               <Bar
                 height={550}
                 size={10}
@@ -303,8 +301,7 @@ export default class Clinic extends Component {
           loading={loading}
           title="不参与考核科室的门急诊人次"
           bodyStyle={{ padding: '0 20px', minHeight: 380 }}
-          style={cardStyle}
-        >
+          style={cardStyle}>
           <Bar
             height={350}
             size={25}
@@ -322,8 +319,7 @@ export default class Clinic extends Component {
             loading={loading}
             title="本期每天门急诊人次"
             bodyStyle={{ padding: '0 20px', minHeight: 420 }}
-            style={cardStyle}
-          >
+            style={cardStyle}>
             <LineOrArea
               area
               line
@@ -395,13 +391,12 @@ export default class Clinic extends Component {
                 position: 'relative',
                 minHeight: 250,
               }}
-              style={cardStyle}
-            >
+              style={cardStyle}>
               {registrationStatisticData.map((data) => {
                 return (
                   <div className={styles.registeringWrap} key={data.item}>
                     <div className={`${styles.registeringType} ${styles.registering}`}>{data.item}</div>
-                    <div className={`${styles.registeringNum} ${styles.registering}`}>{data.count}</div>
+                    <div className={`${styles.registeringNum} ${styles.registering}`}>{data.count == undefined ? '--' : data.count}</div>
                   </div>
                 );
               })}
@@ -414,8 +409,7 @@ export default class Clinic extends Component {
               loading={loading}
               title="门急诊单项统计"
               bodyStyle={{ padding: '0 10px', minHeight: 250 }}
-              style={cardStyle}
-            >
+              style={cardStyle}>
               {outpatientEmergencyStatisticData.map((data) => {
                 return (
                   <div className={styles.wrapCard} key={data.item}>
@@ -427,7 +421,7 @@ export default class Clinic extends Component {
                       }}
                     >
                       <div className={styles.itemPart}>{data.item}</div>
-                      <div className={styles.countPart}>{data.count === undefined ? '--' : data.count}</div>
+                      <div className={styles.countPart}>{data.count == undefined ? '--' : data.count}</div>
                     </Card>
                   </div>
                 );

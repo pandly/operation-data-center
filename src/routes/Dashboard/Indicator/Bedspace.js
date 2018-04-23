@@ -159,19 +159,19 @@ export default class Bedspace extends Component {
       {
         title: '床位周转次数',
         dataIndex: 'turnoverRate',
-        sorter: (a, b) => a.turnoverRate - b.turnoverRate,
+        sorter: (a, b) => (a.turnoverRate || 0) - (b.turnoverRate || 0),
         key: '4',
-        width: 140,
+        width: 150
       },
       {
         title: '床位周转次数环比数据',
         dataIndex: 'turnoverRateMom',
         key: '5',
-        sorter: (a, b) => a.turnoverRateMom - b.turnoverRateMom,
-        render: (text) => {
-          return <Compare value={text} />;
+        sorter: (a, b) => (a.turnoverRateMom || 0) - (b.turnoverRateMom || 0),
+        render: text => {
+          return <Compare value={text} />
         },
-        width: 190,
+        width: 150
       },
     ];
     const cardStyle = {
