@@ -190,8 +190,10 @@ export function getRoutes(path, routerData) {
     routePath.indexOf(path) === 0 && routePath !== path);
   // Replace path to '' eg. path='user' /user/name => name
   routes = routes.map(item => item.replace(path, ''));
+  console.log(routes,'1212')
   // Get the route to be rendered to remove the deep rendering
   const renderArr = getRenderArr(routes);
+  //console.log(renderArr)
   // Conversion and stitching parameters
   const renderRoutes = renderArr.map((item) => {
     const exact = !routes.some(route => route !== item && getRelation(route, item) === 1);

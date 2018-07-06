@@ -4,6 +4,9 @@
 
 一套为医院提供数据可视化方案
 
+## 预览
+![preview](operation-data-center.png)
+
 ## 内容
 
 ```

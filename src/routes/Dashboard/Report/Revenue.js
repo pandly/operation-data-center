@@ -55,7 +55,6 @@ export default class Revenue extends Component {
       drugIncomeDetailsModule = {}, 
       nonDrugIncomeDetailsModule = [], 
     } = income;
-    console.log(drugIncomeDetailsModule)
     let [
       fourExpenses = {},
       drugCost = {},

@@ -143,7 +143,7 @@ class BasicLayout extends React.PureComponent {
       currentUser, collapsed, fetchingNotices, notices, routerData, match, location, tab
     } = this.props;
     //props中为什么会有这么多变量？？
-    //console.log(this.props)
+    console.log(this.props)
     const { tabList, activeKey } = tab;
     const bashRedirect = this.getBashRedirect();
     const layout = (

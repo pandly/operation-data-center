@@ -9,7 +9,6 @@ export default class Indicator extends PureComponent {
     const { match, routerData } = this.props;
     const path = {
       pathname: '/dashboard/indicator/emphasis',
-      //search: location.search ? location.search : `?startDate=${date}&endDate=${date}`
     }
     return (
       <Switch>
