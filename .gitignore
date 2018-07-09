@@ -1,4 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
 /node_modules
@@ -7,7 +6,6 @@
 _roadhog-api-doc
 
 # production
-/dist
 
 # misc
 .DS_Store
